@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice · Week 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body>
+<div class="wrap">
+  <p class="eyebrow">Week 1 practice · between class 1 and class 2</p>
+  <h1>Your <span>Practice</span></h1>
+  <p class="lede">Everything here is built around the level you ticked on your scorecard. Pick your level, do the two short sessions, and hang from something every day. That is the whole plan.</p>
+
+  <div class="picker">
+    <h3>Pick your level</h3>
+    <div class="lvls" id="lvls"></div>
+    <p id="pickernote">Different tests, different levels: if you were a 4 on pull-ups and a 6 on squats, pick each block separately using the numbers on your card.</p>
+  </div>
+
+  <h2 class="sec">Getting the best out of it</h2>
+  <p class="secnote">Two sessions is the plan, but do not let that stop you. Even one day this week is already a real week of training, and it beats waiting until you have time for the perfect one.</p>
+
+  <div class="plan">
+    <div class="box">
+      <h3>Two sessions a week</h3>
+      <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
+      <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
+    </div>
+    <div class="box">
+      <h3>Each session</h3>
+      <p>One pull · one push · one legs or core · one hold. Four things, that is it.</p>
+      <p class="sub">Alternate: session A takes the first option of each block, session B takes the second.</p>
+    </div>
+    <div class="box">
+      <h3>Every day</h3>
+      <p>Hang from a bar or a door frame. Ten to thirty seconds, once or twice.</p>
+      <p class="sub">Costs nothing, builds the grip and shoulders that limit everyone.</p>
+    </div>
+  </div>
+
+  <div id="blocks"></div>
+
+  <footer>Bring the sheet to class, or just the numbers. If something here is confusing, ask me before you guess.</footer>
+</div>
+
+<script src="../assets/engine.js"></script>
+<script>
+
+/* ---------------------------------------------------------------
+   THE PRACTICE PLAN.
+   Each exercise is [name, dose, note, key] where key points at the
+   matching entry in the skill tree, which is what gives it the
+   animation, the 3D view, the steps and the muscle map.
+   --------------------------------------------------------------- */
+const BLOCKS = [
+  {tag:"PULL", name:"Pull", why:"The headline goal of the course. Trained twice a week, never to failure.",
+   levels:{
+     4:[["Negatives","4 sets of 1, five seconds down","Jump or step up so your chin starts over the bar, then resist all the way to straight arms.","Pull-Up|Assisted pull-up or negative"],
+        ["Active hangs","4 sets of 20 seconds","Shoulders pulled down away from your ears, arms straight, legs together.","Hanging &amp; Grip|Active hang"],
+        ["Rows","3 sets of 8","Under a bar at chest height, body straight, chest touches the bar.","Row / Horizontal Pull|Horizontal row"]],
+     5:[["Assisted pull-ups","4 sets of 4","Band under the foot, or a jump and hold. Take the least help you can, and note how much.","Pull-Up|Assisted pull-up or negative"],
+        ["Negatives","3 sets of 1, five seconds down","At the end of the session, after the assisted work.","Pull-Up|Assisted pull-up or negative"],
+        ["Rows","3 sets of 10","Feet further forward makes it harder.","Row / Horizontal Pull|Horizontal row"]],
+     6:[["Pull-up singles","6 sets of 1 to 2, two minutes between","Never to failure. If your max is 4, these are sets of 2.","Pull-Up|Full pull-up"],
+        ["Feet-elevated rows","3 sets of 10","Feet on a box or chair so the body is level with the bar.","Row / Horizontal Pull|Feet-elevated row"],
+        ["Active hangs","3 sets of 30 seconds","Finish with these.","Hanging &amp; Grip|Active hang"]]
+   }},
+  {tag:"PUSH", name:"Push-up", why:"Chest, shoulders and triceps, plus everything that keeps the body straight.",
+   levels:{
+     4:[["Incline push-ups","4 sets of 8","Hands on a table, windowsill or bench. Pick a height where 8 is hard but clean, and lower it every week.","Push-Up|Incline push-up"],
+        ["Slow negatives on the floor","3 sets of 3","Five seconds down, then knees down to come back up.","Push-Up|Full push-up"]],
+     5:[["Full push-ups","5 sets of 3","Chest a fist's height from the floor, body in one line, elbows back not flared.","Push-Up|Full push-up"],
+        ["Incline push-ups","2 sets of 8","Straight after, to add volume without going to failure.","Push-Up|Incline push-up"]],
+     6:[["Full push-ups","4 sets of 8, three seconds down","Tempo is the load here. Do not rush the lowering.","Push-Up|Full push-up"],
+        ["Diamond push-ups","2 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"]]
+   }},
+  {tag:"PUSH", name:"Dip and support", why:"The other half of pressing, and the second half of a muscle-up.",
+   levels:{
+     4:[["Support holds","4 sets of 15 to 20 seconds","Arms locked, shoulders pushed down away from the ears.","Dip|Support hold"],
+        ["Negative dips","4 sets of 3, five seconds down","Step off at the bottom and climb back up.","Dip|Negative dip"]],
+     5:[["Bar dips","5 sets of 2","Lower until the upper arms are level with the floor, then lock out.","Dip|Parallel bar dip"],
+        ["Bench dips","3 sets of 10","Hands behind you on a chair, heels on the floor.","Dip|Bench or box dip"]],
+     6:[["Bar dips","4 sets of 5","Full depth, full lockout, two reps left in the tank.","Dip|Parallel bar dip"],
+        ["Support holds","2 sets of 30 seconds","Legs together, ribs down.","Dip|Support hold"]]
+   }},
+  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
+   levels:{
+     4:[["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"],
+        ["Glute bridges","3 sets of 15","Two second squeeze at the top, ribs down.","Hinge &amp; Hamstrings|Glute bridge"]],
+     5:[["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"],
+        ["Split squats","3 sets of 10 per side","Slow and tall.","Squat &amp; Lunge|Split squat"]],
+     6:[["Pistol squats","3 sets of 3 per side","Full depth, controlled, heel flat.","Pistol Squat|Full pistol"],
+        ["Single-leg glute bridges","3 sets of 10 per side","Hips level throughout.","Hinge &amp; Hamstrings|Single-leg glute bridge"]]
+   }},
+  {tag:"CORE", name:"Core", why:"What holds every position together. Short, frequent, never sloppy.",
+   levels:{
+     4:[["Hollow holds","4 sets of 30 seconds","Lower back pressed flat. Bend the knees if the back lifts.","Core &amp; Compression|Hollow-body hold"],
+        ["Hollow rocks","2 sets of 15","Small rocking, the shape stays exactly the same.",null]],
+     5:[["Hanging knee raises","4 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"],
+        ["Hollow holds","3 sets of 30 seconds","Straight body if you can hold the shape.","Core &amp; Compression|Hollow-body hold"]],
+     6:[["Hanging leg raises","4 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"],
+        ["Hollow holds","3 sets of 45 seconds","Or 20 hollow rocks.","Core &amp; Compression|Hollow-body hold"]]
+   }},
+  {tag:"BAL", name:"Handstand", why:"Balance is a skill, so it wants short and frequent practice, not long hard sets.",
+   levels:{
+     4:[["Wrist prep","One minute, always first","Circles, palm pushes, fingertip pushes. Never skip this.",null],
+        ["Chest-to-wall holds","5 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing.","Handstand|Chest-to-wall handstand"]],
+     5:[["Kick-up practice","10 attempts, no rush","Light kick, catch the balance, and practise stepping out of it. Learn the bail before the balance.","Handstand|Kick-up to balance"],
+        ["Chest-to-wall holds","4 sets of 30 seconds","Straight line from wrist to toe.","Handstand|Chest-to-wall handstand"]],
+     6:[["Freestanding attempts","3 sets of 10 attempts","Fresh, at the start. Correct with the fingers first, hips second.","Handstand|Freestanding handstand"],
+        ["Chest-to-wall holds","3 sets of 45 seconds","Finish with these, for the shape.","Handstand|Chest-to-wall handstand"]]
+   }}
+];
+
+/* index the skill tree so a key gives back the real exercise */
+const INDEX = {};
+TRACKS.forEach(t=> t.ladder.forEach((step,i)=>{
+  INDEX[t.name + "|" + step.name] = {track:t, step:step,
+    prev: i > 0 ? t.ladder[i-1].name : null,
+    next: i < t.ladder.length - 1 ? t.ladder[i+1].name : null};
+}));
+
+/* the detail panel: same two tabs as the skill tree */
+function detailFor(key){
+  const hit = INDEX[key];
+  const det = el("div","step-detail");
+  const tabs = el("div","tabs");
+  const tabH = el("button","tab on","How it is done"); tabH.type = "button";
+  const tabM = el("button","tab","Muscles worked"); tabM.type = "button";
+  tabs.append(tabH, tabM);
+  const paneH = el("div","pane on"); paneH.dataset.pane = "how";
+  const paneM = el("div","pane"); paneM.dataset.pane = "muscles";
+
+  const grid = el("div","detail-grid");
+  const dl = el("dl","dl");
+  dl.append(el("dt",null,"Prime movers"));
+  const dd1 = el("dd"); dd1.append(muscleRow(hit.step.primary)); dl.append(dd1);
+  if(hit.step.secondary && hit.step.secondary.length){
+    dl.append(el("dt",null,"Also working"));
+    const dd2 = el("dd"); dd2.append(muscleRow(hit.step.secondary, "sec", hit.step.primary.length)); dl.append(dd2);
+  }
+  dl.append(el("dt",null,"Watch for"));
+  const dd3 = el("dd");
+  const ul = el("ul","faults"); (hit.step.faults||[]).forEach(f=> ul.append(el("li",null,f))); dd3.append(ul); dl.append(dd3);
+  const fig = el("div","mmap");
+  grid.append(dl, fig);
+  paneM.append(grid);
+  det.append(tabs, paneH, paneM);
+
+  let built = {};
+  const build = name=>{
+    if(name === "how" && !built.how){ buildHow(paneH, hit.step, hit.track, hit.prev, hit.next); built.how = 1; }
+    if(name === "muscles" && !built.mus){ buildMap(fig, hit.step); built.mus = 1; }
+  };
+  const setPane = name=>{
+    [paneH, paneM].forEach(p=> p.classList.toggle("on", p.dataset.pane === name));
+    [tabH, tabM].forEach(b=> b.classList.toggle("on", b === (name === "how" ? tabH : tabM)));
+    build(name);
+  };
+  tabH.addEventListener("click", ()=> setPane("how"));
+  tabM.addEventListener("click", ()=> setPane("muscles"));
+  det._open = ()=> build("how");
+  return det;
+}
+
+function exerciseRow(item){
+  const [name, dose, note, key] = item;
+  const hit = key && INDEX[key];
+  if(!hit){
+    const flat = el("div","flat");
+    flat.append(el("div","pname", name), el("div","pdose", dose), el("div","pnote", note || ""));
+    return flat;
+  }
+  const d = el("details","pex");
+  const sum = el("summary");
+  const txt = el("div");
+  txt.append(el("div","pname", name), el("div","pdose", dose), el("div","pnote", note || ""));
+  const icons = el("div","step-icons");
+  const iconH = el("span","anat sel", DUMBBELL); iconH.title = "How it is done";
+  icons.append(iconH);
+  sum.append(txt, icons);
+  const det = detailFor(key);
+  d.open = false;
+  d.append(sum, det);
+  d.addEventListener("toggle", ()=>{ if(d.open) det._open(); });
+  return d;
+}
+
+const el2 = el;
+const mount = document.getElementById("blocks");
+
+BLOCKS.forEach(b=>{
+  const card = el("div","ex");
+  const head = el("div","ex-head");
+  const mid = el("div");
+  mid.append(el("div","ex-name", b.name), el("div","ex-why", b.why));
+  const sw = el("div","lvsw");
+  const prev = el("button","step","\u2039"); prev.type = "button"; prev.title = "One level easier";
+  const next = el("button","step","\u203a"); next.type = "button"; next.title = "One level harder";
+  const nums = [4,5,6].map(l=>{
+    const n = el("button",null,String(l)); n.type = "button"; n.dataset.lv = l;
+    n.addEventListener("click", ()=> setCard(card, l));
+    return n;
+  });
+  sw.append(prev, ...nums, next);
+  prev.addEventListener("click", ()=> setCard(card, Math.max(4, (card._lv || 4) - 1)));
+  next.addEventListener("click", ()=> setCard(card, Math.min(6, (card._lv || 4) + 1)));
+  head.append(el("div","tag", b.tag), mid, sw);
+  const body = el("div","ex-body");
+  [4,5,6].forEach(l=>{
+    const holder = el("div","work2");
+    holder.dataset.lv = l;
+    b.levels[l].forEach(item=> holder.append(exerciseRow(item)));
+    body.append(holder);
+  });
+  card.append(head, body);
+  card._nums = nums; card._prev = prev; card._next = next;
+  mount.append(card);
+});
+
+/* one block only */
+function setCard(card, lv){
+  card._lv = lv;
+  document.querySelectorAll("details.pex[open]").forEach(x=> x.open = false);   // never leave one hanging open
+  card.querySelectorAll(".work2").forEach(n=>
+    n.classList.toggle("hidden", lv !== "all" && n.dataset.lv !== String(lv)));
+  card._nums.forEach(n=> n.classList.toggle("on", lv !== "all" && n.dataset.lv === String(lv)));
+  card._prev.disabled = (lv === "all" || lv <= 4);
+  card._next.disabled = (lv === "all" || lv >= 6);
+  card.classList.toggle("allmode", lv === "all");
+}
+
+const LEVELS = [["Level 4","4"],["Level 5","5"],["Level 6","6"]];
+const lvls = document.getElementById("lvls");
+function setLevel(v){
+  lvls.querySelectorAll("button").forEach(b=> b.classList.toggle("on", b.dataset.v === v));
+  document.querySelectorAll(".ex").forEach(c=> setCard(c, v === "all" ? "all" : Number(v)));
+}
+LEVELS.forEach(([label,v])=>{
+  const b = el("button",null,label); b.type = "button"; b.dataset.v = v;
+  b.addEventListener("click", ()=> setLevel(v));
+  lvls.append(b);
+});
+setLevel("4");
+</script>
+</body>
+</html>

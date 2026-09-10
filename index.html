@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice · Calisthenics course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:24px}
+  .wk{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;
+      background:var(--panel);padding:18px 20px;transition:border-color .15s ease}
+  .wk:hover{border-color:var(--accent)}
+  .wk .n{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.14em;
+         font-size:.76rem;color:var(--accent);font-weight:600}
+  .wk .t{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.5rem;margin-top:2px}
+  .wk .s{color:var(--muted);font-size:.88rem;margin-top:4px}
+  .wk.soon{opacity:.45;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Calisthenics course</p>
+  <h1>Your <span>Practice</span></h1>
+  <p class="lede">Everything you do between classes lives here. Open the week we are in, pick your level, and tap any exercise to see how it is done and which muscles it works.</p>
+
+  <div class="weeks">
+    <a class="wk" href="weeks/week-1.html">
+      <div class="n">Week 1</div>
+      <div class="t">Finding your level</div>
+      <div class="s">The first set of exercises, from your scorecard.</div>
+    </a>
+    <a class="wk" href="weeks/week-2.html">
+      <div class="n">Week 2</div>
+      <div class="t">Pull focus</div>
+      <div class="s">Hanging and rows get harder, first pull-up attempts.</div>
+    </a>
+    <a class="wk soon" href="weeks/week-3.html">
+      <div class="n">Week 3</div>
+      <div class="t">Coming after class</div>
+      <div class="s">Added every week.</div>
+    </a>
+  </div>
+
+  <footer style="margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem">
+    Bring your card to class, or just the numbers. If something here is confusing, ask before you guess.
+  </footer>
+</div>
+</body>
+</html>
