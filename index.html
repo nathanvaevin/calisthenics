@@ -9,15 +9,54 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
-  .weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:24px}
+  /* the level scale — the shared language across all three sections */
+  .scalestrip{margin:26px 0 0;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);
+    background:var(--panel)}
+  .scalestrip h3{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:.8rem;color:var(--muted);margin:0 0 10px;font-weight:600}
+  .steps-row{display:flex;flex-wrap:wrap;gap:8px}
+  .sl{display:flex;align-items:baseline;gap:8px;border:1px solid var(--line);border-radius:999px;
+    padding:5px 13px;background:var(--panel-2);font-size:.84rem;color:var(--muted)}
+  .sl b{font-family:"Barlow Condensed",sans-serif;font-size:1rem;font-weight:700;color:var(--muted)}
+  .sl.now{border-color:var(--accent);background:rgba(233,162,59,.10)}
+  .sl.now b,.sl.now{color:var(--accent)}
+  .scalestrip p{color:var(--muted);font-size:.84rem;margin:10px 0 0}
+
+  /* programme sections */
+  .prog{margin-top:38px}
+  .prog-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .prog h2{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.8rem;margin:0}
+  .prog .meta{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:.74rem;color:var(--accent)}
+  .prog .blurb{color:var(--muted);font-size:.9rem;margin:0 0 14px;max-width:62ch}
+
+  .weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
   .wk{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;
-      background:var(--panel);padding:18px 20px;transition:border-color .15s ease}
-  .wk:hover{border-color:var(--accent)}
+      background:var(--panel);padding:18px 20px;transition:border-color .15s ease,transform .15s ease}
+  .wk:hover{border-color:var(--accent);transform:translateY(-1px)}
   .wk .n{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.14em;
          font-size:.76rem;color:var(--accent);font-weight:600}
   .wk .t{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.5rem;margin-top:2px}
   .wk .s{color:var(--muted);font-size:.88rem;margin-top:4px}
   .wk.soon{opacity:.45;pointer-events:none}
+
+  /* the skill tree gets a wider card of its own */
+  .tree{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;text-decoration:none;
+    color:inherit;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:22px 24px;
+    transition:border-color .15s ease,transform .15s ease}
+  .tree:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .tree .t{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.6rem}
+  .tree .s{color:var(--muted);font-size:.9rem;margin-top:4px;max-width:54ch}
+  .treestats{display:flex;gap:22px;text-align:center}
+  .treestats div{white-space:nowrap}
+  .treestats b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.7rem;
+    font-weight:700;color:var(--accent);line-height:1}
+  .treestats span{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:.68rem;color:var(--muted)}
+  @media (max-width:560px){
+    .tree{grid-template-columns:1fr}
+    .treestats{gap:18px;justify-content:flex-start}
+  }
 </style>
 </head>
 <body>
@@ -26,23 +65,82 @@
   <h1>Welcome<span>!</span></h1>
   <p class="lede">Here are your weekly workouts! Everything you do between classes lives here &mdash; open the week we are in, pick your level, and tap any exercise to see how it is done and which muscles it works.</p>
 
-  <div class="weeks">
-    <a class="wk" href="weeks/week-1.html">
-      <div class="n">Week 1</div>
-      <div class="t">Finding your level</div>
-      <div class="s">The first set of exercises, from your scorecard.</div>
-    </a>
-    <a class="wk soon" href="weeks/week-2.html">
-      <div class="n">Week 2</div>
-      <div class="t">Pull focus</div>
-      <div class="s">Hanging and rows get harder, first pull-up attempts. Opens next week.</div>
-    </a>
-    <a class="wk soon" href="weeks/week-3.html">
-      <div class="n">Week 3</div>
-      <div class="t">Coming after class</div>
-      <div class="s">Added every week.</div>
-    </a>
+  <div class="scalestrip">
+    <h3>One scale, everywhere</h3>
+    <div class="steps-row">
+      <span class="sl"><b>1&ndash;3</b> before the course</span>
+      <span class="sl now"><b>4</b> where we start</span>
+      <span class="sl now"><b>5</b> the step up</span>
+      <span class="sl now"><b>6</b> top of the course</span>
+      <span class="sl"><b>7&ndash;8</b> advanced</span>
+      <span class="sl"><b>9&ndash;10</b> elite</span>
+    </div>
+    <p>The number on your scorecard is the number on every page here &mdash; the weekly sheets, the handstand plan and every rung of the skill tree all use it.</p>
   </div>
+
+  <section class="prog">
+    <div class="prog-head">
+      <h2>Calisthenics Weekly Training</h2>
+      <span class="meta">Levels 4&ndash;6</span>
+    </div>
+    <p class="blurb">The main course. Six blocks a week &mdash; pull, push-up, dip, legs, core, handstand &mdash; in two short sessions, built around the level you ticked on your card.</p>
+    <div class="weeks">
+      <a class="wk" href="weeks/week-1.html">
+        <div class="n">Week 1</div>
+        <div class="t">Finding your level</div>
+        <div class="s">The first set of exercises, from your scorecard.</div>
+      </a>
+      <a class="wk soon" href="weeks/week-2.html">
+        <div class="n">Week 2</div>
+        <div class="t">Pull focus</div>
+        <div class="s">Hanging and rows get harder, first pull-up attempts. Opens next week.</div>
+      </a>
+      <a class="wk soon" href="weeks/week-3.html">
+        <div class="n">Week 3</div>
+        <div class="t">Coming after class</div>
+        <div class="s">Added every week.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="prog">
+    <div class="prog-head">
+      <h2>Handstand Weekly Training</h2>
+      <span class="meta">Levels 4&ndash;6</span>
+    </div>
+    <p class="blurb">The handstand on its own track, because balance wants short and frequent practice rather than long hard sets. Wrists, the line, pushing, the kick-up, then balance &mdash; always in that order.</p>
+    <div class="weeks">
+      <a class="wk" href="handstand/week-1.html">
+        <div class="n">Week 1</div>
+        <div class="t">The line and the wall</div>
+        <div class="s">Build the shape on the floor, learn the bail, get comfortable upside down.</div>
+      </a>
+      <a class="wk soon" href="handstand/week-2.html">
+        <div class="n">Week 2</div>
+        <div class="t">Coming after class</div>
+        <div class="s">Leaving the wall, one foot at a time.</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="prog">
+    <div class="prog-head">
+      <h2>Calisthenics Skill Tree</h2>
+      <span class="meta">Levels 1&ndash;10 · the master list</span>
+    </div>
+    <p class="blurb">Every exercise we know, sorted into ladders. Each rung carries its level, so you can see exactly where today's work sits and what the next rung up actually is.</p>
+    <a class="tree" href="skill-tree.html">
+      <div>
+        <div class="t">The Skill Tree</div>
+        <div class="s">Twenty-five tracks from push-ups to the iron cross, each with its animation, 3D view, coaching cues and muscle map. Search it in plain language, filter it by level, or print it as a test sheet.</div>
+      </div>
+      <div class="treestats">
+        <div><b>25</b><span>Tracks</span></div>
+        <div><b>133</b><span>Exercises</span></div>
+        <div><b>1&ndash;10</b><span>Levels</span></div>
+      </div>
+    </a>
+  </section>
 </div>
 </body>
 </html>

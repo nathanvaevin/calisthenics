@@ -49,6 +49,7 @@
 </div>
 
 <script src="../assets/engine.js"></script>
+<script src="../assets/week.js"></script>
 <script>
 
 /* ---------------------------------------------------------------
@@ -108,7 +109,7 @@ const BLOCKS = [
    }},
   {tag:"BAL", name:"Handstand", why:"Balance is a skill, so it wants short and frequent practice, not long hard sets.",
    levels:{
-     4:[["Wrist prep","One minute, always first","Circles, palm pushes, fingertip pushes. Never skip this.",null],
+     4:[["Wrist prep","One minute, always first","Circles, palm pushes, fingertip pushes. Never skip this.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
         ["Chest-to-wall holds","5 sets of 35 seconds","Five seconds longer than last week. Belly to the wall, arms locked, ribs down, shoulders pushing.","Handstand|Chest-to-wall handstand"]],
      5:[["Kick-up practice","12 attempts, no rush","Two more attempts than last week. Light kick, catch the balance, and practise stepping out of it.","Handstand|Kick-up to balance"],
         ["Chest-to-wall holds","4 sets of 35 seconds","Straight line from wrist to toe.","Handstand|Chest-to-wall handstand"]],
@@ -117,136 +118,7 @@ const BLOCKS = [
    }}
 ];
 
-/* index the skill tree so a key gives back the real exercise */
-const INDEX = {};
-TRACKS.forEach(t=> t.ladder.forEach((step,i)=>{
-  INDEX[t.name + "|" + step.name] = {track:t, step:step,
-    prev: i > 0 ? t.ladder[i-1].name : null,
-    next: i < t.ladder.length - 1 ? t.ladder[i+1].name : null};
-}));
-
-/* the detail panel: same two tabs as the skill tree */
-function detailFor(key){
-  const hit = INDEX[key];
-  const det = el("div","step-detail");
-  const tabs = el("div","tabs");
-  const tabH = el("button","tab on","How it is done"); tabH.type = "button";
-  const tabM = el("button","tab","Muscles worked"); tabM.type = "button";
-  tabs.append(tabH, tabM);
-  const paneH = el("div","pane on"); paneH.dataset.pane = "how";
-  const paneM = el("div","pane"); paneM.dataset.pane = "muscles";
-
-  const grid = el("div","detail-grid");
-  const dl = el("dl","dl");
-  dl.append(el("dt",null,"Prime movers"));
-  const dd1 = el("dd"); dd1.append(muscleRow(hit.step.primary)); dl.append(dd1);
-  if(hit.step.secondary && hit.step.secondary.length){
-    dl.append(el("dt",null,"Also working"));
-    const dd2 = el("dd"); dd2.append(muscleRow(hit.step.secondary, "sec", hit.step.primary.length)); dl.append(dd2);
-  }
-  dl.append(el("dt",null,"Watch for"));
-  const dd3 = el("dd");
-  const ul = el("ul","faults"); (hit.step.faults||[]).forEach(f=> ul.append(el("li",null,f))); dd3.append(ul); dl.append(dd3);
-  const fig = el("div","mmap");
-  grid.append(dl, fig);
-  paneM.append(grid);
-  det.append(tabs, paneH, paneM);
-
-  let built = {};
-  const build = name=>{
-    if(name === "how" && !built.how){ buildHow(paneH, hit.step, hit.track, hit.prev, hit.next); built.how = 1; }
-    if(name === "muscles" && !built.mus){ buildMap(fig, hit.step); built.mus = 1; }
-  };
-  const setPane = name=>{
-    [paneH, paneM].forEach(p=> p.classList.toggle("on", p.dataset.pane === name));
-    [tabH, tabM].forEach(b=> b.classList.toggle("on", b === (name === "how" ? tabH : tabM)));
-    build(name);
-  };
-  tabH.addEventListener("click", ()=> setPane("how"));
-  tabM.addEventListener("click", ()=> setPane("muscles"));
-  det._open = ()=> build("how");
-  return det;
-}
-
-function exerciseRow(item){
-  const [name, dose, note, key] = item;
-  const hit = key && INDEX[key];
-  if(!hit){
-    const flat = el("div","flat");
-    flat.append(el("div","pname", name), el("div","pdose", dose), el("div","pnote", note || ""));
-    return flat;
-  }
-  const d = el("details","pex");
-  const sum = el("summary");
-  const txt = el("div");
-  txt.append(el("div","pname", name), el("div","pdose", dose), el("div","pnote", note || ""));
-  const icons = el("div","step-icons");
-  const iconH = el("span","anat sel", DUMBBELL); iconH.title = "How it is done";
-  icons.append(iconH);
-  sum.append(txt, icons);
-  const det = detailFor(key);
-  d.open = false;
-  d.append(sum, det);
-  d.addEventListener("toggle", ()=>{ if(d.open) det._open(); });
-  return d;
-}
-
-const el2 = el;
-const mount = document.getElementById("blocks");
-
-BLOCKS.forEach(b=>{
-  const card = el("div","ex");
-  const head = el("div","ex-head");
-  const mid = el("div");
-  mid.append(el("div","ex-name", b.name), el("div","ex-why", b.why));
-  const sw = el("div","lvsw");
-  const prev = el("button","step","‹"); prev.type = "button"; prev.title = "One level easier";
-  const next = el("button","step","›"); next.type = "button"; next.title = "One level harder";
-  const nums = [4,5,6].map(l=>{
-    const n = el("button",null,String(l)); n.type = "button"; n.dataset.lv = l;
-    n.addEventListener("click", ()=> setCard(card, l));
-    return n;
-  });
-  sw.append(prev, ...nums, next);
-  prev.addEventListener("click", ()=> setCard(card, Math.max(4, (card._lv || 4) - 1)));
-  next.addEventListener("click", ()=> setCard(card, Math.min(6, (card._lv || 4) + 1)));
-  head.append(el("div","tag", b.tag), mid, sw);
-  const body = el("div","ex-body");
-  [4,5,6].forEach(l=>{
-    const holder = el("div","work2");
-    holder.dataset.lv = l;
-    b.levels[l].forEach(item=> holder.append(exerciseRow(item)));
-    body.append(holder);
-  });
-  card.append(head, body);
-  card._nums = nums; card._prev = prev; card._next = next;
-  mount.append(card);
-});
-
-/* one block only */
-function setCard(card, lv){
-  card._lv = lv;
-  document.querySelectorAll("details.pex[open]").forEach(x=> x.open = false);   // never leave one hanging open
-  card.querySelectorAll(".work2").forEach(n=>
-    n.classList.toggle("hidden", lv !== "all" && n.dataset.lv !== String(lv)));
-  card._nums.forEach(n=> n.classList.toggle("on", lv !== "all" && n.dataset.lv === String(lv)));
-  card._prev.disabled = (lv === "all" || lv <= 4);
-  card._next.disabled = (lv === "all" || lv >= 6);
-  card.classList.toggle("allmode", lv === "all");
-}
-
-const LEVELS = [["Level 4","4"],["Level 5","5"],["Level 6","6"]];
-const lvls = document.getElementById("lvls");
-function setLevel(v){
-  lvls.querySelectorAll("button").forEach(b=> b.classList.toggle("on", b.dataset.v === v));
-  document.querySelectorAll(".ex").forEach(c=> setCard(c, v === "all" ? "all" : Number(v)));
-}
-LEVELS.forEach(([label,v])=>{
-  const b = el("button",null,label); b.type = "button"; b.dataset.v = v;
-  b.addEventListener("click", ()=> setLevel(v));
-  lvls.append(b);
-});
-setLevel("4");
+renderWeek(BLOCKS);
 </script>
 </body>
 </html>

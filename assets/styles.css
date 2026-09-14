@@ -1,6 +1,7 @@
 :root{
     --bg:#0F172A; --panel:#172033; --panel-2:#1E293B; --panel-3:#253247; --line:#2E3A50;
     --ink:#E8EDF5; --muted:#93A1B5; --accent:#E9A23B; --ok:#6FBF73; --radius:14px;
+    --foundation:#6FBF73; --intermediate:#E9A23B; --advanced:#E4693B; --elite:#B57BE0;
   }
   *{box-sizing:border-box}
   body{margin:0;background:radial-gradient(900px 500px at 80% -10%, rgba(233,162,59,.10), transparent 60%),var(--bg);
@@ -175,6 +176,9 @@
   .pex > summary:hover{background:var(--panel-3)}
   .pex[open]{border-color:#3B4A63}
   .pname{font-weight:600}
+  .exlv{display:inline-block;font-family:"Barlow Condensed",sans-serif;font-size:.68rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:1px 7px;margin-left:8px;
+    vertical-align:1px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
   .pdose{color:var(--accent);font-size:.9rem;margin-top:1px}
   .pnote{color:var(--muted);font-size:.86rem;margin-top:3px}
   .flat{padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:var(--panel-2);margin:0 0 8px}
