@@ -1,0 +1,9 @@
+{
+  "name": "calisthenics-render-tools",
+  "private": true,
+  "type": "module",
+  "description": "Dev-only: screenshot the skill tree's 2D/3D exercise figures for visual QA. Not used by the site itself.",
+  "dependencies": {
+    "puppeteer-core": "^23.0.0"
+  }
+}
