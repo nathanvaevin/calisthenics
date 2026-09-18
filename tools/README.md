@@ -36,3 +36,15 @@ Note: track names in the skill tree use the literal text `&amp;` (not an
 actual ampersand) inside the key string, e.g.
 `"Hanging &amp; Grip|Active hang"` — that's how they're written in
 `assets/engine.js`, so match it exactly when calling these scripts.
+
+## Checking phone layout
+
+```
+node page.mjs weeks/week-2.html 390          # whole page at 390px wide
+node page.mjs weeks/week-2.html 390 900 --full
+node elshot.mjs weeks/week-2.html ".ex" 390 wk2   # just the first matching elements
+```
+
+`page.mjs` also reports `scrollWidth` vs `clientWidth` and lists any
+element overflowing horizontally — the usual phone-layout smell. If those
+two numbers differ, something is too wide.
