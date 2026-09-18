@@ -129,6 +129,14 @@ const TRACKS = [
 {
   group:"Foundations", name:"Hanging &amp; Grip", cat:"HANG", tag:"Everything on a bar starts here — shoulders that hold, hands that do not quit",
   ladder:[
+    {name:"Wrist curls and reverse curls", target:"Light weight or a band — <b>2 × 12</b> each way, slow", level:"foundation", lv:1,
+     primary:["Wrist flexors","Wrist extensors","Forearm flexors"], secondary:["Grip","Finger flexors"],
+     cues:["Forearm resting along the thigh, hand hanging past the knee. Let it lower under control, then curl it back up.","Do not skip the reverse version — palm down is the one that settles the achy outside of the elbow."],
+     faults:["Going heavy enough that the elbow starts helping","Rushing the lowering, which is the half that builds the tissue"]},
+    {name:"Band curls", target:"<b>3 × 10</b> with a light band, elbow tucked", level:"foundation", lv:2,
+     primary:["Biceps brachii","Brachialis"], secondary:["Brachioradialis","Grip","Forearm flexors"],
+     cues:["Band under the foot, elbow pinned to the ribs. Only the forearm moves.","This is how you build the arm while a sore wrist just grips — no load through an open hand."],
+     faults:["Swinging the elbow forward to start the rep","Leaning back to finish it"]},
     {name:"Passive dead hang", target:"Relaxed hang — <b>30–60s</b>", level:"foundation", lv:2,
      primary:["Forearm flexors","Grip"], secondary:["Latissimus dorsi (stretch)","Shoulder capsule"],
      cues:["Let the shoulders rise to the ears and simply breathe — this decompresses and builds hand endurance.","Use a thumb-over grip only if the hands slip; thumb-around is safer overhead."],
@@ -192,6 +200,14 @@ const TRACKS = [
      primary:["Wrist flexors","Wrist extensors","Forearm flexors"], secondary:["Finger flexors"],
      cues:["Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","This is not optional. The wrists carry everything overhead, so they warm up first, every session."],
      faults:["Skipping it because nothing hurts yet","Bouncing into end range instead of easing into it"]},
+    {name:"Wall chest opener", target:"<b>30s</b> each side, forearm on the frame", level:"foundation", lv:1,
+     primary:["Pectoralis major","Anterior deltoid"], secondary:["Shoulder capsule","Rotator cuff"],
+     cues:["Forearm flat on a door frame, elbow about shoulder height, then turn the chest slowly away from it.","No weight goes through the wrist at all, which is why it still works when the wrists are sore."],
+     faults:["Turning fast or bouncing into the stretch","Letting the shoulder shrug up toward the ear"]},
+    {name:"Down dog", target:"Hips high, arms and legs straight — <b>30–60s</b>", level:"foundation", lv:2,
+     primary:["Deltoids","Serratus anterior"], secondary:["Hamstrings","Calves","Latissimus dorsi"],
+     cues:["Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Bend the knees as much as you like — straight legs matter far less here than a long back and open shoulders."],
+     faults:["Rounding the back to force the heels down","Sinking into the shoulders instead of pushing away"]},
     {name:"Hollow-body hold", target:"Lower back pressed flat, ribs down — hold <b>30s</b>", level:"foundation", lv:4,
      primary:["Rectus abdominis","Transverse abdominis"], secondary:["Hip flexors","Quadriceps"],
      cues:["Press the lower back into the floor first, then lower the arms and legs only as far as the back stays flat.","This is the shape of a straight handstand, lying down. Learn it here where you cannot fall."],
@@ -204,6 +220,10 @@ const TRACKS = [
      primary:["Rectus abdominis","Glutes"], secondary:["Transverse abdominis","Hamstrings"],
      cues:["Stand with your back to the wall and flatten the lower back into it by tucking the tailbone under.","This tuck is what closes the ribcage and straightens the line. No tuck, no straight handstand."],
      faults:["Squeezing the glutes without moving the pelvis","Losing it the moment the arms go overhead"]},
+    {name:"Banana rocks", target:"<b>2 × 10</b> — the shape never changes", level:"intermediate", lv:5,
+     primary:["Rectus abdominis","Erector spinae"], secondary:["Glutes","Latissimus dorsi"],
+     cues:["Hold the banana and rock from the shape, not by bending. The body stays one rigid curve and the whole thing travels.","If the rock only happens because the legs are flapping, stop and re-set the shape."],
+     faults:["Bending at the hips to generate the rock","Losing the glute squeeze halfway through the set"]},
     {name:"Prone shoulder raise", target:"Face down, arms overhead, lift the hands keeping elbows straight — <b>3 × 10</b>", level:"intermediate", lv:5,
      primary:["Lower trapezius","Posterior deltoid","Erector spinae"], secondary:["Rhomboids","Serratus anterior"],
      cues:["Lie face down, arms straight overhead in a Y. Lift the arms and chest, driving the shoulders toward the ears.","This builds the exact active-shoulder position a handstand needs, with no weight on the wrists. It is the drill you will do every week."],
@@ -1279,7 +1299,27 @@ const HOWTO = {
 "Kinetic Chain &amp; Prep|Full integration: chest-to-wall line":{m:"handstand",do:[
  "Chest-to-wall handstand. Wrists loaded, shoulders active and pushing, ribs down, pelvis tucked, legs squeezed.",
  "Hold all of it at once, breathing calmly and rhythmically.",
- "Build to a clean minute. When it feels easy, you are ready to leave the wall."]}
+ "Build to a clean minute. When it feels easy, you are ready to leave the wall."]},
+"Hanging &amp; Grip|Wrist curls and reverse curls":{m:"row",do:[
+ "Sit down and rest the forearm along your thigh, hand hanging past the knee, palm up.",
+ "Let the hand lower under control, then curl it back up as far as it goes. Twelve slow reps.",
+ "Turn the hand palm down and repeat. That reverse set is the one most people skip and most people need."]},
+"Hanging &amp; Grip|Band curls":{m:"row",do:[
+ "Stand on one end of a light band and hold the other, palm up, elbow tucked against the ribs.",
+ "Curl the hand toward the shoulder, keeping the elbow still and the wrist straight.",
+ "Lower all the way under control. Three sets of ten."]},
+"Kinetic Chain &amp; Prep|Wall chest opener":{m:"planche",do:[
+ "Put the forearm flat on a door frame or wall, elbow at about shoulder height.",
+ "Turn the chest slowly away from the arm until you feel a stretch across the front of the shoulder.",
+ "Hold for thirty seconds, breathing. Swap sides. Nothing should pinch."]},
+"Kinetic Chain &amp; Prep|Down dog":{m:"pike",do:[
+ "From a plank, push the hips up and back until the body makes an upside-down V.",
+ "Straighten the arms, spread the shoulder blades and push the floor away.",
+ "Let the heels reach toward the floor. Bend the knees if the back wants to round."]},
+"Kinetic Chain &amp; Prep|Banana rocks":{m:"dragonflag",do:[
+ "Lie down and set the banana shape: chest and legs lifted, one long curve.",
+ "Rock forward and back along that curve, driving from the whole body rather than the hips.",
+ "Ten rocks with the shape held. If it breaks, rest and start again."]}
 };
 
 const el = (t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e;};
@@ -2165,7 +2205,31 @@ const EXMOVE = {
   [150,104, 138,100, 144,114, 150,126, 100,58, 80,96, 62,130],
   [150,108, 138,104, 146,116, 150,126, 100,60, 80,97, 62,130])),
 "Kinetic Chain &amp; Prep|Full integration: chest-to-wall line": EX("Whole line, chest to wall", FLOOR + WALL_R, hold(
-  [144,120, 150,107, 150,120, 150,132, 152,72, 154,46, 156,20]))
+  [144,120, 150,107, 150,120, 150,132, 152,72, 154,46, 156,20])),
+
+/* --- seated, forearm parked on the thigh; only the hand hinges --- */
+"Hanging &amp; Grip|Wrist curls and reverse curls": EX("Hand hinges, forearm still", FLOOR + BENCH_R, reps(
+  [150,44, 152,62, 138,94, 104,98, 162,96, 128,98, 122,132],
+  [150,44, 152,62, 138,94, 104,80, 162,96, 128,98, 122,132])),
+
+/* --- standing, elbow pinned, the forearm sweeps through a full curl --- */
+"Hanging &amp; Grip|Band curls": EX("Elbow still, forearm curls", FLOOR + '<line class="prop2" x1="120" y1="132" x2="104" y2="70" stroke-dasharray="5 4"/>', reps(
+  [136,34, 132,54, 116,74, 96,88, 126,90, 124,112, 122,132],
+  [136,34, 132,54, 116,74, 104,48, 126,90, 124,112, 122,132])),
+
+/* --- forearm stays on the frame, the chest turns away from it --- */
+"Kinetic Chain &amp; Prep|Wall chest opener": EX("Chest turns, hand stays", FLOOR + WALL_R, reps(
+  [160,42, 157,56, 171,64, 185,50, 155,88, 152,110, 150,132],
+  [148,44, 150,58, 165,64, 185,50, 153,88, 151,110, 150,132])),
+
+/* --- straight arms, straight legs, hips high --- */
+"Kinetic Chain &amp; Prep|Down dog": EX("Hips high, push the floor away", FLOOR, hold(
+  [136,100, 124,88, 139,110, 154,132, 102,58, 82,95, 64,132])),
+
+/* --- the banana shape held rigid, travelling along its own curve --- */
+"Kinetic Chain &amp; Prep|Banana rocks": EX("Rock the shape, do not bend it", FLOOR, reps(
+  [59,99, 76,107, 62,93, 47,85, 108,122, 143,115, 174,109],
+  [54,113, 73,117, 55,107, 39,103, 108,122, 140,105, 168,91]))
 };
 
 /* =====================================================================
