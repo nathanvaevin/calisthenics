@@ -27,14 +27,27 @@
   .lvls button.on{border-color:var(--accent);color:var(--accent);background:rgba(233,162,59,.10)}
   .picker p{color:var(--muted);font-size:.86rem;margin:10px 0 0}
 
-  /* week-to-week nav */
-  .weeknav{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-  .weeknav a,.weeknav span{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.06em;
-    text-transform:uppercase;font-size:.82rem;padding:6px 14px;border-radius:999px;
-    border:1px solid var(--line);background:var(--panel);color:var(--muted);text-decoration:none}
-  .weeknav a:hover{border-color:var(--accent);color:var(--accent)}
-  .weeknav .on{border-color:var(--accent);color:var(--accent);background:rgba(233,162,59,.12)}
-  .weeknav .soon{opacity:.4}
+  /* breadcrumb row at the top of a week page */
+  .crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+  .crumbs a{font-size:.84rem;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    border-radius:999px;padding:5px 13px;background:var(--panel);white-space:nowrap}
+  .crumbs a:hover{border-color:var(--accent);color:var(--accent)}
+  .crumbs .here{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.1em;
+    font-size:.78rem;font-weight:600;color:var(--accent);border:1px solid var(--accent);
+    border-radius:999px;padding:5px 13px;background:rgba(233,162,59,.12);white-space:nowrap}
+
+  /* week chooser */
+  .weekgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:24px}
+  .wk{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:14px;
+    background:var(--panel);padding:16px 18px;transition:border-color .15s ease,transform .15s ease}
+  .wk:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .wk .n{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.14em;
+    font-size:.74rem;color:var(--accent);font-weight:600}
+  .wk .t{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.32rem;margin-top:2px}
+  .wk .s{color:var(--muted);font-size:.86rem;margin-top:4px}
+  .wk.soon{opacity:.45;pointer-events:none}
+  .wk.soon .n{color:var(--muted)}
+  .wk.latest{border-color:var(--accent);background:rgba(233,162,59,.07)}
 
   /* the one thing to remember from class */
   .rule{margin-top:20px;padding:14px 18px;border:1px solid var(--accent);border-radius:var(--radius);
@@ -225,7 +238,7 @@
     @page{size:A4;margin:12mm}
     body{background:#fff;color:#000;font-size:9.6pt;line-height:1.32}
     .wrap{max-width:none;padding:0}
-    .eyebrow,.lvls,footer,.picker p,.lvsw,.back,.weeknav{display:none !important}
+    .eyebrow,.lvls,footer,.picker p,.lvsw,.back,.crumbs{display:none !important}
     h1{font-size:20pt;color:#000;margin:0 0 2mm}
     h1 span{color:#000}
     .lede{color:#000;font-size:9pt}

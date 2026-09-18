@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calisthenics · Choose your week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body>
+<div class="wrap">
+  <nav class="crumbs">
+    <a href="../index.html">&larr; All training</a>
+  </nav>
+  <p class="eyebrow">Calisthenics weekly training</p>
+  <h1>Choose your <span>week</span></h1>
+  <p class="lede">Eight weeks, opened one at a time after each class. Open the week we are in, pick your level, and tap any exercise to see how it is done.</p>
+
+  <div class="weekgrid" id="weeks"></div>
+</div>
+
+<script>
+/* One line per week. To open the next one, give it a file and a title. */
+const WEEKS = [
+  {n:1, file:"week-1.html", t:"Finding your level",
+   s:"The first set of exercises, from your scorecard."},
+  {n:2, file:"week-2.html", t:"The pull-up",
+   s:"Dead hangs through to pull-up singles, plus one push and one hold."},
+  {n:3}, {n:4}, {n:5}, {n:6}, {n:7}, {n:8}
+];
+
+const mount = document.getElementById("weeks");
+const open = WEEKS.filter(w=> w.file);
+const latest = open.length ? open[open.length - 1].n : null;
+
+WEEKS.forEach(w=>{
+  const card = document.createElement(w.file ? "a" : "div");
+  card.className = "wk" + (w.file ? (w.n === latest ? " latest" : "") : " soon");
+  if(w.file) card.href = w.file;
+  card.innerHTML = '<div class="n">Week ' + w.n + (w.n === latest ? ' &middot; latest' : '') + '</div>'
+    + '<div class="t">' + (w.t || "Unlocked soon") + '</div>'
+    + '<div class="s">' + (w.s || "Added after class.") + '</div>';
+  mount.append(card);
+});
+</script>
+</body>
+</html>
