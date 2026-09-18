@@ -27,6 +27,22 @@
   .lvls button.on{border-color:var(--accent);color:var(--accent);background:rgba(233,162,59,.10)}
   .picker p{color:var(--muted);font-size:.86rem;margin:10px 0 0}
 
+  /* week-to-week nav */
+  .weeknav{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .weeknav a,.weeknav span{font-family:"Barlow Condensed",sans-serif;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;font-size:.82rem;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--line);background:var(--panel);color:var(--muted);text-decoration:none}
+  .weeknav a:hover{border-color:var(--accent);color:var(--accent)}
+  .weeknav .on{border-color:var(--accent);color:var(--accent);background:rgba(233,162,59,.12)}
+  .weeknav .soon{opacity:.4}
+
+  /* the one thing to remember from class */
+  .rule{margin-top:20px;padding:14px 18px;border:1px solid var(--accent);border-radius:var(--radius);
+    background:rgba(233,162,59,.08)}
+  .rule h3{font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:.78rem;color:var(--accent);margin:0 0 4px;font-weight:600}
+  .rule p{margin:0;font-size:1.02rem;font-weight:500}
+
   /* week plan */
   .plan{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
   .box{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:16px 18px}
@@ -41,6 +57,7 @@
 
   .ex{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);margin-top:12px;overflow:hidden}
   .ex-head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 18px}
+  .ex-head.nosw{grid-template-columns:auto 1fr}
   .tag{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;background:var(--panel-2);
     border:1px solid var(--line);font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:.72rem;color:var(--accent)}
   .ex-name{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:1.45rem}
@@ -200,7 +217,7 @@
     @page{size:A4;margin:12mm}
     body{background:#fff;color:#000;font-size:9.6pt;line-height:1.32}
     .wrap{max-width:none;padding:0}
-    .eyebrow,.lvls,footer,.picker p,.lvsw,.back{display:none !important}
+    .eyebrow,.lvls,footer,.picker p,.lvsw,.back,.weeknav{display:none !important}
     h1{font-size:20pt;color:#000;margin:0 0 2mm}
     h1 span{color:#000}
     .lede{color:#000;font-size:9pt}

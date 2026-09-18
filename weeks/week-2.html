@@ -13,40 +13,50 @@
 <body>
 <div class="wrap">
   <a class="back" href="../index.html">&larr; All training</a>
-  <p class="eyebrow">Week 2 practice · between class 2 and class 3</p>
+  <p class="eyebrow">Week 2 homework · the pull-up</p>
   <h1>Your <span>Practice</span></h1>
-  <p class="lede">Same plan as last week, with the pull block pushed forward: more time hanging, harder rows, and first real pull-up attempts for anyone who was comfortable at level 4. Push-ups stay exactly where they were &mdash; one thing at a time.</p>
+  <p class="lede">This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own. Keep it short and do it often &mdash; consistency beats intensity at this stage.</p>
+
+  <nav class="weeknav">
+    <a href="week-1.html">Week 1</a>
+    <span class="on">Week 2</span>
+  </nav>
 
   <div class="picker">
     <h3>Pick your level</h3>
     <div class="lvls" id="lvls"></div>
-    <p id="pickernote">Moved up on pull but not on squats? Pick each block separately using the numbers on your card. If you were comfortable at 4 last week, try 5 on the pull block this time.</p>
+    <p id="pickernote">Pick the level that matches where you are, block by block. A few of these could sit a level higher or lower depending on the person &mdash; if in doubt, take the easier one and do it properly.</p>
+  </div>
+
+  <div class="rule">
+    <h3>The golden rule from class</h3>
+    <p>Explode up on the first reps, fight the lowering slow on the last ones.</p>
   </div>
 
   <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Two sessions is the plan, but do not let that stop you. Even one day this week is already a real week of training, and it beats waiting until you have time for the perfect one.</p>
+  <p class="secnote">Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.</p>
 
   <div class="plan">
     <div class="box">
-      <h3>Two sessions a week</h3>
+      <h3>Two short sessions</h3>
       <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
       <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
     </div>
     <div class="box">
       <h3>Each session</h3>
-      <p>One pull · one push · one legs or core · one hold. Four things, that is it.</p>
-      <p class="sub">Alternate: session A takes the first option of each block, session B takes the second.</p>
+      <p>One pull &middot; one push &middot; one hold. Three things, that is it.</p>
+      <p class="sub">The pull comes first, while you are fresh. Do it in both sessions.</p>
     </div>
     <div class="box">
       <h3>Every day</h3>
-      <p>Hang from a bar or a door frame. Ten to thirty seconds, once or twice.</p>
-      <p class="sub">Costs nothing, builds the grip and shoulders that limit everyone.</p>
+      <p>Hang from something. A bar, a door frame, a beam &mdash; ten to thirty seconds, once or twice, whenever you walk past.</p>
+      <p class="sub">It costs nothing, and this one habit is worth more than the rest put together.</p>
     </div>
   </div>
 
   <div id="blocks"></div>
 
-  <footer>Bring the sheet to class, or just the numbers. If something here is confusing, ask me before you guess.</footer>
+  <footer>The number on each exercise is where it sits in the skill tree. Tap any exercise to see how it is done and which muscles it works. If something here is confusing, ask me before you guess.</footer>
 </div>
 
 <script src="../assets/engine.js"></script>
@@ -54,72 +64,41 @@
 <script>
 
 /* ---------------------------------------------------------------
-   THE PRACTICE PLAN.
-   Each exercise is [name, dose, note, key] where key points at the
-   matching entry in the skill tree, which is what gives it the
-   animation, the 3D view, the steps and the muscle map.
+   WEEK 2 — the pull-up.
+   Taken from the week 2 homework sheet. The level bands on that
+   sheet (1–2, 3–4, 5–6, 7+) are mapped onto the skill tree's own
+   levels here, since the tree is the source of truth.
    --------------------------------------------------------------- */
 const BLOCKS = [
-  {tag:"PULL", name:"Pull", why:"This week's focus. Everyone was comfortable at level 4 last time, so hanging and rows get harder and first pull-up attempts start for anyone ready.",
+  {tag:"PULL", name:"The pull", why:"The focus this week, and the one thing to do at home. Do it in both sessions, first, while you are fresh. Explode up on the first reps, fight the lowering slow on the last ones.",
    levels:{
-     4:[["Negatives","4 sets of 2, five seconds down","One more rep per set than last week. Chin starts over the bar, resist all the way to straight arms.","Pull-Up|Assisted pull-up or negative"],
-        ["Active hangs","4 sets of 25 seconds","Five seconds longer than last week. Shoulders pulled down away from your ears, arms straight, legs together.","Hanging &amp; Grip|Active hang"],
-        ["Rows","3 sets of 10","Same set-up as last week, two more reps.","Row / Horizontal Pull|Horizontal row"]],
-     5:[["First pull-up attempts","3 sets of as many as you get, full rest between","No band, no jump. Dead hang start, chin over the bar. One clean rep counts &mdash; write down what you got.","Pull-Up|Full pull-up"],
-        ["Assisted pull-ups","3 sets of 4","Backup work after the attempts, least help you can manage.","Pull-Up|Assisted pull-up or negative"],
-        ["Feet-elevated rows","3 sets of 10","Harder than last week's row: feet on a box or chair, body closer to level.","Row / Horizontal Pull|Feet-elevated row"]],
-     6:[["Pull-up singles","6 sets of 2 to 3, two minutes between","One more rep per set than last week. Still never to failure.","Pull-Up|Full pull-up"],
-        ["Chest-to-bar pull-ups","3 sets of 3","New this week: pull high enough that the chest touches the bar.","Pull-Up|Chest-to-bar pull-up"],
-        ["Active hangs","3 sets of 40 seconds","Finish with these.","Hanging &amp; Grip|Active hang"]]
+     3:[["Dead hang","Build to 30 seconds","Just hang and breathe. Let the shoulders rise to the ears &mdash; this one is for the hands and the shoulders, not the back.","Hanging &amp; Grip|Passive dead hang"],
+        ["Scapular pulls","3 sets of 5","Arms stay straight. Only the shoulder blades move, and you rise a few centimetres. This is the start of every pull-up.","Pull-Up|Scapular pull-up"]],
+     4:[["Australian rows","3 sets of 8","Under a bar at chest height, body straight, chest touches the bar. Walk the feet forward to make it harder.","Row / Horizontal Pull|Horizontal row"],
+        ["Negatives","4 singles, five seconds down","Jump or step up so your chin starts over the bar, then resist all the way to straight arms. Finish every one with straight arms.","Pull-Up|Assisted pull-up or negative"]],
+     5:[["Band pull-ups","4 sets of 4","Yellow band under the foot or knee. Take the least help you can manage, and note how much you needed.","Pull-Up|Assisted pull-up or negative"],
+        ["Two solo attempts","2 singles, fresh, at the start","No band. Dead hang start, chin over the bar. Do these before the banded work, not after.","Pull-Up|Full pull-up"]],
+     6:[["Pull-up singles","6 sets of 1 to 2, two minutes rest","Never to failure. Explosive up, slow down. If your max is 4, these are sets of 2.","Pull-Up|Full pull-up"]]
    }},
-  {tag:"PUSH", name:"Push-up", why:"Chest, shoulders and triceps. Held at last week's level on purpose while the pull work takes the front seat.",
+  {tag:"PUSH", name:"One push", why:"One push per session, after the pull. Stop two reps before failure — you are here twice this week, not once.",
    levels:{
-     4:[["Incline push-ups","4 sets of 8","Same height as last week if 8 was still hard by the last set. Lower it only if it felt easy.","Push-Up|Incline push-up"],
-        ["Slow negatives on the floor","3 sets of 3","Five seconds down, then knees down to come back up.","Push-Up|Full push-up"]],
-     5:[["Full push-ups","5 sets of 3","Chest a fist's height from the floor, body in one line, elbows back not flared.","Push-Up|Full push-up"],
-        ["Incline push-ups","2 sets of 8","Straight after, to add volume without going to failure.","Push-Up|Incline push-up"]],
-     6:[["Full push-ups","4 sets of 8, three seconds down","Tempo is the load here. Do not rush the lowering.","Push-Up|Full push-up"],
-        ["Diamond push-ups","2 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"]]
+     3:[["Incline push-ups","3 sets of 8","Hands on a table or windowsill. Pick a height where 8 is hard but clean.","Push-Up|Incline push-up"]],
+     4:[["Incline push-ups","3 sets of 8","Hands on a table or windowsill. Lower the height a notch when 8 stops being hard.","Push-Up|Incline push-up"]],
+     5:[["Full push-ups","3 sets of as many as stay clean","Stop two before failure. Chest a fist's height from the floor, body in one line, elbows back not flared.","Push-Up|Full push-up"]],
+     6:[["Diamond push-ups","3 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"],
+        ["Or: push-ups, three seconds down","3 sets of 5","Same movement, tempo is the load. Pick one of these two, not both.","Push-Up|Full push-up"]]
    }},
-  {tag:"PUSH", name:"Dip and support", why:"The other half of pressing, and the second half of a muscle-up. Small step up from last week.",
+  {tag:"CORE", name:"One hold", why:"One hold to finish the session. This is what holds the body straight in everything else.",
    levels:{
-     4:[["Support holds","4 sets of 25 seconds","Five seconds longer than last week. Arms locked, shoulders pushed down away from the ears.","Dip|Support hold"],
-        ["Negative dips","4 sets of 4","One more rep than last week. Step off at the bottom and climb back up.","Dip|Negative dip"]],
-     5:[["Bar dips","5 sets of 3","One more rep per set than last week. Lower until the upper arms are level with the floor, then lock out.","Dip|Parallel bar dip"],
-        ["Bench dips","3 sets of 12","Hands behind you on a chair, heels on the floor.","Dip|Bench or box dip"]],
-     6:[["Bar dips","4 sets of 6","One more rep than last week. Full depth, full lockout, two reps left in the tank.","Dip|Parallel bar dip"],
-        ["Support holds","2 sets of 35 seconds","Legs together, ribs down.","Dip|Support hold"]]
-   }},
-  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Same two moves, a little more volume.",
-   levels:{
-     4:[["Bulgarian split squats","3 sets of 10 per side","Two more reps per side than last week. Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"],
-        ["Glute bridges","3 sets of 18","Two second squeeze at the top, ribs down.","Hinge &amp; Hamstrings|Glute bridge"]],
-     5:[["Box pistols","3 sets of 6 per side","One more rep per side than last week. Lower the seat as you get stronger.","Pistol Squat|Box pistol"],
-        ["Split squats","3 sets of 12 per side","Slow and tall.","Squat &amp; Lunge|Split squat"]],
-     6:[["Pistol squats","3 sets of 4 per side","One more rep per side than last week. Full depth, controlled, heel flat.","Pistol Squat|Full pistol"],
-        ["Single-leg glute bridges","3 sets of 12 per side","Hips level throughout.","Hinge &amp; Hamstrings|Single-leg glute bridge"]]
-   }},
-  {tag:"CORE", name:"Core", why:"What holds every position together. Short, frequent, never sloppy.",
-   levels:{
-     4:[["Hollow holds","4 sets of 35 seconds","Five seconds longer than last week. Lower back pressed flat. Bend the knees if the back lifts.","Core &amp; Compression|Hollow-body hold"],
-        ["Hollow rocks","2 sets of 18","Small rocking, the shape stays exactly the same.",null]],
-     5:[["Hanging knee raises","4 sets of 10","Two more reps than last week. No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"],
-        ["Hollow holds","3 sets of 35 seconds","Straight body if you can hold the shape.","Core &amp; Compression|Hollow-body hold"]],
-     6:[["Hanging leg raises","4 sets of 8","Two more reps than last week. Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"],
-        ["Hollow holds","3 sets of 50 seconds","Or 25 hollow rocks.","Core &amp; Compression|Hollow-body hold"]]
-   }},
-  {tag:"BAL", name:"Handstand", why:"Balance is a skill, so it wants short and frequent practice, not long hard sets.",
-   levels:{
-     4:[["Wrist prep","One minute, always first","Circles, palm pushes, fingertip pushes. Never skip this.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
-        ["Chest-to-wall holds","5 sets of 35 seconds","Five seconds longer than last week. Belly to the wall, arms locked, ribs down, shoulders pushing.","Handstand|Chest-to-wall handstand"]],
-     5:[["Kick-up practice","12 attempts, no rush","Two more attempts than last week. Light kick, catch the balance, and practise stepping out of it.","Handstand|Kick-up to balance"],
-        ["Chest-to-wall holds","4 sets of 35 seconds","Straight line from wrist to toe.","Handstand|Chest-to-wall handstand"]],
-     6:[["Freestanding attempts","3 sets of 12 attempts","Two more attempts than last week. Fresh, at the start. Correct with the fingers first, hips second.","Handstand|Freestanding handstand"],
-        ["Chest-to-wall holds","3 sets of 50 seconds","Finish with these, for the shape.","Handstand|Chest-to-wall handstand"]]
+     3:[["Hollow-body hold","3 sets of 30 seconds","Lower back pressed flat. Bend the knees if the back lifts &mdash; that is the honest version, not the easy one.","Core &amp; Compression|Hollow-body hold"]],
+     4:[["Hollow-body hold","3 sets of 30 seconds","Lower back pressed flat, ribs down. Straighten the legs as it gets easier.","Core &amp; Compression|Hollow-body hold"]],
+     5:[["Hanging knee raises","3 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"]],
+     6:[["Hanging knee raises","3 sets of 8","No swinging, strict, pelvis curling at the top.","Core &amp; Compression|Hanging knee raise"],
+        ["Or: hollow-body hold","3 sets of 30 seconds","If there is no bar to hand.","Core &amp; Compression|Hollow-body hold"]]
    }}
 ];
 
-renderWeek(BLOCKS);
+renderWeek(BLOCKS, {levels:[3,4,5,6]});
 </script>
 </body>
 </html>

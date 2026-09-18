@@ -102,9 +102,32 @@ function setCard(card, lv){
 }
 
 function renderWeek(BLOCKS, opts){
+  /* Some weeks are not split by level at all — the handstand sheet, for
+     instance, is two people on two different paths. Pass {levels:false}
+     and each block just lists its exercises, with no picker anywhere. */
+  const graded = !(opts && opts.levels === false);
   const levels = (opts && opts.levels) || [4,5,6];
   const lo = levels[0], hi = levels[levels.length - 1];
   const mount = document.getElementById("blocks");
+
+  if(!graded){
+    BLOCKS.forEach(b=>{
+      const card = el("div","ex");
+      const head = el("div","ex-head nosw");
+      const mid = el("div");
+      mid.append(el("div","ex-name", b.name), el("div","ex-why", b.why));
+      head.append(el("div","tag", b.tag), mid);
+      const body = el("div","ex-body");
+      const holder = el("div","work2");
+      (b.items || []).forEach(item=> holder.append(exerciseRow(item)));
+      body.append(holder);
+      card.append(head, body);
+      mount.append(card);
+    });
+    const picker = document.querySelector(".picker");
+    if(picker) picker.remove();
+    return;
+  }
 
   BLOCKS.forEach(b=>{
     const card = el("div","ex");
