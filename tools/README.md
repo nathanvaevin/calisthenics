@@ -48,3 +48,17 @@ node elshot.mjs weeks/week-2.html ".ex" 390 wk2   # just the first matching elem
 `page.mjs` also reports `scrollWidth` vs `clientWidth` and lists any
 element overflowing horizontally — the usual phone-layout smell. If those
 two numbers differ, something is too wide.
+
+## Reviewing every 3D rig at once
+
+```
+node sheetshot.mjs --all-holds 1     # every hold, drawn at the END of the rep
+node sheetshot.mjs --all-reps 1      # every rep, drawn at the end of its range
+node sheetshot.mjs mysheet 1 "Track|Ex" "Track|Ex" ...
+```
+
+Contact sheets of 12, with a fixed camera so poses can be compared. A hold
+is outlined green and captioned with the `t` it is frozen at.
+
+**Rendering a hold at t=1 is the test that matters:** a hold must look
+identical at t=0 and t=1. If it changes, it is animating when it should not.

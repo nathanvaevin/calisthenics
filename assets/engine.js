@@ -2270,8 +2270,12 @@ floorPress(p, t){
     : Math.asin(Math.max(-0.9, Math.min(0.9, (S[1] - (p.footY ?? 0.07)) / span)));
   const d = [0, -Math.sin(tilt), -Math.cos(tilt)];   // body axis, running to the feet
   const H = add(S, mul(d, B.torso));
-  const K = add(H, mul(d, B.thigh));
-  const A = add(K, mul(d, B.shin));
+  let K = add(H, mul(d, B.thigh));
+  let A = add(K, mul(d, B.shin));
+  if(p.legs === "tuck"){                  // knees drawn up to the chest
+    K = add(H, [0, 0.26, 0.35]);
+    A = add(K, [0, -0.44, 0]);
+  }
   const j = {
     head:[0, S[1] + 0.06, S[2] + 0.20],
     sL:[-B.sh, S[1], S[2]], sR:[B.sh, S[1], S[2]],
@@ -2306,7 +2310,10 @@ barHang(p, t){
   const by = p.by ?? 1.85;          // bar height
   const rise = lerp(0, p.rise ?? 0.42, t);
   const lean = (p.lean ?? 0) * Math.PI/180;
-  const S = [0, by - lerp(0.60, 0.18, t), -0.02 - rise*0.10];
+  // how much of a full pull-up this rung actually is: a scapular pull (.08)
+  // barely rises, a full pull-up (.42) travels the whole way
+  const pull = Math.min(1, (p.rise ?? 0.42) / 0.42);
+  const S = [0, by - lerp(0.60, 0.60 - (p.rise ?? 0.42), t), -0.02 - rise*0.10];
   const dir = p.horizontal
     ? [0, 0, -1]                                       // body out horizontally (levers, rows)
     : [0, -Math.cos(lean), -Math.sin(lean)];           // body hanging down
@@ -2325,12 +2332,12 @@ barHang(p, t){
   };
   const out = lerp(0.02, p.horizontal ? 0.06 : 0.16, t);
   if(p.oneArm){
-    j.wL = [0, by, 0]; j.eL = [ -out, lerp(S[1] + 0.30, by - 0.14, t), -0.04];
+    j.wL = [0, by, 0]; j.eL = [ -out, lerp(S[1] + 0.30, by - 0.14, t * pull), -0.04];
     j.wR = [0.30, S[1] - 0.10, 0.10]; j.eR = [0.26, S[1] - 0.04, 0.02];
   } else {
     j.wL = [-gw, by, 0]; j.wR = [gw, by, 0];
-    j.eL = [-gw - out, lerp(S[1] + 0.30, by - 0.16, t), -0.04];
-    j.eR = [gw + out, lerp(S[1] + 0.30, by - 0.16, t), -0.04];
+    j.eL = [-gw - out, lerp(S[1] + 0.30, by - 0.16, t * pull), -0.04];
+    j.eR = [gw + out, lerp(S[1] + 0.30, by - 0.16, t * pull), -0.04];
     if(p.archer){ j.wR = [gw + 0.34, by, 0]; j.eR = mid(j.sR, j.wR); }
   }
   return j;
@@ -2388,6 +2395,10 @@ inverted(p, t){
     kL:[-spread, K[1], K[2]], kR:[spread, K[1], K[2]],
     aL:[-spread, A[1], A[2]], aR:[spread, A[1], A[2]]
   };
+  if(legs === "split"){          // one leg up, one still swinging through
+    j.kR = [spread, K[1] - 0.10, K[2] + 0.28];
+    j.aR = [spread, A[1] - 0.24, A[2] + 0.44];
+  }
   const flare = (p.flare ?? 0.10) * t;
   if(p.oneArm){
     j.wL = [0, 0, 0]; j.eL = [-flare, reach/2, 0.02];
@@ -2428,8 +2439,8 @@ const RIG3D = {
 "Muscle-Up|Explosive high pull":{r:"barHang", p:{gw:.28, rise:.58, lean:18}, prop:"bar"},
 
 // Hanging and core on the bar
-"Hanging &amp; Grip|Passive dead hang":{r:"barHang", p:{gw:.26, rise:.05}, prop:"bar"},
-"Hanging &amp; Grip|Active hang":{r:"barHang", p:{gw:.26, rise:.10}, prop:"bar"},
+"Hanging &amp; Grip|Passive dead hang":{r:"barHang", p:{gw:.26, rise:.05, hold:0}, prop:"bar"},
+"Hanging &amp; Grip|Active hang":{r:"barHang", p:{gw:.26, rise:.10, hold:1}, prop:"bar"},
 "Core &amp; Compression|Hanging knee raise":{r:"barHang", p:{gw:.26, rise:.04, legs:"tuck"}, prop:"bar"},
 "Core &amp; Compression|Hanging leg raise":{r:"barHang", p:{gw:.26, rise:.04, legs:"raised"}, prop:"bar"},
 "Core &amp; Compression|Toes to bar":{r:"barHang", p:{gw:.26, rise:.06, legs:"raised"}, prop:"bar"},
@@ -2454,34 +2465,34 @@ const RIG3D = {
 "Pistol Squat|Shrimp squat":{r:"standing", p:{sw:.12, depth:.46, rearLeg:true}},
 
 // Upside down: hand spacing and how the weight is carried
-"Handstand|Chest-to-wall handstand":{r:"inverted", p:{hw:.22, lean:.04}},
-"Handstand|Kick-up to balance":{r:"inverted", p:{hw:.22, legs:"split"}},
-"Handstand|Freestanding handstand":{r:"inverted", p:{hw:.22}},
+"Handstand|Chest-to-wall handstand":{r:"inverted", p:{hw:.22, lean:.04, hold:0}},
+"Handstand|Kick-up to balance":{r:"inverted", p:{hw:.22, legs:"split", hold:0}},
+"Handstand|Freestanding handstand":{r:"inverted", p:{hw:.22, hold:0}},
 "Handstand|Straddle or tuck press":{r:"inverted", p:{hw:.24, legs:"straddle", press:true}},
-"Handstand|One-arm handstand":{r:"inverted", p:{oneArm:true}},
-"One-Arm Handstand|Bulletproof freestanding handstand":{r:"inverted", p:{hw:.22}},
+"Handstand|One-arm handstand":{r:"inverted", p:{oneArm:true, hold:0}},
+"One-Arm Handstand|Bulletproof freestanding handstand":{r:"inverted", p:{hw:.22, hold:0}},
 "One-Arm Handstand|Weight shifts and taps":{r:"inverted", p:{hw:.34, shift:.16}},
-"One-Arm Handstand|Assisted one-arm":{r:"inverted", p:{hw:.34, shift:.22}},
-"One-Arm Handstand|Two-finger / staggered support":{r:"inverted", p:{hw:.34, shift:.28}},
-"One-Arm Handstand|One-arm handstand":{r:"inverted", p:{oneArm:true}},
+"One-Arm Handstand|Assisted one-arm":{r:"inverted", p:{hw:.34, shift:.22, hold:1}},
+"One-Arm Handstand|Two-finger / staggered support":{r:"inverted", p:{hw:.34, shift:.28, hold:1}},
+"One-Arm Handstand|One-arm handstand":{r:"inverted", p:{oneArm:true, hold:0}},
 "Handstand Push-Up|Pike push-up":{r:"floorPress", p:{hw:.24, tilt:-46, flare:.14, back:.10}},
 "Handstand Push-Up|Elevated pike push-up":{r:"floorPress", p:{hw:.24, tilt:-64, flare:.14, back:.10}, prop:"box"},
 "Handstand Push-Up|Wall handstand push-up":{r:"inverted", p:{hw:.24, press:true, flare:.16}},
 "Handstand Push-Up|Freestanding handstand push-up":{r:"inverted", p:{hw:.24, press:true, flare:.16}},
 "Handstand Push-Up|Deficit or 90° press":{r:"inverted", p:{hw:.26, press:true, flare:.20}},
-"Crow &amp; Elbow Lever|Frog stand":{r:"inverted", p:{hw:.20, legs:"tuck", press:true, flare:.18}},
-"Crow &amp; Elbow Lever|Crow pose (straight-ish arms)":{r:"inverted", p:{hw:.20, legs:"tuck", flare:.10}},
+"Crow &amp; Elbow Lever|Frog stand":{r:"inverted", p:{hw:.20, legs:"tuck", flare:.18, hold:1}},
+"Crow &amp; Elbow Lever|Crow pose (straight-ish arms)":{r:"inverted", p:{hw:.20, legs:"tuck", flare:.10, hold:.35}},
 
 // Straight-arm holds where the leg shape is the whole story
-"Planche|Tuck planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.06}},
-"Planche|Straddle planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.34}},
-"Planche|Full planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.07}},
-"Front Lever|Tuck front lever":{r:"barHang", p:{gw:.28, horizontal:true, legs:"tuck", rise:0}, prop:"bar"},
-"Front Lever|Straddle front lever":{r:"barHang", p:{gw:.28, horizontal:true, fw:.34, rise:0}, prop:"bar"},
-"Kinetic Chain &amp; Prep|Pike scapular push-up":{r:"floorPress", p:{hw:.24, tilt:-46, flare:.14, back:.10}},
-"Kinetic Chain &amp; Prep|Active-shoulder wall shrug":{r:"inverted", p:{hw:.24, press:true, flare:.16}},
-"Kinetic Chain &amp; Prep|Full integration: chest-to-wall line":{r:"inverted", p:{hw:.22, lean:.04}},
-"Front Lever|Full front lever":{r:"barHang", p:{gw:.28, horizontal:true, fw:.07, rise:0}, prop:"bar"}
+"Planche|Tuck planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.06, legs:"tuck", hold:0}},
+"Planche|Straddle planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.34, hold:0}},
+"Planche|Full planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.07, hold:0}},
+"Front Lever|Tuck front lever":{r:"barHang", p:{gw:.28, horizontal:true, legs:"tuck", rise:0, hold:0}, prop:"bar"},
+"Front Lever|Straddle front lever":{r:"barHang", p:{gw:.28, horizontal:true, fw:.34, rise:0, hold:0}, prop:"bar"},
+"Kinetic Chain &amp; Prep|Pike scapular push-up":{r:"floorPress", p:{hw:.24, tilt:-46, flare:.14, back:.10, hold:0}},
+"Kinetic Chain &amp; Prep|Active-shoulder wall shrug":{r:"inverted", p:{hw:.24, flare:.02}},
+"Kinetic Chain &amp; Prep|Full integration: chest-to-wall line":{r:"inverted", p:{hw:.22, lean:.04, hold:0}},
+"Front Lever|Full front lever":{r:"barHang", p:{gw:.28, horizontal:true, fw:.07, rise:0, hold:0}, prop:"bar"}
 };
 
 /* ---- props, drawn in 3D so they rotate with the figure ---- */
@@ -2591,6 +2602,10 @@ function make3D(host, key, label){
 
   players.push({svg:svg, host:host, three:true, tick(now){
     if(st.auto) st.yaw = -0.5 + Math.sin(now / 3400) * 1.15;
+    // A hold is a position, not a rep: freeze the pose and let it rotate only.
+    // cfg.hold is the t to sit at — 0 is straight arms / full hang.
+    const held = cfg.p && cfg.p.hold;
+    if(held != null){ draw(held === true ? 0 : held); return; }
     const cycle = 2600;
     let t = ((now % (cycle*2)) / cycle);
     if(t > 1) t = 2 - t;
