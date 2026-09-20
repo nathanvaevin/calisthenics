@@ -28,3 +28,17 @@ against what the weekly sheets already prescribe.
 `tools/` screenshots an exercise's 2D keyframes and 3D rig using the local
 Chrome. Run it and actually look at the result before saying an animation
 works. See `tools/README.md`.
+
+## Do not push unless I ask
+
+Every push to `main` is a Netlify production deploy, and deploys are
+limited. Pushing after each small change burns them for nothing.
+
+- Commit locally as often as is useful.
+- **Wait for me to say "push" before pushing.** Finishing a task is not
+  permission to deploy.
+- Let commits pile up and go out as one push.
+- If a push genuinely only touches `tools/`, docs or comments, `netlify.toml`
+  already skips the build. Nothing else needed.
+
+Tell me when work is committed and ready, and I will say when to push.
