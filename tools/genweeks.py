@@ -88,12 +88,16 @@ def LEGS(focus=False):
 HANDSTAND = {"tag":"BAL","name":"The handstand line","why":(
   "The focus this week. Balance is a skill, so it wants short and frequent practice, "
   "always fresh and always at the start of the session."),"levels":{
-  3:[["Chest-to-wall walk-up","Hold 15 to 20 seconds","Feet on the wall, walk the hands in as far as is comfortable. Come down before the shoulders give out.","Handstand|Chest-to-wall handstand"]],
-  4:[["Chest-to-wall hold","3 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing. Breathe the whole time.","Handstand|Chest-to-wall handstand"]],
+  3:[["Chest-to-wall walk-up","Hold 15 to 20 seconds","Feet on the wall, walk the hands in as far as is comfortable. Come down before the shoulders give out.","Handstand|Chest-to-wall handstand"],
+     ["Down dog, active","3 sets of 30 seconds","Push the floor away, hips high, elbows locked, shoulder blades spreading. The same active shoulder you need upside down, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"]],
+  4:[["Chest-to-wall hold","3 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing. Breathe the whole time.","Handstand|Chest-to-wall handstand"],
+     ["Posterior pelvic tilt at the wall","3 sets of 20 seconds","Back to the wall, tuck the tailbone under and flatten the lower back into it. No tuck, no straight handstand.","Kinetic Chain &amp; Prep|Posterior pelvic tilt drill"]],
   5:[["Kick-up practice","10 attempts, no rush","Light kick, catch the balance, and practise stepping out of it. Learn the bail before the balance.","Handstand|Kick-up to balance"],
-     ["Chest-to-wall hold","2 sets of 30 seconds","After the kick-ups, for the shape.","Handstand|Chest-to-wall handstand"]],
+     ["Chest-to-wall hold","2 sets of 30 seconds","After the kick-ups, for the shape.","Handstand|Chest-to-wall handstand"],
+     ["Pike scapular push-ups","3 sets of 8","Hips high, arms locked. Only the shoulder blades move: sink, then push tall and spread them.","Kinetic Chain &amp; Prep|Pike scapular push-up"]],
   6:[["Freestanding attempts","3 sets of 5 attempts","Fresh, at the start. A controlled kick-up with active shoulders is the success, whatever the hold time.","Handstand|Freestanding handstand"],
-     ["Chest-to-wall shrugs","3 sets of 8","Push the floor away and shrug tall. Never sink into the neck.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"]]}}
+     ["Chest-to-wall shrugs","3 sets of 8","Push the floor away and shrug tall. Never sink into the neck.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
+     ["Finish: the whole line","Build toward 60 seconds","Chest to wall with everything at once &mdash; wrists loaded, shoulders pushing, ribs down, pelvis tucked, legs squeezed.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]]}}
 
 def DAILY(tag, name, why, items):
     return {"tag":tag,"name":name,"why":why,"levels":{l:items for l in (3,4,5,6)}}
