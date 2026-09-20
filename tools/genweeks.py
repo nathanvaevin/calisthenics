@@ -89,9 +89,11 @@ HANDSTAND = {"tag":"BAL","name":"The handstand line","why":(
   "The focus this week. Balance is a skill, so it wants short and frequent practice, "
   "always fresh and always at the start of the session."),"levels":{
   3:[["Chest-to-wall walk-up","Hold 15 to 20 seconds","Feet on the wall, walk the hands in as far as is comfortable. Come down before the shoulders give out.","Handstand|Chest-to-wall handstand"],
-     ["Down dog, active","3 sets of 30 seconds","Push the floor away, hips high, elbows locked, shoulder blades spreading. The same active shoulder you need upside down, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"]],
+     ["Down dog, active","3 sets of 30 seconds","Push the floor away, hips high, elbows locked, shoulder blades spreading. The same active shoulder you need upside down, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+     ["Wall chest opener","30 seconds each side","Forearm on a door frame, turn the chest slowly away. The shoulders have to open before the line has anywhere to go.","Kinetic Chain &amp; Prep|Wall chest opener"]],
   4:[["Chest-to-wall hold","3 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing. Breathe the whole time.","Handstand|Chest-to-wall handstand"],
-     ["Posterior pelvic tilt at the wall","3 sets of 20 seconds","Back to the wall, tuck the tailbone under and flatten the lower back into it. No tuck, no straight handstand.","Kinetic Chain &amp; Prep|Posterior pelvic tilt drill"]],
+     ["Posterior pelvic tilt at the wall","3 sets of 20 seconds","Back to the wall, tuck the tailbone under and flatten the lower back into it. No tuck, no straight handstand.","Kinetic Chain &amp; Prep|Posterior pelvic tilt drill"],
+     ["Hollow-to-arch transitions","3 sets of 8, slow","On the floor. Feel the strong line against the collapse &mdash; upside down you are always chasing one and fighting the other.","Kinetic Chain &amp; Prep|Hollow-to-arch (banana) transitions"]],
   5:[["Kick-up practice","10 attempts, no rush","Light kick, catch the balance, and practise stepping out of it. Learn the bail before the balance.","Handstand|Kick-up to balance"],
      ["Chest-to-wall hold","2 sets of 30 seconds","After the kick-ups, for the shape.","Handstand|Chest-to-wall handstand"],
      ["Pike scapular push-ups","3 sets of 8","Hips high, arms locked. Only the shoulder blades move: sink, then push tall and spread them.","Kinetic Chain &amp; Prep|Pike scapular push-up"]],
@@ -144,7 +146,7 @@ WEEKS = {
     lede="Upside down this week. The handstand is one line &mdash; wrist to shoulder to ribs to hips &mdash; and this week builds it. The pull keeps running underneath, because it always does.",
     rule=("The one to remember","Push the floor away. A handstand is an overhead press you hold instead of finish."),
     secnote="Balance work wants frequency, not duration. Ten focused minutes beats one long session where the wrists give out early.",
-    boxes=[BOX_SESSIONS, ("Each session","Handstand first, while you are fresh &middot; one pull &middot; one push &middot; one hold.","Never start upside down cold. Wrists, shoulders, then the wall."), BOX_DAILY_HANG],
+    boxes=[BOX_SESSIONS, ("Each session","The handstand block in full &middot; then one pull &middot; one push &middot; one hold.","Short on time? The handstand block is the one that matters this week. Never start upside down cold."), BOX_DAILY_HANG],
     blocks=[HANDSTAND, PULL(), PUSH(), CORE(), WRIST_DAILY]),
 
 4: dict(title="push-ups", h1="Your <span>Practice</span>",
