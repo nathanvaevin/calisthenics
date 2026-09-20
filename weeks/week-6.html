@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 2</title>
+<title>Practice &middot; Week 6</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
   <nav class="crumbs">
     <a href="../index.html">&larr; All training</a>
     <a href="index.html">Choose week</a>
-    <span class="here">Week 2</span>
+    <span class="here">Week 6</span>
   </nav>
-  <p class="eyebrow">Week 2 homework &middot; the pull-up</p>
+  <p class="eyebrow">Week 6 homework &middot; core</p>
   <h1>Your <span>Practice</span></h1>
-  <p class="lede">This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own.</p>
+  <p class="lede">Core week. Not sit-ups &mdash; the shapes that hold every other position together. This is the week the hollow body finally makes sense, because it is under your pull-up and your handstand too.</p>
 
   <div class="picker">
     <h3>Pick your level</h3>
@@ -28,12 +28,12 @@
   </div>
 
   <div class="rule">
-    <h3>The golden rule from class</h3>
-    <p>Explode up on the first reps, fight the lowering slow on the last ones.</p>
+    <h3>The one to remember</h3>
+    <p>A shaky clean thirty seconds beats a long sloppy minute. When the shape breaks, the set is over.</p>
   </div>
 
   <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.</p>
+  <p class="secnote">Short, frequent and never sloppy. One hollow hold a day, even for a minute, is worth more than one long session.</p>
 
   <div class="plan">
     <div class="box">
@@ -43,13 +43,13 @@
     </div>
     <div class="box">
       <h3>Each session</h3>
-      <p>One pull &middot; one push &middot; one hold &middot; one legs.</p>
-      <p class="sub">The pull comes first, while you are fresh. Do it in both sessions.</p>
+      <p>Core first &middot; one pull &middot; one push &middot; one legs.</p>
+      <p class="sub">Two core exercises at every level: one hold, one that moves.</p>
     </div>
     <div class="box">
       <h3>Every day</h3>
-      <p>Hang from something. A bar, a door frame, a beam &mdash; ten to thirty seconds, once or twice.</p>
-      <p class="sub">It costs nothing, and this one habit is worth more than the rest put together.</p>
+      <p>One hollow hold, even for a minute, plus the daily hang.</p>
+      <p class="sub">It is the shape under your pull-up and your handstand too.</p>
     </div>
   </div>
 
@@ -63,12 +63,28 @@
 <script>
 
 /* ---------------------------------------------------------------
-   WEEK 2 — the pull-up.
+   WEEK 6 — core.
    From the all-weeks homework sheet. Its easier / base / harder bands
    are expanded onto the skill tree's own levels, which lead.
    --------------------------------------------------------------- */
 const BLOCKS = [
-  {tag:"PULL", name:"The pull", why:"The focus this week, and the one thing to do at home. Do it in both sessions, first, while you are fresh. Explode up on the first reps, fight the lowering slow on the last ones.",
+  {tag:"CORE", name:"The core", why:"The focus this week. Short, frequent and never sloppy — a shaky clean set beats a long ugly one.",
+   levels:{
+     3:[
+        ["Plank","3 sets of 30 seconds","Forearms down, one line from heel to head.","Core &amp; Compression|Plank"],
+        ["Hollow-body hold","3 sets of 30 seconds","Lower back pressed flat. Bend the knees if the back lifts.","Core &amp; Compression|Hollow-body hold"]],
+     4:[
+        ["Hollow-body hold","3 sets of 30 seconds","Lower back pressed flat, ribs down.","Core &amp; Compression|Hollow-body hold"],
+        ["Hollow rocks","2 sets of 10","Rock the whole shape like a rocking chair. If the rock comes from folding at the hips, reset.","Core &amp; Compression|Hollow rocks"]],
+     5:[
+        ["Hanging knee raises","3 sets of 8","No swinging. Curl the pelvis at the top.","Core &amp; Compression|Hanging knee raise"],
+        ["Side plank","2 sets of 30 seconds per side","Elbow under the shoulder, hips lifted and stacked. The sides are everyone's weakest link.","Core &amp; Compression|Side plank"]],
+     6:[
+        ["Hanging leg raises","3 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"],
+        ["Toes to bar","3 sets of 5","Pull the bar toward you with straight arms as the feet travel up.","Core &amp; Compression|Toes to bar"],
+        ["Or: dragon-flag negatives","3 sets of 3","Only once toes to bar is clean. Lower the whole rigid body as slowly as you can.","Core &amp; Compression|Dragon flag"]]
+   }},
+  {tag:"PULL", name:"The pull", why:"The goal of the whole course, so it runs every week whatever else we are doing. Explode up on the first reps, fight the lowering slow on the last ones.",
    levels:{
      3:[
         ["Dead hang","Build to 30 seconds","Just hang and breathe. Let the shoulders rise to the ears &mdash; this one is for the hands and the shoulders.","Hanging &amp; Grip|Passive dead hang"],
@@ -94,17 +110,6 @@ const BLOCKS = [
      6:[
         ["Diamond push-ups","3 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"],
         ["Or: push-ups, three seconds down","3 sets of 5","Same movement, tempo is the load. Pick one of these two, not both.","Push-Up|Full push-up"]]
-   }},
-  {tag:"CORE", name:"One hold", why:"One hold to finish the session. This is what holds the body straight in everything else.",
-   levels:{
-     3:[
-        ["Plank","3 sets of 30 seconds","Forearms down, one line from heel to head. End the set when the back sags, not when the clock says so.","Core &amp; Compression|Plank"]],
-     4:[
-        ["Hollow-body hold","3 sets of 30 seconds","Lower back pressed flat, ribs down. Bend the knees if the back lifts.","Core &amp; Compression|Hollow-body hold"]],
-     5:[
-        ["Hanging knee raises","3 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"]],
-     6:[
-        ["Hanging leg raises","3 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"]]
    }},
   {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
    levels:{

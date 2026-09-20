@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 2</title>
+<title>Practice &middot; Week 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
   <nav class="crumbs">
     <a href="../index.html">&larr; All training</a>
     <a href="index.html">Choose week</a>
-    <span class="here">Week 2</span>
+    <span class="here">Week 7</span>
   </nav>
-  <p class="eyebrow">Week 2 homework &middot; the pull-up</p>
+  <p class="eyebrow">Week 7 homework &middot; skill day</p>
   <h1>Your <span>Practice</span></h1>
-  <p class="lede">This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own.</p>
+  <p class="lede">Light week. The retest is next, so this one is movement and fun rather than a grind. Rest the hard pulling so the retest is honest.</p>
 
   <div class="picker">
     <h3>Pick your level</h3>
@@ -28,23 +28,23 @@
   </div>
 
   <div class="rule">
-    <h3>The golden rule from class</h3>
-    <p>Explode up on the first reps, fight the lowering slow on the last ones.</p>
+    <h3>The one to remember</h3>
+    <p>Rest, sleep and food matter more than an extra session this week. Arrive fresh.</p>
   </div>
 
   <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.</p>
+  <p class="secnote">Nothing to failure. Keep the daily hang, do the shapes for fun, and turn up next week rested.</p>
 
   <div class="plan">
     <div class="box">
-      <h3>Two short sessions</h3>
-      <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
-      <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
+      <h3>One or two easy sessions</h3>
+      <p>Fifteen minutes is plenty. Skip one entirely if you feel beaten up.</p>
+      <p class="sub">No warm-up shortcuts though — light sessions still need warm wrists and shoulders.</p>
     </div>
     <div class="box">
       <h3>Each session</h3>
-      <p>One pull &middot; one push &middot; one hold &middot; one legs.</p>
-      <p class="sub">The pull comes first, while you are fresh. Do it in both sessions.</p>
+      <p>Movement and swing &middot; one easy push &middot; one easy hold.</p>
+      <p class="sub">Stop every set while it still feels fast and clean.</p>
     </div>
     <div class="box">
       <h3>Every day</h3>
@@ -63,24 +63,26 @@
 <script>
 
 /* ---------------------------------------------------------------
-   WEEK 2 — the pull-up.
+   WEEK 7 — skill day.
    From the all-weeks homework sheet. Its easier / base / harder bands
    are expanded onto the skill tree's own levels, which lead.
    --------------------------------------------------------------- */
 const BLOCKS = [
-  {tag:"PULL", name:"The pull", why:"The focus this week, and the one thing to do at home. Do it in both sessions, first, while you are fresh. Explode up on the first reps, fight the lowering slow on the last ones.",
+  {tag:"PLAY", name:"Movement and swing", why:"Light and for feel, not for a score. This is the week before the retest, so the point is to move well and arrive fresh.",
    levels:{
      3:[
-        ["Dead hang","Build to 30 seconds","Just hang and breathe. Let the shoulders rise to the ears &mdash; this one is for the hands and the shoulders.","Hanging &amp; Grip|Passive dead hang"],
-        ["Scapular pulls","3 sets of 5","Arms stay straight. Only the shoulder blades move, and you rise a few centimetres. This is the start of every pull-up.","Pull-Up|Scapular pull-up"]],
+        ["Active hang","3 sets of 20 seconds","Shoulders pulled down away from the ears, arms straight.","Hanging &amp; Grip|Active hang"],
+        ["Hollow and arch shapes","3 sets of 8, slow","On the floor. Feel the strong line and the collapse, and swap between them under control.","Kinetic Chain &amp; Prep|Hollow-to-arch (banana) transitions"]],
      4:[
-        ["Australian rows","3 sets of 8","Under a bar at chest height, body straight, chest touches the bar. Walk the feet forward to make it harder.","Row / Horizontal Pull|Horizontal row"],
-        ["Negatives","4 singles, five seconds down","Chin starts over the bar, then resist all the way to straight arms.","Pull-Up|Assisted pull-up or negative"]],
+        ["Tuck swings","8 controlled swings","Hollow at the front, arch at the back, switching under the bar. Arms stay straight.","Swinging &amp; Bar Basics|Tap swing (active swing)"],
+        ["Australian rows","2 easy sets of 8","Easy sets only. Nothing near failure this week.","Row / Horizontal Pull|Horizontal row"]],
      5:[
-        ["Band pull-ups","4 sets of 4","Yellow band under the foot or knee. Take the least help you can manage.","Pull-Up|Assisted pull-up or negative"],
-        ["Two solo attempts","2 singles, fresh, at the start","No band. Dead hang start, chin over the bar. Before the banded work, not after.","Pull-Up|Full pull-up"]],
+        ["Tuck swings","8 controlled swings","Timing, not effort. The swing should feel light.","Swinging &amp; Bar Basics|Tap swing (active swing)"],
+        ["Explosive pull-ups","3 fast singles, stop fresh","Three fast reps and walk away. Do not chase a number the week before a retest.","Pull-Up|Full pull-up"]],
      6:[
-        ["Pull-up singles","5 sets of 1 to 2, two minutes rest","Never to failure. Explosive up, slow down.","Pull-Up|Full pull-up"]]
+        ["Explosive high pulls","3 fast singles","Pull as fast as you can, aiming to bring the bar to the ribs. Stop while it still feels fast.","Muscle-Up|Explosive high pull"],
+        ["Straight-bar dips","3 sets of 5","Chest leaning slightly over the bar to stay balanced.","Muscle-Up|Straight-bar dip"],
+        ["Ice cream makers","3 to 5, slow","From an inverted hang, roll out toward a front lever and back. Start tucked.","Bar Tricks &amp; Freestyle|Ice cream maker"]]
    }},
   {tag:"PUSH", name:"One push", why:"One push per session, after the pull. Stop two reps before failure.",
    levels:{
@@ -105,17 +107,6 @@ const BLOCKS = [
         ["Hanging knee raises","3 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"]],
      6:[
         ["Hanging leg raises","3 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"]]
-   }},
-  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
-   levels:{
-     3:[
-        ["Bodyweight squats","3 sets of 15","To full depth, heels down. Elevate the heels 2 cm if they lift.","Squat &amp; Lunge|Bodyweight squat"]],
-     4:[
-        ["Split squats","3 sets of 10 per side","Front shin vertical, torso tall, back knee to the floor.","Squat &amp; Lunge|Split squat"]],
-     5:[
-        ["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"]],
-     6:[
-        ["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"]]
    }}
 ];
 

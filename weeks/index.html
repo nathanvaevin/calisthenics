@@ -17,30 +17,43 @@
   </nav>
   <p class="eyebrow">Calisthenics weekly training</p>
   <h1>Choose your <span>week</span></h1>
-  <p class="lede">Eight weeks, opened one at a time after each class. Open the week we are in, pick your level, and tap any exercise to see how it is done.</p>
+  <p class="lede">Eight weeks. Weeks 1 and 8 are test days we run in class; the rest have homework. Open the week we are in, pick your level, and tap any exercise to see how it is done.</p>
 
   <div class="weekgrid" id="weeks"></div>
 </div>
 
 <script>
-/* One line per week. To open the next one, give it a file and a title. */
+/* One line per week. To open the next one, give it a file and a title.
+   CURRENT is the week the class is actually in — move this number each week. */
+const CURRENT = 2;
 const WEEKS = [
   {n:1, file:"week-1.html", t:"Finding your level",
    s:"The first set of exercises, from your scorecard."},
   {n:2, file:"week-2.html", t:"The pull-up",
-   s:"Dead hangs through to pull-up singles, plus one push and one hold."},
-  {n:3}, {n:4}, {n:5}, {n:6}, {n:7}, {n:8}
+   s:"Dead hangs through to pull-up singles, plus push, hold and legs."},
+  {n:3, file:"week-3.html", t:"Handstands",
+   s:"The line from wrist to hip, and the wall. Pull keeps running underneath."},
+  {n:4, file:"week-4.html", t:"Push-ups",
+   s:"Pressing week — scapular work up to diamonds and bar dips."},
+  {n:5, file:"week-5.html", t:"Legs",
+   s:"Squats and hinges, bodyweight only. Nothing needed but a chair."},
+  {n:6, file:"week-6.html", t:"Core",
+   s:"The shapes that hold every other position together."},
+  {n:7, file:"week-7.html", t:"Skill day",
+   s:"Light week before the retest. Movement and fun, not a grind."},
+  {n:8, rest:true, t:"Retest day",
+   s:"No homework — we re-run the scorecard in class and see how far you moved."}
 ];
 
 const mount = document.getElementById("weeks");
-const open = WEEKS.filter(w=> w.file);
-const latest = open.length ? open[open.length - 1].n : null;
+const latest = CURRENT;
 
 WEEKS.forEach(w=>{
   const card = document.createElement(w.file ? "a" : "div");
   card.className = "wk" + (w.file ? (w.n === latest ? " latest" : "") : " soon");
   if(w.file) card.href = w.file;
-  card.innerHTML = '<div class="n">Week ' + w.n + (w.n === latest ? ' &middot; latest' : '') + '</div>'
+  const tag = w.n === latest ? ' &middot; this week' : (w.rest ? ' &middot; in class' : '');
+  card.innerHTML = '<div class="n">Week ' + w.n + tag + '</div>'
     + '<div class="t">' + (w.t || "Unlocked soon") + '</div>'
     + '<div class="s">' + (w.s || "Added after class.") + '</div>';
   mount.append(card);

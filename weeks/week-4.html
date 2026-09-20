@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 2</title>
+<title>Practice &middot; Week 4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
   <nav class="crumbs">
     <a href="../index.html">&larr; All training</a>
     <a href="index.html">Choose week</a>
-    <span class="here">Week 2</span>
+    <span class="here">Week 4</span>
   </nav>
-  <p class="eyebrow">Week 2 homework &middot; the pull-up</p>
+  <p class="eyebrow">Week 4 homework &middot; push-ups</p>
   <h1>Your <span>Practice</span></h1>
-  <p class="lede">This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own.</p>
+  <p class="lede">Pressing week. Two push sessions, built so the second exercise adds volume without grinding the first one into the ground. The pull stays in to keep the goal alive.</p>
 
   <div class="picker">
     <h3>Pick your level</h3>
@@ -28,12 +28,12 @@
   </div>
 
   <div class="rule">
-    <h3>The golden rule from class</h3>
-    <p>Explode up on the first reps, fight the lowering slow on the last ones.</p>
+    <h3>The one to remember</h3>
+    <p>Elbows back, not flared. The body travels as one plank, from heel to head.</p>
   </div>
 
   <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.</p>
+  <p class="secnote">Stop two reps before failure, every set. You are here twice this week, not once.</p>
 
   <div class="plan">
     <div class="box">
@@ -43,8 +43,8 @@
     </div>
     <div class="box">
       <h3>Each session</h3>
-      <p>One pull &middot; one push &middot; one hold &middot; one legs.</p>
-      <p class="sub">The pull comes first, while you are fresh. Do it in both sessions.</p>
+      <p>Push first &middot; one pull &middot; one legs &middot; one hold.</p>
+      <p class="sub">Two pushing exercises at every level, the second one lighter than the first.</p>
     </div>
     <div class="box">
       <h3>Every day</h3>
@@ -63,12 +63,27 @@
 <script>
 
 /* ---------------------------------------------------------------
-   WEEK 2 — the pull-up.
+   WEEK 4 — push-ups.
    From the all-weeks homework sheet. Its easier / base / harder bands
    are expanded onto the skill tree's own levels, which lead.
    --------------------------------------------------------------- */
 const BLOCKS = [
-  {tag:"PULL", name:"The pull", why:"The focus this week, and the one thing to do at home. Do it in both sessions, first, while you are fresh. Explode up on the first reps, fight the lowering slow on the last ones.",
+  {tag:"PUSH", name:"The push", why:"The focus this week. Two pushing sessions, and the second exercise is there to add volume without grinding the first one to failure.",
+   levels:{
+     3:[
+        ["Scapular push-ups","3 sets of 8","High plank, elbows locked. Let the chest sink between the blades, then push the floor away.","Push-Up|Scapular push-up"],
+        ["Incline push-ups","3 sets of 8","Hands on a table or windowsill. Pick a height where 8 is hard but clean.","Push-Up|Incline push-up"]],
+     4:[
+        ["Incline push-ups","3 sets of 8","Lower the height a notch when 8 stops being hard.","Push-Up|Incline push-up"],
+        ["Negative push-ups","3 sets of 3, three seconds down","From the top, lower as slowly as you can, then knees down to come back up.","Push-Up|Full push-up"]],
+     5:[
+        ["Full push-ups","3 sets of as many as stay clean","Stop two before failure.","Push-Up|Full push-up"],
+        ["Negative push-ups","3 sets of 3, three seconds down","Straight after the full sets, when you are already tired.","Push-Up|Full push-up"]],
+     6:[
+        ["Diamond push-ups","3 sets of 6","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"],
+        ["Bar dips","3 sets of 5","The other half of pressing. Lower until the upper arms are level, then lock out.","Dip|Parallel bar dip"]]
+   }},
+  {tag:"PULL", name:"The pull", why:"The goal of the whole course, so it runs every week whatever else we are doing. Explode up on the first reps, fight the lowering slow on the last ones.",
    levels:{
      3:[
         ["Dead hang","Build to 30 seconds","Just hang and breathe. Let the shoulders rise to the ears &mdash; this one is for the hands and the shoulders.","Hanging &amp; Grip|Passive dead hang"],
@@ -82,18 +97,16 @@ const BLOCKS = [
      6:[
         ["Pull-up singles","5 sets of 1 to 2, two minutes rest","Never to failure. Explosive up, slow down.","Pull-Up|Full pull-up"]]
    }},
-  {tag:"PUSH", name:"One push", why:"One push per session, after the pull. Stop two reps before failure.",
+  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
    levels:{
      3:[
-        ["Scapular push-ups","3 sets of 8","High plank, elbows locked. Let the chest sink between the blades, then push the floor away.","Push-Up|Scapular push-up"],
-        ["Incline push-ups","3 sets of 8","Hands on a table or windowsill. Pick a height where 8 is hard but clean.","Push-Up|Incline push-up"]],
+        ["Bodyweight squats","3 sets of 15","To full depth, heels down. Elevate the heels 2 cm if they lift.","Squat &amp; Lunge|Bodyweight squat"]],
      4:[
-        ["Incline push-ups","3 sets of 8","Lower the height a notch when 8 stops being hard.","Push-Up|Incline push-up"]],
+        ["Split squats","3 sets of 10 per side","Front shin vertical, torso tall, back knee to the floor.","Squat &amp; Lunge|Split squat"]],
      5:[
-        ["Full push-ups","3 sets of as many as stay clean","Stop two before failure. Chest a fist's height from the floor, elbows back not flared.","Push-Up|Full push-up"]],
+        ["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"]],
      6:[
-        ["Diamond push-ups","3 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"],
-        ["Or: push-ups, three seconds down","3 sets of 5","Same movement, tempo is the load. Pick one of these two, not both.","Push-Up|Full push-up"]]
+        ["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"]]
    }},
   {tag:"CORE", name:"One hold", why:"One hold to finish the session. This is what holds the body straight in everything else.",
    levels:{
@@ -105,17 +118,6 @@ const BLOCKS = [
         ["Hanging knee raises","3 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"]],
      6:[
         ["Hanging leg raises","3 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"]]
-   }},
-  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
-   levels:{
-     3:[
-        ["Bodyweight squats","3 sets of 15","To full depth, heels down. Elevate the heels 2 cm if they lift.","Squat &amp; Lunge|Bodyweight squat"]],
-     4:[
-        ["Split squats","3 sets of 10 per side","Front shin vertical, torso tall, back knee to the floor.","Squat &amp; Lunge|Split squat"]],
-     5:[
-        ["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"]],
-     6:[
-        ["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"]]
    }}
 ];
 

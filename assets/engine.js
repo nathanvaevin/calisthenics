@@ -9,6 +9,10 @@ const TRACKS = [
 {
   group:"Foundations", name:"Push-Up", cat:"PUSH", tag:"Horizontal pressing — the base for dips, handstand push-ups and eventually planche",
   ladder:[
+    {name:"Scapular push-up", target:"Plank, elbows locked — <b>3 × 8</b>, only the shoulder blades move", level:"foundation", lv:3,
+     primary:["Serratus anterior"], secondary:["Anterior deltoid","Trapezius (upper)","Core"],
+     cues:["High plank with the elbows locked the whole way. Let the chest sink between the shoulder blades, then push the floor away so the upper back rounds.","This is the push-up's version of a scapular pull, and it is what teaches the shoulder to hold a plank, a handstand and eventually a planche."],
+     faults:["Bending the elbows, which turns it into a tiny push-up","Moving two centimetres and calling it a rep"]},
     {name:"Incline push-up", target:"Hands on a bar or bench — <b>15</b> clean reps", level:"foundation", lv:4,
      primary:["Pectoralis major","Anterior deltoid","Triceps"], secondary:["Serratus anterior","Core"],
      cues:["The higher the hands, the easier it is — lower the bar a notch each week instead of dropping to knees.","Squeeze glutes and ribs down so the body travels as one plank."],
@@ -164,10 +168,22 @@ const TRACKS = [
 {
   group:"Foundations", name:"Core &amp; Compression", cat:"CORE", tag:"The midsection that makes levers, planches and presses possible",
   ladder:[
+    {name:"Plank", target:"Forearms down, body one line — hold <b>30–45s</b>", level:"foundation", lv:3,
+     primary:["Rectus abdominis","Transverse abdominis"], secondary:["Anterior deltoid","Glutes","Serratus anterior"],
+     cues:["Elbows under the shoulders, forearms flat, one line from heel to head. Squeeze the glutes and draw the ribs down.","When the lower back sags or the hips creep up, the set is over. A shaky thirty seconds beats a sloppy minute."],
+     faults:["Hips sagging toward the floor","Bum lifted into an easy tent"]},
     {name:"Hollow-body hold", target:"Lower back pressed flat — <b>30s</b>", level:"foundation", lv:4,
      primary:["Rectus abdominis","Transverse abdominis"], secondary:["Hip flexors","Quadriceps"],
      cues:["Press the lower back into the floor first, then lower arms and legs only as far as you can hold it.","Bend the knees to make it easier — never let the back lift."],
      faults:["Arched lower back","Holding the breath"]},
+    {name:"Hollow rocks", target:"<b>2 × 10</b> — rock the shape, never bend it", level:"foundation", lv:4,
+     primary:["Rectus abdominis","Transverse abdominis"], secondary:["Hip flexors","Quadriceps"],
+     cues:["Set the hollow first — lower back flat, shoulders and legs lifted — then rock the whole shape like a rocking chair.","If the rock comes from folding at the hips you have lost the hollow. Stop and re-set rather than grinding out the reps."],
+     faults:["Bending at the hips to create the rock","Letting the lower back come away from the floor"]},
+    {name:"Side plank", target:"<b>2 × 30s</b> each side, hips stacked and lifted", level:"foundation", lv:4,
+     primary:["Obliques","Quadratus lumborum"], secondary:["Gluteus medius","Anterior deltoid","Transverse abdominis"],
+     cues:["Elbow under the shoulder, body one straight line from ear to ankle, hips lifted and stacked one above the other.","Drop to the bottom knee if the hips sag — the sides are usually the weakest part of everyone's core."],
+     faults:["Hips sinking toward the floor","Rolling the chest down instead of keeping it stacked"]},
     {name:"Hanging knee raise", target:"<b>10–12</b> controlled, knees above hips", level:"foundation", lv:5,
      primary:["Rectus abdominis","Hip flexors (iliopsoas)"], secondary:["Obliques","Grip","Latissimus dorsi"],
      cues:["Curl the pelvis under at the top instead of just lifting the thighs.","Lower slowly and kill the swing before the next rep."],
@@ -249,6 +265,10 @@ const TRACKS = [
 {
   group:"Lower body", name:"Squat &amp; Lunge", cat:"LEGS", tag:"Legs first: depth, control and single-leg strength before anything fancy",
   ladder:[
+    {name:"Ankle mobility drill", target:"Knee past the toes, heel down — <b>10</b> slow per side", level:"foundation", lv:1,
+     primary:["Tibialis anterior","Calves"], secondary:["Quadriceps"],
+     cues:["Half-kneeling with the front foot flat, drive the knee forward over the toes without letting the heel lift.","This is the fix when heels pop up in a squat. It is nearly always ankle range, not weak legs."],
+     faults:["Letting the heel lift to steal more range","Rolling the foot inward to cheat the angle"]},
     {name:"Bodyweight squat", target:"<b>20</b> to full depth, heels down", level:"foundation", lv:2,
      primary:["Quadriceps","Gluteus maximus"], secondary:["Adductors","Erector spinae","Calves"],
      cues:["Sit between the heels, knees tracking over the toes — knees travelling forward is normal and fine.","If the heels lift, elevate them 2 cm and work ankle mobility separately."],
@@ -1319,7 +1339,27 @@ const HOWTO = {
 "Kinetic Chain &amp; Prep|Banana rocks":{m:"dragonflag",do:[
  "Lie down and set the banana shape: chest and legs lifted, one long curve.",
  "Rock forward and back along that curve, driving from the whole body rather than the hips.",
- "Ten rocks with the shape held. If it breaks, rest and start again."]}
+ "Ten rocks with the shape held. If it breaks, rest and start again."]},
+"Push-Up|Scapular push-up":{m:"pushup",do:[
+ "Set up in a high plank, hands under the shoulders, elbows locked and staying locked.",
+ "Let the chest sink between the shoulder blades without bending the arms.",
+ "Push the floor away until the upper back rounds and the blades spread wide. Three sets of eight, slowly."]},
+"Core &amp; Compression|Plank":{m:"dragonflag",do:[
+ "Forearms on the floor, elbows directly under the shoulders, feet together.",
+ "Lift the hips until the body is one line from heel to head, then squeeze the glutes and draw the ribs down.",
+ "Breathe. End the set when the back sags or the hips lift, not when the clock says so."]},
+"Core &amp; Compression|Hollow rocks":{m:"dragonflag",do:[
+ "Lie on your back and set the hollow: lower back flat, shoulders and legs lifted.",
+ "Rock the whole body forward and back like a rocking chair, keeping the shape completely fixed.",
+ "Two sets of ten. If the hips start folding, the hollow is gone — reset."]},
+"Core &amp; Compression|Side plank":{m:"dragonflag",do:[
+ "Lie on your side, elbow directly under the shoulder, feet stacked.",
+ "Lift the hips until the body is one straight line from ear to ankle, free arm reaching to the ceiling.",
+ "Hold thirty seconds each side. Drop to the bottom knee if the hips sag."]},
+"Squat &amp; Lunge|Ankle mobility drill":{m:"lunge",do:[
+ "Half-kneel with the front foot flat on the floor, about a hand's width from a wall.",
+ "Drive the front knee forward over the toes, keeping the heel glued down.",
+ "Ten slow reps per side. Move the foot further from the wall as the range improves."]}
 };
 
 const el = (t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e;};
@@ -2229,7 +2269,30 @@ const EXMOVE = {
 /* --- the banana shape held rigid, travelling along its own curve --- */
 "Kinetic Chain &amp; Prep|Banana rocks": EX("Rock the shape, do not bend it", FLOOR, reps(
   [59,99, 76,107, 62,93, 47,85, 108,122, 143,115, 174,109],
-  [54,113, 73,117, 55,107, 39,103, 108,122, 140,105, 168,91]))
+  [54,113, 73,117, 55,107, 39,103, 108,122, 140,105, 168,91])),
+
+/* --- plank position; the chest sinks and lifts, elbows stay locked --- */
+"Push-Up|Scapular push-up": EX("Blades spread, then sink", FLOOR, reps(
+  [160,84, 146,92, 150,112, 154,132, 92,104, 66,116, 40,127],
+  [152,94, 138,100, 146,116, 154,132, 84,110, 58,120, 34,129])),
+
+/* --- forearms down, one line from heel to head --- */
+"Core &amp; Compression|Plank": EX("One line, forearms down", FLOOR, hold(
+  [162,102, 146,108, 146,132, 168,132, 92,112, 64,122, 38,130])),
+
+/* --- the hollow shape rocked as one rigid body --- */
+"Core &amp; Compression|Hollow rocks": EX("Rock the hollow, do not fold", FLOOR, reps(
+  [52,108, 71,113, 57,101, 44,91, 108,124, 141,120, 169,118],
+  [50,124, 70,123, 52,116, 37,110, 108,124, 139,112, 166,102])),
+
+/* --- stacked on one forearm, free arm reaching up --- */
+"Core &amp; Compression|Side plank": EX("Hips lifted, free arm up", FLOOR, hold(
+  [164,100, 150,106, 150,130, 168,132, 96,112, 68,122, 42,130, null,null, null,null, 152,84, 154,62])),
+
+/* --- half-kneeling, front knee travelling over the toes --- */
+"Squat &amp; Lunge|Ankle mobility drill": EX("Knee over the toes, heel down", FLOOR, reps(
+  [114,50, 112,64, 100,78, 90,98, 108,98, 86,106, 70,132, 132,128, 156,132],
+  [100,44, 98,58, 86,72, 76,92, 94,92, 72,102, 70,132, 118,124, 142,132]))
 };
 
 /* =====================================================================
@@ -2261,7 +2324,7 @@ floorPress(p, t){
   const hy = p.hy ?? 0;             // hand height (a box or bar raises it)
   const hz = p.hz ?? 0.04;          // how far the hands sit ahead of the shoulders
   const fw = p.fw ?? 0.10;          // half the distance between the feet
-  const reach = lerp(0.56, 0.20, t);      // straight arms to bottom position
+  const reach = lerp(0.56, p.low ?? 0.20, t);   // straight arms to bottom position
   const S = [0, hy + reach, -hz];         // shoulder centre
   // unless the pose says otherwise, work out the body angle that puts the feet on the floor
   const span = B.torso + B.thigh + B.shin;
@@ -2489,6 +2552,8 @@ const RIG3D = {
 "Planche|Full planche":{r:"floorPress", p:{hw:.24, hz:-.30, tilt:0, fw:.07, hold:0}},
 "Front Lever|Tuck front lever":{r:"barHang", p:{gw:.28, horizontal:true, legs:"tuck", rise:0, hold:0}, prop:"bar"},
 "Front Lever|Straddle front lever":{r:"barHang", p:{gw:.28, horizontal:true, fw:.34, rise:0, hold:0}, prop:"bar"},
+"Push-Up|Scapular push-up":{r:"floorPress", p:{hw:.28, low:.48, flare:.01, back:.02}},
+"Core &amp; Compression|Plank":{r:"floorPress", p:{hw:.26, hold:0}},
 "Kinetic Chain &amp; Prep|Pike scapular push-up":{r:"floorPress", p:{hw:.24, tilt:-46, flare:.14, back:.10, hold:0}},
 "Kinetic Chain &amp; Prep|Active-shoulder wall shrug":{r:"inverted", p:{hw:.24, flare:.02}},
 "Kinetic Chain &amp; Prep|Full integration: chest-to-wall line":{r:"inverted", p:{hw:.22, lean:.04, hold:0}},

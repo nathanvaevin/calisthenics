@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 2</title>
+<title>Practice &middot; Week 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,11 +15,11 @@
   <nav class="crumbs">
     <a href="../index.html">&larr; All training</a>
     <a href="index.html">Choose week</a>
-    <span class="here">Week 2</span>
+    <span class="here">Week 3</span>
   </nav>
-  <p class="eyebrow">Week 2 homework &middot; the pull-up</p>
+  <p class="eyebrow">Week 3 homework &middot; handstands</p>
   <h1>Your <span>Practice</span></h1>
-  <p class="lede">This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own.</p>
+  <p class="lede">Upside down this week. The handstand is one line &mdash; wrist to shoulder to ribs to hips &mdash; and this week builds it. The pull keeps running underneath, because it always does.</p>
 
   <div class="picker">
     <h3>Pick your level</h3>
@@ -28,12 +28,12 @@
   </div>
 
   <div class="rule">
-    <h3>The golden rule from class</h3>
-    <p>Explode up on the first reps, fight the lowering slow on the last ones.</p>
+    <h3>The one to remember</h3>
+    <p>Push the floor away. A handstand is an overhead press you hold instead of finish.</p>
   </div>
 
   <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.</p>
+  <p class="secnote">Balance work wants frequency, not duration. Ten focused minutes beats one long session where the wrists give out early.</p>
 
   <div class="plan">
     <div class="box">
@@ -43,8 +43,8 @@
     </div>
     <div class="box">
       <h3>Each session</h3>
-      <p>One pull &middot; one push &middot; one hold &middot; one legs.</p>
-      <p class="sub">The pull comes first, while you are fresh. Do it in both sessions.</p>
+      <p>Handstand first, while you are fresh &middot; one pull &middot; one push &middot; one hold.</p>
+      <p class="sub">Never start upside down cold. Wrists, shoulders, then the wall.</p>
     </div>
     <div class="box">
       <h3>Every day</h3>
@@ -63,12 +63,25 @@
 <script>
 
 /* ---------------------------------------------------------------
-   WEEK 2 — the pull-up.
+   WEEK 3 — handstands.
    From the all-weeks homework sheet. Its easier / base / harder bands
    are expanded onto the skill tree's own levels, which lead.
    --------------------------------------------------------------- */
 const BLOCKS = [
-  {tag:"PULL", name:"The pull", why:"The focus this week, and the one thing to do at home. Do it in both sessions, first, while you are fresh. Explode up on the first reps, fight the lowering slow on the last ones.",
+  {tag:"BAL", name:"The handstand line", why:"The focus this week. Balance is a skill, so it wants short and frequent practice, always fresh and always at the start of the session.",
+   levels:{
+     3:[
+        ["Chest-to-wall walk-up","Hold 15 to 20 seconds","Feet on the wall, walk the hands in as far as is comfortable. Come down before the shoulders give out.","Handstand|Chest-to-wall handstand"]],
+     4:[
+        ["Chest-to-wall hold","3 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing. Breathe the whole time.","Handstand|Chest-to-wall handstand"]],
+     5:[
+        ["Kick-up practice","10 attempts, no rush","Light kick, catch the balance, and practise stepping out of it. Learn the bail before the balance.","Handstand|Kick-up to balance"],
+        ["Chest-to-wall hold","2 sets of 30 seconds","After the kick-ups, for the shape.","Handstand|Chest-to-wall handstand"]],
+     6:[
+        ["Freestanding attempts","3 sets of 5 attempts","Fresh, at the start. A controlled kick-up with active shoulders is the success, whatever the hold time.","Handstand|Freestanding handstand"],
+        ["Chest-to-wall shrugs","3 sets of 8","Push the floor away and shrug tall. Never sink into the neck.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"]]
+   }},
+  {tag:"PULL", name:"The pull", why:"The goal of the whole course, so it runs every week whatever else we are doing. Explode up on the first reps, fight the lowering slow on the last ones.",
    levels:{
      3:[
         ["Dead hang","Build to 30 seconds","Just hang and breathe. Let the shoulders rise to the ears &mdash; this one is for the hands and the shoulders.","Hanging &amp; Grip|Passive dead hang"],
@@ -106,16 +119,20 @@ const BLOCKS = [
      6:[
         ["Hanging leg raises","3 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"]]
    }},
-  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
+  {tag:"DAILY", name:"Every day this week", why:"Two minutes, whenever. Both are easy and safe, and they build the exact shoulder a handstand needs.",
    levels:{
      3:[
-        ["Bodyweight squats","3 sets of 15","To full depth, heels down. Elevate the heels 2 cm if they lift.","Squat &amp; Lunge|Bodyweight squat"]],
+        ["Wrist prep","20 seconds each way","Circles both ways, palm-down and palm-up rocks, prayer and reverse prayer. Always before anything on the hands.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Prone shoulder raises","2 sets of 10","Face down, arms overhead in a Y, thumbs up. Lift with the elbows locked. No wrists needed.","Kinetic Chain &amp; Prep|Prone shoulder raise"]],
      4:[
-        ["Split squats","3 sets of 10 per side","Front shin vertical, torso tall, back knee to the floor.","Squat &amp; Lunge|Split squat"]],
+        ["Wrist prep","20 seconds each way","Circles both ways, palm-down and palm-up rocks, prayer and reverse prayer. Always before anything on the hands.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Prone shoulder raises","2 sets of 10","Face down, arms overhead in a Y, thumbs up. Lift with the elbows locked. No wrists needed.","Kinetic Chain &amp; Prep|Prone shoulder raise"]],
      5:[
-        ["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"]],
+        ["Wrist prep","20 seconds each way","Circles both ways, palm-down and palm-up rocks, prayer and reverse prayer. Always before anything on the hands.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Prone shoulder raises","2 sets of 10","Face down, arms overhead in a Y, thumbs up. Lift with the elbows locked. No wrists needed.","Kinetic Chain &amp; Prep|Prone shoulder raise"]],
      6:[
-        ["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"]]
+        ["Wrist prep","20 seconds each way","Circles both ways, palm-down and palm-up rocks, prayer and reverse prayer. Always before anything on the hands.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Prone shoulder raises","2 sets of 10","Face down, arms overhead in a Y, thumbs up. Lift with the elbows locked. No wrists needed.","Kinetic Chain &amp; Prep|Prone shoulder raise"]]
    }}
 ];
 

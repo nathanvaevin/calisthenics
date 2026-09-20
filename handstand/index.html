@@ -23,7 +23,9 @@
 </div>
 
 <script>
-/* One line per week. To open the next one, give it a file and a title. */
+/* One line per week. To open the next one, give it a file and a title.
+   CURRENT is the week the class is actually in — move this number each week. */
+const CURRENT = 2;
 const WEEKS = [
   {n:1, file:"week-1.html", t:"The line and the wall",
    s:"Build the shape on the floor, learn the bail, get comfortable upside down."},
@@ -33,14 +35,13 @@ const WEEKS = [
 ];
 
 const mount = document.getElementById("weeks");
-const open = WEEKS.filter(w=> w.file);
-const latest = open.length ? open[open.length - 1].n : null;
+const latest = CURRENT;
 
 WEEKS.forEach(w=>{
   const card = document.createElement(w.file ? "a" : "div");
   card.className = "wk" + (w.file ? (w.n === latest ? " latest" : "") : " soon");
   if(w.file) card.href = w.file;
-  card.innerHTML = '<div class="n">Week ' + w.n + (w.n === latest ? ' &middot; latest' : '') + '</div>'
+  card.innerHTML = '<div class="n">Week ' + w.n + (w.n === latest ? ' &middot; this week' : '') + '</div>'
     + '<div class="t">' + (w.t || "Unlocked soon") + '</div>'
     + '<div class="s">' + (w.s || "Added after class.") + '</div>';
   mount.append(card);
