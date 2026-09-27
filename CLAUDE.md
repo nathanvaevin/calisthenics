@@ -29,16 +29,11 @@ against what the weekly sheets already prescribe.
 Chrome. Run it and actually look at the result before saying an animation
 works. See `tools/README.md`.
 
-## Do not push unless I ask
+## Deploying
 
-Every push to `main` is a Netlify production deploy, and deploys are
-limited. Pushing after each small change burns them for nothing.
+The site is on GitHub Pages, served from `main` at the repo root, so a push
+publishes it — usually live within a minute at
+https://nathanvaevin.github.io/calisthenics/
 
-- Commit locally as often as is useful.
-- **Wait for me to say "push" before pushing.** Finishing a task is not
-  permission to deploy.
-- Let commits pile up and go out as one push.
-- If a push genuinely only touches `tools/`, docs or comments, `netlify.toml`
-  already skips the build. Nothing else needed.
-
-Tell me when work is committed and ready, and I will say when to push.
+There are no build minutes to ration here, so push when the work is finished
+and checked. Say what went live, since a push changes what the class sees.

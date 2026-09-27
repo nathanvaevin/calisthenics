@@ -22,9 +22,15 @@ Rename `index1.html` to `weeks/week-1.html`, or keep your own names. Just keep t
 
 Any static host works, there is no server code here.
 
-- **GitHub Pages.** Push the folder to a repo, then Settings → Pages → deploy from `main`, root. You get `username.github.io/calisthenics/`. Free, and it updates when you push from VS Code.
-- **Netlify.** Drag the folder onto app.netlify.com/drop. Live in ten seconds, and you can attach a custom domain later.
-- **Cloudflare Pages.** Same idea, connect the repo.
+**This site is on GitHub Pages**, served from `main` at the repo root:
+https://nathanvaevin.github.io/calisthenics/
+
+A push publishes it, usually within a minute. Nothing to configure — the
+settings live under Settings → Pages. Free tier covers 1 GB of site and
+100 GB of bandwidth a month, and this site is under half a megabyte.
+
+A custom domain is free too: add a `CNAME` file with the domain, point the
+DNS at GitHub, and a certificate is issued automatically.
 
 Send the group one link to `index.html` and never send a file again. Every week they open the same link and the new week is there.
 
