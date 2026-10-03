@@ -2,70 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 4</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 4 &middot; push-ups</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/legacy-detail.css">
 </head>
 
-<body>
-<div class="wrap">
-  <nav class="crumbs">
-    <a href="../index.html">&larr; All training</a>
-    <a href="index.html">Choose week</a>
-    <span class="here">Week 4</span>
-  </nav>
-  <p class="eyebrow">Week 4 homework &middot; push-ups</p>
-  <h1>Your <span>Practice</span></h1>
-  <p class="lede">Pressing week. Two push sessions, built so the second exercise adds volume without grinding the first one into the ground. The pull stays in to keep the goal alive.</p>
-
-  <div class="picker">
-    <h3>Pick your level</h3>
-    <div class="lvls" id="lvls"></div>
-    <p id="pickernote">Pick the level that matches where you are, block by block &mdash; you might be a 4 on pull and a 6 on legs. If in doubt, take the easier one and do it properly.</p>
-  </div>
-
-  <div class="rule">
-    <h3>The one to remember</h3>
-    <p>Elbows back, not flared. The body travels as one plank, from heel to head.</p>
-  </div>
-
-  <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Stop two reps before failure, every set. You are here twice this week, not once.</p>
-
-  <div class="plan">
-    <div class="box">
-      <h3>Two short sessions</h3>
-      <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
-      <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
-    </div>
-    <div class="box">
-      <h3>Each session</h3>
-      <p>Push first &middot; one pull &middot; one legs &middot; one hold.</p>
-      <p class="sub">Two pushing exercises at every level, the second one lighter than the first.</p>
-    </div>
-    <div class="box">
-      <h3>Every day</h3>
-      <p>Hang from something. A bar, a door frame, a beam &mdash; ten to thirty seconds, once or twice.</p>
-      <p class="sub">It costs nothing, and this one habit is worth more than the rest put together.</p>
-    </div>
-  </div>
-
-  <div id="blocks"></div>
-
-  <footer>The number on each exercise is where it sits in the skill tree. Tap any exercise to see how it is done and which muscles it works. If something here is confusing, ask me before you guess.</footer>
-</div>
+<body class="screen">
+<div id="screen"></div>
 
 <script src="../assets/engine.js"></script>
 <script src="../assets/week.js"></script>
+<script src="../assets/screen-week.js"></script>
 <script>
 
 /* ---------------------------------------------------------------
    WEEK 4 — push-ups.
-   From the all-weeks homework sheet. Its easier / base / harder bands
-   are expanded onto the skill tree's own levels, which lead.
+   Training content and this screen's copy. Every visual decision
+   lives in the design system, never here.
    --------------------------------------------------------------- */
 const BLOCKS = [
   {tag:"PUSH", name:"The push", why:"The focus this week. Two pushing sessions, and the second exercise is there to add volume without grinding the first one to failure.",
@@ -121,7 +79,17 @@ const BLOCKS = [
    }}
 ];
 
-renderWeek(BLOCKS, {levels:[3,4,5,6]});
+renderWeekScreen(BLOCKS, {
+  levels: [3,4,5,6],
+  backHref: "index.html",
+  barTitle: "Week 4",
+  kicker: "Push-ups",
+  title: "Your Practice",
+  lede: "Pressing week. Two sessions, and never to failure.",
+  sessions: "2",
+  minutes: "15",
+  rule: ["The one to remember", "Elbows back, not flared. The body travels as one plank, from heel to head."]
+});
 </script>
 </body>
 </html>

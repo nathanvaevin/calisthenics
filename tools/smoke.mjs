@@ -27,17 +27,38 @@ for(const f of files){
   await page.goto("file://" + full, { waitUntil: "load" });
   await new Promise(r => setTimeout(r, 250));
   const n = await page.evaluate(() => ({
-    blocks: document.querySelectorAll(".ex").length,
-    rows: document.querySelectorAll("details.pex").length + document.querySelectorAll(".flat").length,
-    openOnLoad: document.querySelectorAll("details.pex[open]").length,
-    lvBtns: document.querySelectorAll("#lvls button").length,
-    rungs: document.querySelectorAll("ol.ladder > li").length,
-    cards: document.querySelectorAll(".wk").length,
-    overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    /* new screen */
+    sects:   document.querySelectorAll(".sect").length,
+    exrows:  document.querySelectorAll("details.exrow").length,
+    thumbs:  document.querySelectorAll(".exrow .thumb svg.fig").length,
+    openOnLoad: document.querySelectorAll("details[open]").length,
+    primary: document.querySelectorAll(".action .btn-primary").length,
+    nav:     document.querySelectorAll("nav.nav a").length,
+    lvchip:  document.querySelectorAll(".appbar .lvchip").length,
+    /* legacy screen, still live on the pages not yet migrated */
+    blocks:  document.querySelectorAll(".ex").length,
+    legacy:  document.querySelectorAll("details.pex").length + document.querySelectorAll(".flat").length,
+    rungs:   document.querySelectorAll("ol.ladder > li").length,
+    cards:   document.querySelectorAll(".wk").length,
+    overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
   }));
-  if(errs.length) bad++;
-  console.log(`${f.padEnd(24)} err=${errs.length ? errs.join(" | ") : "none"}` +
-    `  blocks=${n.blocks} rows=${n.rows} open=${n.openOnLoad} lv=${n.lvBtns}` +
+
+  /* A week page that renders no exercises is the failure this tool exists to
+     catch, so an empty page must not report clean. */
+  const isWeek = /week-\d+\.html$/.test(f);
+  const rows = n.exrows + n.legacy;
+  const problems = [];
+  if(errs.length) problems.push(errs.join(" | "));
+  if(isWeek && rows === 0) problems.push("no exercise rows rendered");
+  if(isWeek && n.exrows && n.thumbs < n.exrows) problems.push(`${n.exrows - n.thumbs} thumbnail(s) missing`);
+  if(isWeek && n.exrows && n.primary !== 1) problems.push(`primary actions=${n.primary}, expected 1`);
+  if(n.openOnLoad) problems.push(`${n.openOnLoad} row(s) open on load`);
+  if(n.overflow > 0) problems.push(`page overflows by ${n.overflow}px`);
+  if(problems.length) bad++;
+
+  console.log(`${f.padEnd(24)} ${problems.length ? "FAIL  " + problems.join(" | ") : "ok"}` +
+    `  rows=${rows}` + (n.sects ? ` sects=${n.sects} thumbs=${n.thumbs} nav=${n.nav} lv=${n.lvchip}` : "") +
+    (n.blocks ? ` blocks=${n.blocks}` : "") +
     (n.rungs ? ` rungs=${n.rungs}` : "") + (n.cards ? ` cards=${n.cards}` : ""));
   await page.close();
 }

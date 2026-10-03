@@ -2,70 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 3 &middot; handstands</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/legacy-detail.css">
 </head>
 
-<body>
-<div class="wrap">
-  <nav class="crumbs">
-    <a href="../index.html">&larr; All training</a>
-    <a href="index.html">Choose week</a>
-    <span class="here">Week 3</span>
-  </nav>
-  <p class="eyebrow">Week 3 homework &middot; handstands</p>
-  <h1>Your <span>Practice</span></h1>
-  <p class="lede">Upside down this week. The handstand is one line &mdash; wrist to shoulder to ribs to hips &mdash; and this week builds it. The pull keeps running underneath, because it always does.</p>
-
-  <div class="picker">
-    <h3>Pick your level</h3>
-    <div class="lvls" id="lvls"></div>
-    <p id="pickernote">Pick the level that matches where you are, block by block &mdash; you might be a 4 on pull and a 6 on legs. If in doubt, take the easier one and do it properly.</p>
-  </div>
-
-  <div class="rule">
-    <h3>The one to remember</h3>
-    <p>Push the floor away. A handstand is an overhead press you hold instead of finish.</p>
-  </div>
-
-  <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Balance work wants frequency, not duration. Ten focused minutes beats one long session where the wrists give out early.</p>
-
-  <div class="plan">
-    <div class="box">
-      <h3>Two short sessions</h3>
-      <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
-      <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
-    </div>
-    <div class="box">
-      <h3>Each session</h3>
-      <p>The handstand block in full &middot; then one pull &middot; one push &middot; one hold.</p>
-      <p class="sub">Short on time? The handstand block is the one that matters this week. Never start upside down cold.</p>
-    </div>
-    <div class="box">
-      <h3>Every day</h3>
-      <p>Hang from something. A bar, a door frame, a beam &mdash; ten to thirty seconds, once or twice.</p>
-      <p class="sub">It costs nothing, and this one habit is worth more than the rest put together.</p>
-    </div>
-  </div>
-
-  <div id="blocks"></div>
-
-  <footer>The number on each exercise is where it sits in the skill tree. Tap any exercise to see how it is done and which muscles it works. If something here is confusing, ask me before you guess.</footer>
-</div>
+<body class="screen">
+<div id="screen"></div>
 
 <script src="../assets/engine.js"></script>
 <script src="../assets/week.js"></script>
+<script src="../assets/screen-week.js"></script>
 <script>
 
 /* ---------------------------------------------------------------
    WEEK 3 — handstands.
-   From the all-weeks homework sheet. Its easier / base / harder bands
-   are expanded onto the skill tree's own levels, which lead.
+   Training content and this screen's copy. Every visual decision
+   lives in the design system, never here.
    --------------------------------------------------------------- */
 const BLOCKS = [
   {tag:"BAL", name:"The handstand line", why:"The focus this week. Balance is a skill, so it wants short and frequent practice, always fresh and always at the start of the session.",
@@ -142,7 +100,17 @@ const BLOCKS = [
    }}
 ];
 
-renderWeek(BLOCKS, {levels:[3,4,5,6]});
+renderWeekScreen(BLOCKS, {
+  levels: [3,4,5,6],
+  backHref: "index.html",
+  barTitle: "Week 3",
+  kicker: "Handstands",
+  title: "Your Practice",
+  lede: "The line from wrist to hip. Build it on the floor before the wall.",
+  sessions: "2",
+  minutes: "15",
+  rule: ["The one to remember", "Push the floor away. A handstand is an overhead press you hold instead of finish."]
+});
 </script>
 </body>
 </html>

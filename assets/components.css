@@ -1,69 +1,264 @@
 /* ==========================================================================
    SYSTEM COMPONENTS
-   Built against tokens.css. Ported from design-system.html, which stays the
-   reference. Nothing in this file may contain a raw hex, pixel size, radius
-   or duration. Only tokens.
-
+   Built against tokens.css. design-system.html stays the reference.
+   No raw hex, pixel size, radius or duration in this file. Only tokens.
    This file grows as screens migrate. assets/styles.css shrinks as it does.
    ========================================================================== */
 
-/* --- exercise card -------------------------------------------------------
-   design-system.html section 09.
-
-   One card level. No border at all: depth comes from surface lightness
-   against the near black page, which is rule 1 and rule 2 together.
-
-   Expandable variant. The system's reference card is static, so the
-   disclosure affordance below is a documented gap, not an invention. */
-
-.exercise {
-  background: var(--surface-1);
-  border-radius: var(--radius-md);
-  padding: var(--space-4);
-  margin: 0 0 var(--space-3);
+/* --- screen shell --------------------------------------------------------
+   One column, phone first, centred past --max-width. The hero wash is the
+   fifth permitted use of glow: once per screen, behind the title only. */
+.screen {
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-}
-.exercise + .exercise { margin-top: var(--space-3); }
-
-.exercise > summary {
-  list-style: none;
-  cursor: pointer;
-  display: block;
-  min-height: var(--touch-min);
-}
-.exercise > summary::-webkit-details-marker { display: none; }
-
-.ex-top { display: flex; align-items: flex-start; gap: var(--space-3); }
-.ex-main { flex: 1; min-width: 0; }
-
-.ex-title {
-  font-family: var(--font-display);
-  font-size: var(--fs-h2);
-  line-height: var(--lh-snug);
-}
-
-/* The prescription is a value the athlete cares about, so it is white.
-   Rule 3: amber is reserved for the one action on the screen. */
-.ex-presc {
-  margin-top: var(--space-1);
   font-size: var(--fs-body);
-  color: var(--text);
-}
-
-.ex-cue {
-  margin: var(--space-2) 0 0;
-  font-size: var(--fs-sm);
   line-height: var(--lh-body);
+  min-height: 100vh;
+  padding-bottom: calc(var(--space-8) + var(--space-8));
+}
+.screen-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.hero-wash {
+  position: absolute;
+  inset: calc(var(--space-8) * -1) 0 auto 0;
+  height: calc(var(--space-8) * 5);
+  background: var(--glow-hero);
+  pointer-events: none;
+}
+.hero { position: relative; }
+
+/* --- app bar -------------------------------------------------------------
+   Back, where you are, and the control that changes what you see. */
+.appbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: var(--space-3) 0;
+}
+.appbar-back {
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin-left: calc(var(--space-3) * -1);
+  color: var(--text);
+  text-decoration: none;
+  flex: none;
+}
+.appbar-title {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   color: var(--text-muted);
 }
 
-/* Level badge. Mono, because a level is data. */
+/* --- level chip, a trigger not a label -----------------------------------
+   Amber because it carries state: the level you are on right now. */
+.lvchip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  color: var(--amber);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  flex: none;
+  transition: background var(--dur-micro) var(--ease);
+}
+.lvchip:hover { background: var(--surface-3); }
+.lvchip .dot {
+  width: var(--space-2);
+  height: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--amber);
+  box-shadow: var(--glow-sm);
+}
+.lvchip .caret { color: var(--text-faint); }
+
+/* --- hero ---------------------------------------------------------------- */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.screen-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+  margin: var(--space-2) 0 var(--space-3);
+}
+.lede {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* --- stat strip ----------------------------------------------------------
+   Three values on bare ground, hairlines only. Not the four card tile. */
+.statstrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: var(--space-5) 0;
+  border-top: var(--hairline) solid var(--border);
+  border-bottom: var(--hairline) solid var(--border);
+}
+.statstrip > div {
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+}
+.statstrip > div + div { border-left: var(--hairline) solid var(--border); }
+.statstrip .v {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+}
+.statstrip .v span {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-left: var(--space-1);
+}
+.statstrip .k {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* --- accent note ---------------------------------------------------------
+   The one line to remember. A rule, not a box, so it does not read as a card.
+   Named .callout, since .rule already means something else in the system. */
+.callout {
+  border-left: var(--bar-accent) solid var(--amber);
+  padding: var(--space-1) 0 var(--space-1) var(--space-4);
+  margin: var(--space-5) 0;
+}
+.callout .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.callout p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+/* --- section header ------------------------------------------------------ */
+.sect {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 var(--space-3);
+}
+.sect h2 {
+  flex: 1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.sect .count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-mono);
+  color: var(--text-faint);
+}
+.sect .count.all { color: var(--teal); }
+
+/* --- exercise row --------------------------------------------------------
+   Thumbnail, text, state. One card level, no border, no nesting. */
+.exrow {
+  display: block;
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+.exrow > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+}
+.exrow > summary::-webkit-details-marker { display: none; }
+
+.exrow .thumb {
+  width: var(--thumb);
+  height: var(--thumb);
+  flex: none;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.exrow .thumb svg { width: 100%; height: 100%; display: block; }
+
+.exrow .exbody { flex: 1; min-width: 0; }
+/* The badge cannot share the name's line: at 390px the longest exercise
+   name already fills the column on its own. It anchors right of the dose,
+   which also gives every card one consistent right hand edge. */
+.exrow .presc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.exrow .presc-row .presc { flex: 1; min-width: 0; }
+.exrow .name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  min-width: 0;
+}
+/* The prescription is a value the athlete cares about, so it is white. */
+.exrow .presc {
+  margin-top: var(--space-1);
+  color: var(--text);
+}
+/* One line only. A list is for scanning, the detail panel carries the rest. */
+.exrow .cue {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .badge {
   flex: none;
   font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: var(--tracking-label);
+  letter-spacing: var(--tracking-mono);
   text-transform: uppercase;
   background: var(--surface-2);
   color: var(--text-muted);
@@ -71,12 +266,173 @@
   padding: var(--space-1) var(--space-2);
 }
 
-/* Disclosure affordance. Faint, never amber, so it does not compete. */
-.ex-open {
+.exrow .state {
   flex: none;
+  width: var(--check);
+  height: var(--check);
+  display: grid;
+  place-items: center;
   color: var(--text-faint);
-  font-size: var(--fs-h2);
-  line-height: var(--lh-tight);
   transition: transform var(--dur-micro) var(--ease);
 }
-.exercise[open] .ex-open { transform: rotate(90deg); }
+.exrow[open] .state { transform: rotate(90deg); }
+
+/* Completed. Teal is success, and it is the only thing that changes. */
+.exrow.done .thumb { background: var(--surface-2); opacity: 0.55; }
+.exrow.done .name,
+.exrow.done .presc { color: var(--text-muted); }
+.exrow.done .state {
+  border-radius: var(--radius-pill);
+  background: var(--teal);
+  color: var(--text-on-accent);
+  transform: none;
+}
+.exrow.done[open] .state { transform: none; }
+
+/* --- primary action ------------------------------------------------------
+   One per screen, bottom, full width, black on amber. */
+.action {
+  position: sticky;
+  bottom: calc(var(--space-7) + env(safe-area-inset-bottom));
+  padding: var(--space-5) 0 var(--space-4);
+  background: linear-gradient(to top, var(--bg) 62%, transparent);
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--space-7);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease);
+}
+.btn-primary {
+  background: var(--primary);
+  color: var(--text-on-accent);
+  box-shadow: var(--glow-sm);
+}
+.btn-primary:hover { background: var(--primary-hover); }
+
+/* --- bottom sheet --------------------------------------------------------- */
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay);
+  z-index: var(--z-overlay);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-transition) var(--ease);
+}
+.scrim.on { opacity: 1; pointer-events: auto; }
+
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-sheet);
+  background: var(--surface-raised);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  padding: var(--space-3) var(--gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  transform: translateY(100%);
+  transition: transform var(--dur-transition) var(--ease);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+.sheet.on { transform: translateY(0); }
+.sheet .grab {
+  width: var(--space-8);
+  height: var(--space-1);
+  border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  margin: 0 auto var(--space-5);
+}
+.sheet .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-3);
+}
+.sheet .foot {
+  margin: var(--space-4) 0 0;
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+}
+
+.opt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease);
+}
+.opt:hover { background: var(--surface-3); }
+.opt .n {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  flex: none;
+}
+.opt .what { flex: 1; color: var(--text-muted); font-size: var(--fs-sm); }
+.opt .mark {
+  flex: none;
+  width: var(--check);
+  height: var(--check);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  color: transparent;
+}
+.opt.sel { background: var(--amber-dim); }
+.opt.sel .n { color: var(--amber); }
+.opt.sel .what { color: var(--text); }
+.opt.sel .mark { background: var(--amber); color: var(--text-on-accent); }
+
+/* --- bottom nav ----------------------------------------------------------- */
+.nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  background: var(--surface-1);
+  border-top: var(--hairline) solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav a {
+  flex: 1;
+  min-height: var(--space-7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  text-decoration: none;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+.nav a.active { color: var(--amber); }
+.nav svg { display: block; }

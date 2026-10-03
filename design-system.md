@@ -21,6 +21,8 @@ These are what separate the current build from the reference apps. They are not 
 
 **3. One accent per screen.** Amber marks the single most important thing on the screen, usually the primary action. Values like "3 sets of 8" are white, not amber. When everything is accented, nothing is.
 
+Refined from the week screen mockup (October 2026). Counting ambers was the wrong test. What governs is that amber marks **state and action, never content**: the primary button, the level you are currently on, the one line the coach wants remembered, the hero wash. Exercise names, prescriptions and cues are never amber. Three ambers that all carry state read as a system. Thirty that decorate content read as noise.
+
 **4. Mono is for data only.** Space Mono is for timers, counts, Aura values and at most two system labels per screen. Section headings are display type, not letterspaced mono. Overusing mono makes a whole page feel like a legend.
 
 **5. Stack on mobile.** No left hand label column with content to its right. That pattern halves the usable width on a 390px screen. Label above, content full width.
@@ -74,14 +76,17 @@ Never use amber for ordinary emphasis. It is reserved.
 
 ## 5. Glow, the Dragon Ball layer
 
-Glow is the signature and the whole reason the product's unit is called Aura. It appears in exactly four places:
+Glow is the signature and the whole reason the product's unit is called Aura. It appears in exactly five places:
 
 1. The persona's aura, by tier.
 2. The moment a tier changes or a skill unlocks.
 3. The primary action button, at `--glow-sm`, subtle.
 4. The active state of a timer running.
+5. The hero wash, `--glow-hero`, once per screen, behind the top right of the title block only.
 
 Nowhere else. A glow on every card is a neon sign, not an aura.
+
+The fifth entry was added from the week screen mockup (October 2026). It is a background radial, not a box shadow, which is why it is a separate token. One per screen, behind the hero only, never behind a card or a list.
 
 ### Aura tiers
 

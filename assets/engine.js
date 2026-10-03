@@ -1761,6 +1761,40 @@ function buildHow(host, step, track, prevStep, nextStep){
   }
 }
 
+/* A thumbnail is a portrait, not a demonstration. This draws one pose once
+   and never registers a player, so a list of thumbnails costs no frames.
+   mountFigure below is the animated version, for the opened detail panel. */
+function staticFigure(host, key){
+  const info = HOWTO[key];
+  const move = EXMOVE[key] || (info && MOVES[info.m]);
+  if(!move) return false;
+  host.innerHTML = FIG_SVG;
+  const svg = host.querySelector("svg.fig");
+  svg.querySelector(".props").innerHTML = move.props;
+  const pose = move.poses[0];
+  drawPose({ lines: [...svg.querySelectorAll(".limb")], head: svg.querySelector(".head") },
+           pose, pose, 0);
+
+  /* The shared viewBox is 220x150 because a figure has to move inside it.
+     A portrait does not, so crop to the body and the figure fills the frame
+     instead of sitting as a sliver in the middle of a wide box. */
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for(let i = 0; i < pose.length; i += 2){
+    const x = pose[i], y = pose[i+1];
+    if(x === undefined || x === null || y === undefined || y === null) continue;
+    if(x < x0) x0 = x; if(x > x1) x1 = x;
+    if(y < y0) y0 = y; if(y > y1) y1 = y;
+  }
+  if(x0 === Infinity) return true;
+  const pad = 14;                                   // clears the head radius
+  x0 -= pad; y0 -= pad; x1 += pad; y1 += pad;
+  const side = Math.max(x1 - x0, y1 - y0);          // square, so nothing skews
+  svg.setAttribute("viewBox",
+    (x0 - (side - (x1 - x0)) / 2) + " " + (y0 - (side - (y1 - y0)) / 2) +
+    " " + side + " " + side);
+  return true;
+}
+
 function mountFigure(host, move){
   const svg = host.querySelector("svg.fig");
   if(!svg) return;

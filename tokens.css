@@ -59,6 +59,12 @@
   --glow-sm:  0 0 12px -2px var(--glow-color, var(--amber));
   --glow-md:  0 0 24px -4px var(--glow-color, var(--amber)),
               0 0 48px -12px var(--glow-color, var(--amber));
+  /* The hero wash. A background radial, not a box shadow, so it cannot reuse
+     the glow tokens above. See design-system.md section 5 for why this is a
+     fifth permitted use of glow. */
+  --glow-hero: radial-gradient(60% 42% at 82% 0%,
+               rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0.05) 42%, transparent 72%);
+
   --glow-lg:  0 0 32px -2px var(--glow-color, var(--amber)),
               0 0 80px -8px var(--glow-color, var(--amber)),
               0 0 140px -20px var(--glow-color, var(--amber));
@@ -78,6 +84,7 @@
   --fs-body:    16px;
   --fs-sm:      14px;
   --fs-label:   12px;
+  --fs-micro:   10px;   /* nav labels and stat keys only */
 
   --lh-tight:   1.08;
   --lh-snug:    1.25;
@@ -85,6 +92,7 @@
 
   --tracking-display: -0.02em;
   --tracking-label:    0.14em;
+  --tracking-mono:     0.08em;  /* tighter, for short mono strings like LV 2 */
 
   /* --- SPACING ------------------------------------------------------------
      4px base. Use these only. No 13px, no 22px, ever. */
@@ -96,6 +104,13 @@
   --space-6:  32px;
   --space-7:  48px;
   --space-8:  64px;
+
+  /* Component dimensions. Not spacing steps, so they live here rather than
+     being forced onto the 4px scale. */
+  --thumb:       54px;   /* exercise thumbnail, square */
+  --check:       28px;   /* completion check circle */
+  --bar-accent:   3px;   /* the vertical amber rule on a callout */
+  --hairline:     1px;   /* every divider in the product */
 
   --gutter:      16px;   /* mobile side margin, never less */
   --max-width:   480px;  /* phone first, centred on desktop */

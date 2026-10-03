@@ -133,7 +133,8 @@ BOX_DAILY_HANG = ("Every day","Hang from something. A bar, a door frame, a beam 
                   "It costs nothing, and this one habit is worth more than the rest put together.")
 
 WEEKS = {
-2: dict(title="the pull-up", h1="Your <span>Practice</span>",
+2: dict(title="the pull-up", kicker='The pull-up', short='One class a week is not enough. Train the pull at home, twice.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 2 homework &middot; the pull-up",
     lede="This week was all about the pull. The single most important thing you can do at home is train the pull, because a pull-up is built by pulling, and one class a week is not enough on its own.",
     rule=("The golden rule from class","Explode up on the first reps, fight the lowering slow on the last ones."),
@@ -144,7 +145,8 @@ WEEKS = {
     # page migrates; when every row is listed, make it the default instead.
     systemRows=["Dead hang"]),
 
-3: dict(title="handstands", h1="Your <span>Practice</span>",
+3: dict(title="handstands", kicker='Handstands', short='The line from wrist to hip. Build it on the floor before the wall.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 3 homework &middot; handstands",
     lede="Upside down this week. The handstand is one line &mdash; wrist to shoulder to ribs to hips &mdash; and this week builds it. The pull keeps running underneath, because it always does.",
     rule=("The one to remember","Push the floor away. A handstand is an overhead press you hold instead of finish."),
@@ -152,7 +154,8 @@ WEEKS = {
     boxes=[BOX_SESSIONS, ("Each session","The handstand block in full &middot; then one pull &middot; one push &middot; one hold.","Short on time? The handstand block is the one that matters this week. Never start upside down cold."), BOX_DAILY_HANG],
     blocks=[HANDSTAND, PULL(), PUSH(), CORE(), WRIST_DAILY]),
 
-4: dict(title="push-ups", h1="Your <span>Practice</span>",
+4: dict(title="push-ups", kicker='Push-ups', short='Pressing week. Two sessions, and never to failure.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 4 homework &middot; push-ups",
     lede="Pressing week. Two push sessions, built so the second exercise adds volume without grinding the first one into the ground. The pull stays in to keep the goal alive.",
     rule=("The one to remember","Elbows back, not flared. The body travels as one plank, from heel to head."),
@@ -160,7 +163,8 @@ WEEKS = {
     boxes=[BOX_SESSIONS, ("Each session","Push first &middot; one pull &middot; one legs &middot; one hold.","Two pushing exercises at every level, the second one lighter than the first."), BOX_DAILY_HANG],
     blocks=[PUSH(focus=True), PULL(), LEGS(), CORE()]),
 
-5: dict(title="legs", h1="Your <span>Practice</span>",
+5: dict(title="legs", kicker='Legs', short='Bodyweight only. Nothing needed but a chair.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 5 homework &middot; legs",
     lede="Legs week, the half of the body calisthenics quietly skips. Everything here is bodyweight and needs nothing but a chair. The pull keeps running underneath.",
     rule=("The one to remember","Full depth, heels down. Depth beats reps every time."),
@@ -168,7 +172,8 @@ WEEKS = {
     boxes=[BOX_SESSIONS, ("Each session","Legs first &middot; one pull &middot; one push &middot; one hold.","Two leg exercises at every level: one squat pattern, one hinge."), BOX_DAILY_HANG],
     blocks=[LEGS(focus=True), PULL(), PUSH(), CORE(), ANKLE_DAILY]),
 
-6: dict(title="core", h1="Your <span>Practice</span>",
+6: dict(title="core", kicker='Core', short='Not sit ups. The shapes that hold every other position together.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 6 homework &middot; core",
     lede="Core week. Not sit-ups &mdash; the shapes that hold every other position together. This is the week the hollow body finally makes sense, because it is under your pull-up and your handstand too.",
     rule=("The one to remember","A shaky clean thirty seconds beats a long sloppy minute. When the shape breaks, the set is over."),
@@ -176,7 +181,8 @@ WEEKS = {
     boxes=[BOX_SESSIONS, ("Each session","Core first &middot; one pull &middot; one push &middot; one legs.","Two core exercises at every level: one hold, one that moves."), ("Every day","One hollow hold, even for a minute, plus the daily hang.","It is the shape under your pull-up and your handstand too.")],
     blocks=[CORE(focus=True), PULL(), PUSH(), LEGS()]),
 
-7: dict(title="skill day", h1="Your <span>Practice</span>",
+7: dict(sessions="1", title="skill day", kicker='Skill day', short='Light week before the retest. Move well, arrive fresh.',
+    h1="Your <span>Practice</span>",
     eyebrow="Week 7 homework &middot; skill day",
     lede="Light week. The retest is next, so this one is movement and fun rather than a grind. Rest the hard pulling so the retest is honest.",
     rule=("The one to remember","Rest, sleep and food matter more than an extra session this week. Arrive fresh."),
@@ -207,66 +213,49 @@ TPL = '''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week {n}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week {n} &middot; {title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?{fonts}&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">{sheets}
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/legacy-detail.css">
 </head>
 
-<body>
-<div class="wrap">
-  <nav class="crumbs">
-    <a href="../index.html">&larr; All training</a>
-    <a href="index.html">Choose week</a>
-    <span class="here">Week {n}</span>
-  </nav>
-  <p class="eyebrow">{eyebrow}</p>
-  <h1>{h1}</h1>
-  <p class="lede">{lede}</p>
-
-  <div class="picker">
-    <h3>Pick your level</h3>
-    <div class="lvls" id="lvls"></div>
-    <p id="pickernote">Pick the level that matches where you are, block by block &mdash; you might be a 4 on pull and a 6 on legs. If in doubt, take the easier one and do it properly.</p>
-  </div>
-
-  <div class="rule">
-    <h3>{rule_h}</h3>
-    <p>{rule_p}</p>
-  </div>
-
-  <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">{secnote}</p>
-
-  <div class="plan">
-{boxes}
-  </div>
-
-  <div id="blocks"></div>
-
-  <footer>The number on each exercise is where it sits in the skill tree. Tap any exercise to see how it is done and which muscles it works. If something here is confusing, ask me before you guess.</footer>
-</div>
+<body class="screen">
+<div id="screen"></div>
 
 <script src="../assets/engine.js"></script>
 <script src="../assets/week.js"></script>
+<script src="../assets/screen-week.js"></script>
 <script>
 
 /* ---------------------------------------------------------------
    WEEK {n} — {title}.
-   From the all-weeks homework sheet. Its easier / base / harder bands
-   are expanded onto the skill tree's own levels, which lead.
+   Training content and this screen's copy. Every visual decision
+   lives in the design system, never here.
    --------------------------------------------------------------- */
 const BLOCKS = [
 {blocks}
 ];
 
-renderWeek(BLOCKS, {{levels:[3,4,5,6]{render_opts}}});
+renderWeekScreen(BLOCKS, {{
+  levels: [3,4,5,6],
+  backHref: "index.html",
+  barTitle: "Week {n}",
+  kicker: "{kicker}",
+  title: "Your Practice",
+  lede: "{short}",
+  sessions: "{sessions}",
+  minutes: "15",
+  rule: ["{rule_h}", "{rule_p}"]
+}});
 </script>
 </body>
 </html>
 '''
+
 
 # Legacy pages keep the old faces. A page that opts into the design system
 # also loads Archivo, Archivo Black and Space Mono, plus tokens.css AFTER
@@ -282,13 +271,11 @@ for n, w in WEEKS.items():
     boxes = "\n".join(
       '    <div class="box">\n      <h3>%s</h3>\n      <p>%s</p>\n      <p class="sub">%s</p>\n    </div>' % b
       for b in w["boxes"])
-    srows = w.get("systemRows")
-    html = TPL.format(n=n, title=w["title"], eyebrow=w["eyebrow"], h1=w["h1"], lede=w["lede"],
-                      rule_h=w["rule"][0], rule_p=w["rule"][1], secnote=w["secnote"],
-                      boxes=boxes, blocks=",\n".join(block_js(b) for b in w["blocks"]),
-                      fonts=FONTS_SYSTEM if srows else FONTS_LEGACY,
-                      sheets=SHEETS_SYSTEM if srows else "",
-                      render_opts=(", systemRows:%s" % ('["' + '","'.join(srows) + '"]')) if srows else "")
+    html = TPL.format(n=n, title=w["title"], kicker=w["kicker"], short=w["short"],
+                      sessions=w.get("sessions","2"),
+                      rule_h=w["rule"][0], rule_p=w["rule"][1],
+                      blocks=",\n".join(block_js(b) for b in w["blocks"]))
+
     path = os.path.join(ROOT, "weeks", "week-%d.html" % n)
     open(path, "w").write(html)
     print("wrote weeks/week-%d.html  (%d blocks)" % (n, len(w["blocks"])))

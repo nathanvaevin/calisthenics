@@ -90,3 +90,4 @@ Read `design-system.md` before any UI work. `tokens.css` is the source of truth 
 - Never expose API keys or secrets in frontend code.
 - Secrets, costs and rate limits are part of any feature that calls an external service. Say what one run costs before building it.
 - No em dashes and no hyphens used as connective punctuation in any copy, UI text or documentation.
+- Before recommending a tool, library or approach. Check what this repo already has and say so. Then give me: what is already here, what the alternatives are, and which is better for where this project is going rather than which is cheapest today. Name the tradeoff and let me decide. Never assume something is installed because it is the common choice, and never write a rule that assumes a tool we do not have.

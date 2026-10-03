@@ -2,70 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Practice &middot; Week 6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Week 6 &middot; core</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/legacy-detail.css">
 </head>
 
-<body>
-<div class="wrap">
-  <nav class="crumbs">
-    <a href="../index.html">&larr; All training</a>
-    <a href="index.html">Choose week</a>
-    <span class="here">Week 6</span>
-  </nav>
-  <p class="eyebrow">Week 6 homework &middot; core</p>
-  <h1>Your <span>Practice</span></h1>
-  <p class="lede">Core week. Not sit-ups &mdash; the shapes that hold every other position together. This is the week the hollow body finally makes sense, because it is under your pull-up and your handstand too.</p>
-
-  <div class="picker">
-    <h3>Pick your level</h3>
-    <div class="lvls" id="lvls"></div>
-    <p id="pickernote">Pick the level that matches where you are, block by block &mdash; you might be a 4 on pull and a 6 on legs. If in doubt, take the easier one and do it properly.</p>
-  </div>
-
-  <div class="rule">
-    <h3>The one to remember</h3>
-    <p>A shaky clean thirty seconds beats a long sloppy minute. When the shape breaks, the set is over.</p>
-  </div>
-
-  <h2 class="sec">Getting the best out of it</h2>
-  <p class="secnote">Short, frequent and never sloppy. One hollow hold a day, even for a minute, is worth more than one long session.</p>
-
-  <div class="plan">
-    <div class="box">
-      <h3>Two short sessions</h3>
-      <p>Fifteen to twenty minutes each. Any two days with a day between them.</p>
-      <p class="sub">Warm up for three minutes first: wrists, shoulders, hips, twenty squats, one hang.</p>
-    </div>
-    <div class="box">
-      <h3>Each session</h3>
-      <p>Core first &middot; one pull &middot; one push &middot; one legs.</p>
-      <p class="sub">Two core exercises at every level: one hold, one that moves.</p>
-    </div>
-    <div class="box">
-      <h3>Every day</h3>
-      <p>One hollow hold, even for a minute, plus the daily hang.</p>
-      <p class="sub">It is the shape under your pull-up and your handstand too.</p>
-    </div>
-  </div>
-
-  <div id="blocks"></div>
-
-  <footer>The number on each exercise is where it sits in the skill tree. Tap any exercise to see how it is done and which muscles it works. If something here is confusing, ask me before you guess.</footer>
-</div>
+<body class="screen">
+<div id="screen"></div>
 
 <script src="../assets/engine.js"></script>
 <script src="../assets/week.js"></script>
+<script src="../assets/screen-week.js"></script>
 <script>
 
 /* ---------------------------------------------------------------
    WEEK 6 — core.
-   From the all-weeks homework sheet. Its easier / base / harder bands
-   are expanded onto the skill tree's own levels, which lead.
+   Training content and this screen's copy. Every visual decision
+   lives in the design system, never here.
    --------------------------------------------------------------- */
 const BLOCKS = [
   {tag:"CORE", name:"The core", why:"The focus this week. Short, frequent and never sloppy — a shaky clean set beats a long ugly one.",
@@ -124,7 +82,17 @@ const BLOCKS = [
    }}
 ];
 
-renderWeek(BLOCKS, {levels:[3,4,5,6]});
+renderWeekScreen(BLOCKS, {
+  levels: [3,4,5,6],
+  backHref: "index.html",
+  barTitle: "Week 6",
+  kicker: "Core",
+  title: "Your Practice",
+  lede: "Not sit ups. The shapes that hold every other position together.",
+  sessions: "2",
+  minutes: "15",
+  rule: ["The one to remember", "A shaky clean thirty seconds beats a long sloppy minute. When the shape breaks, the set is over."]
+});
 </script>
 </body>
 </html>
