@@ -220,6 +220,26 @@ const TRACKS = [
      primary:["Pectoralis major","Anterior deltoid"], secondary:["Shoulder capsule","Rotator cuff"],
      cues:["Forearm flat on a door frame, elbow about shoulder height, then turn the chest slowly away from it.","No weight goes through the wrist at all, which is why it still works when the wrists are sore."],
      faults:["Turning fast or bouncing into the stretch","Letting the shoulder shrug up toward the ear"]},
+    {name:"Cat-cow into thread the needle", target:"Spinal waves, then a twist under the body: <b>6 breaths</b>, then <b>5</b> each side", level:"foundation", lv:1,
+     primary:["Thoracic spine","Erector spinae"], secondary:["Rhomboids","Serratus anterior","Latissimus dorsi"],
+     cues:["Exhale to round, inhale to arch. Three seconds on each twist.","Thread one arm under the body and let the upper back rotate, not the hips."],
+     faults:["Moving from the lower back instead of the upper back","Rushing the breath so the spine never fully rounds or arches"]},
+    {name:"Stick overhead hold and rotation", target:"Wide grip overhead, slow torso turns, <b>10s</b> holds", level:"foundation", lv:1,
+     primary:["Anterior deltoid","Trapezius (lower)"], secondary:["Thoracic spine","Serratus anterior","Triceps"],
+     cues:["Grip wide, biceps by the ears, elbows locked, slow torso rotations. Feel the difference between shrugging up and actively pushing.","Narrow the grip only once the elbows stay locked with the biceps still touching the ears."],
+     faults:["Letting the ribs flare so the back arches instead of the shoulders opening","Bending the elbows to reach further back"]},
+    {name:"Straddle forward fold", target:"Hinge from the hips, hands walking forward, <b>90s</b>", level:"foundation", lv:1,
+     primary:["Hamstrings","Adductors"], secondary:["Erector spinae","Calves"],
+     cues:["Hinge from the hips and walk the hands forward. Flex the feet and engage the legs, the foundation of the straddle press.","Sit on a cushion if the pelvis cannot stay upright on the floor."],
+     faults:["Rounding the lower back to get the chest down","Letting the knees roll inward and the feet relax"]},
+    {name:"Hip-flexor lunge stretch", target:"Low lunge, back knee down, arms overhead, <b>60s</b> each side", level:"foundation", lv:1,
+     primary:["Iliopsoas","Rectus femoris"], secondary:["Anterior deltoid","Abdominals"],
+     cues:["Low lunge, back knee down, arms reaching overhead. The hips have to open before the line can straighten.","Tuck the pelvis under before reaching up, or the stretch moves into the lower back."],
+     faults:["Arching the lower back instead of opening the hip","Letting the front knee drift past the toes"]},
+    {name:"Banana hold", target:"Hold the shape without the hands helping, <b>3 \u00d7 20s</b>", level:"foundation", lv:1,
+     primary:["Erector spinae","Gluteus maximus"], secondary:["Posterior deltoid","Hamstrings"],
+     cues:["Lower slowly from a standing overhead reach without the hands helping, then hold the horizontal handstand shape.","Arms stay by the ears the whole time, the same line you want upside down."],
+     faults:["Pushing the hands into the floor to hold the shape","Letting the arms drift away from the ears"]},
     {name:"Prone shoulder raise", target:"Face down, arms overhead, lift the hands keeping elbows straight — <b>3 × 10</b>", level:"foundation", lv:2,
      primary:["Lower trapezius","Posterior deltoid","Erector spinae"], secondary:["Rhomboids","Serratus anterior"],
      cues:["Lie face down, arms straight overhead in a Y. Lift the arms and chest, driving the shoulders toward the ears.","This builds the exact active-shoulder position a handstand needs, with no weight on the wrists. It is the drill you will do every week."],
@@ -228,6 +248,10 @@ const TRACKS = [
      primary:["Deltoids","Serratus anterior"], secondary:["Hamstrings","Calves","Latissimus dorsi"],
      cues:["Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Bend the knees as much as you like — straight legs matter far less here than a long back and open shoulders."],
      faults:["Rounding the back to force the heels down","Sinking into the shoulders instead of pushing away"]},
+    {name:"Overhead band press", target:"Band under both feet, press to full lockout, <b>3 \u00d7 10</b>", level:"foundation", lv:2,
+     primary:["Anterior deltoid","Triceps"], secondary:["Trapezius (upper)","Serratus anterior","Core"],
+     cues:["Band under both feet, press straight overhead to full lockout, biceps by the ears, ribs down.","Finish every rep with the shoulders pushed up toward the ears, which is the handstand position under load."],
+     faults:["Leaning back and turning it into an incline press","Stopping short of lockout so the shoulders never reach end range"]},
     {name:"Hollow-body hold", target:"Lower back pressed flat, ribs down — hold <b>30s</b>", level:"foundation", lv:4,
      primary:["Rectus abdominis","Transverse abdominis"], secondary:["Hip flexors","Quadriceps"],
      cues:["Press the lower back into the floor first, then lower the arms and legs only as far as the back stays flat.","This is the shape of a straight handstand, lying down. Learn it here where you cannot fall."],
@@ -1332,6 +1356,30 @@ const HOWTO = {
  "Put the forearm flat on a door frame or wall, elbow at about shoulder height.",
  "Turn the chest slowly away from the arm until you feel a stretch across the front of the shoulder.",
  "Hold for thirty seconds, breathing. Swap sides. Nothing should pinch."]},
+"Kinetic Chain &amp; Prep|Cat-cow into thread the needle":{m:"pike",do:[
+ "On hands and knees, exhale and round the upper back, then inhale and let it arch. Six slow breaths.",
+ "Then thread one arm under the body and across, letting the upper back rotate while the hips stay square.",
+ "Three seconds on each twist. The movement belongs to the ribs, not the lower back."]},
+"Kinetic Chain &amp; Prep|Stick overhead hold and rotation":{m:"handstand",do:[
+ "Hold a stick or broom with a wide grip and press it straight overhead, elbows locked.",
+ "Bring the biceps to the ears and push up, so the shoulders rise rather than shrug forward.",
+ "Turn the torso slowly left and right. Ten second holds at the end of each range."]},
+"Kinetic Chain &amp; Prep|Straddle forward fold":{m:"pike",do:[
+ "Sit with the legs wide, feet flexed and the knees pointing up.",
+ "Hinge from the hips and walk the hands forward, keeping the lower back long.",
+ "Hold for ninety seconds. Sit on a cushion if the pelvis rolls backward."]},
+"Kinetic Chain &amp; Prep|Hip-flexor lunge stretch":{m:"lunge",do:[
+ "Step into a low lunge and lower the back knee to the floor.",
+ "Tuck the pelvis under first, then reach both arms overhead.",
+ "Sixty seconds each side. The front of the back hip should be what you feel."]},
+"Kinetic Chain &amp; Prep|Banana hold":{m:"dragonflag",do:[
+ "Stand with the arms overhead, then lower slowly to the floor without the hands taking any weight.",
+ "Settle into the banana: arms by the ears, chest and legs off the floor, hips the lowest point.",
+ "Hold twenty seconds. It is the handstand line, laid on its side."]},
+"Kinetic Chain &amp; Prep|Overhead band press":{m:"hspu",do:[
+ "Stand on the middle of a band with both feet and hold the ends at shoulder height.",
+ "Press straight overhead to a full lockout, biceps finishing by the ears and the ribs pulled down.",
+ "Push the shoulders up to the ears at the top of every rep."]},
 "Kinetic Chain &amp; Prep|Down dog":{m:"pike",do:[
  "From a plank, push the hips up and back until the body makes an upside-down V.",
  "Straighten the arms, spread the shoulder blades and push the floor away.",
@@ -1937,6 +1985,9 @@ const BLOCK = '<rect class="prop-fill" x="128" y="120" width="26" height="14"/>'
 const PLATE = '<rect class="prop-fill" x="100" y="70" width="20" height="10" rx="3"/>';
 const WEIGHT = '<rect class="prop-fill" x="102" y="96" width="16" height="12" rx="3"/>';
 const TOWEL = '<line class="prop2" x1="104" y1="20" x2="104" y2="34"/><line class="prop2" x1="116" y1="20" x2="116" y2="34"/>';
+/* A band stood on with both feet, running up to the hands. BAND hangs
+   from above, which is a different exercise entirely. */
+const BAND_FOOT = '<line class="prop2" x1="110" y1="132" x2="126" y2="42" stroke-dasharray="5 4"/>';
 const BAND = '<line class="prop2" x1="110" y1="22" x2="112" y2="112" stroke-dasharray="5 4"/>';
 
 const hold = p => [p, p.map((v,i)=> i % 2 ? v + 3 : v)];
@@ -2369,6 +2420,23 @@ const EXMOVE = {
   [148,44, 150,58, 165,64, 185,50, 153,88, 151,110, 150,132])),
 
 /* --- straight arms, straight legs, hips high --- */
+/* --- new handstand prep drills --- */
+"Kinetic Chain &amp; Prep|Cat-cow into thread the needle": EX("Round, then arch", FLOOR, reps(
+ [62,94, 76,84, 76,108, 76,132, 138,78, 138,132, 164,132],
+ [62,86, 76,96, 76,114, 76,132, 138,94, 138,132, 164,132])),
+"Kinetic Chain &amp; Prep|Stick overhead hold and rotation": EX("Locked out overhead", FLOOR + '<line class="prop" x1="74" y1="14" x2="146" y2="14"/>', reps(
+ [110,36, 110,52, 130,34, 140,14, 110,84, 106,108, 106,132, 114,108, 114,132, 90,34, 80,14],
+ [112,36, 112,52, 132,36, 142,18, 110,84, 106,108, 106,132, 114,108, 114,132, 92,32, 82,12])),
+"Kinetic Chain &amp; Prep|Straddle forward fold": EX("Hinge from the hips", FLOOR, reps(
+ [150,80, 148,96, 140,108, 126,116, 152,124, 112,128, 74,131, 112,120, 74,114, 142,104, 128,112],
+ [104,100, 124,108, 104,114, 78,120, 152,124, 112,129, 74,132, 112,121, 74,115, 106,110, 80,116])),
+"Kinetic Chain &amp; Prep|Hip-flexor lunge stretch": EX("Low lunge, arms up", FLOOR, hold(
+ [112,33, 112,48, 122,28, 128,10, 110,82, 80,106, 78,132, 140,130, 166,126, 102,28, 96,10])),
+"Kinetic Chain &amp; Prep|Banana hold": EX("Hold the banana", FLOOR, hold(
+ [59,99, 76,107, 62,93, 47,85, 108,122, 143,115, 174,109])),
+"Kinetic Chain &amp; Prep|Overhead band press": EX("Press to lockout", FLOOR + BAND_FOOT, reps(
+ [110,40, 110,56, 128,64, 118,46, 110,86, 106,110, 106,132, 114,110, 114,132, 92,64, 102,46],
+ [110,40, 110,56, 118,36, 114,18, 110,86, 106,110, 106,132, 114,110, 114,132, 102,36, 106,18])),
 "Kinetic Chain &amp; Prep|Down dog": EX("Hips high, push the floor away", FLOOR, hold(
   [136,100, 124,88, 139,110, 154,132, 102,58, 82,95, 64,132])),
 
