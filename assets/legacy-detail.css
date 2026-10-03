@@ -67,13 +67,7 @@
   .b3h{fill:none;stroke:var(--accent);stroke-width:4}
   .b3d{fill:var(--accent)}
   .figwrap svg{width:100%;height:auto;display:block}
-  .fig .prop{stroke:#46587A;stroke-width:3;stroke-linecap:round}
-  .fig .prop2{stroke:#33415C;stroke-width:3;stroke-linecap:round}
-  .fig .prop-fill{fill:#1F2B41}
-  .fig .limb{stroke:var(--accent);stroke-width:6;stroke-linecap:round}
-  .fig .limb.torso{stroke-width:7}
-  .fig .limb.l2{stroke:#B9852F}
-  .fig .head{fill:none;stroke:var(--accent);stroke-width:5}
+  /* The figure is a system component now: see assets/components.css. */
   .fig-cap{margin:4px 0 0;text-align:center;color:var(--muted);font-size:.78rem;
     font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.12em}
   ol.steps{margin:0;padding-left:20px;font-size:.94rem}

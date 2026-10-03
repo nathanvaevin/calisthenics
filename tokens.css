@@ -111,6 +111,21 @@
   --check:       28px;   /* completion check circle */
   --bar-accent:   3px;   /* the vertical amber rule on a callout */
   --hairline:     1px;   /* every divider in the product */
+  --ring:       232px;   /* countdown ring, the focus of a timed set */
+  --ring-track:   6px;   /* its stroke weight */
+  --ring-sm:    132px;   /* the same ring inside a reference frame */
+
+  /* The stick figure. Stroke widths are user units inside a fixed
+     220x150 viewBox, so they scale with the figure, not with the page. */
+  --fig-limb:       var(--amber);
+  --fig-limb-far:   var(--amber-dim);   /* the limb on the far side */
+  --fig-prop:       var(--text-faint);  /* bar, floor, bench edge */
+  --fig-prop-dim:   var(--surface-raised);
+  --fig-prop-fill:  var(--surface-2);
+  --fig-stroke:        6;
+  --fig-stroke-torso:  7;
+  --fig-stroke-head:   5;
+  --fig-stroke-prop:   3;
 
   --gutter:      16px;   /* mobile side margin, never less */
   --max-width:   480px;  /* phone first, centred on desktop */

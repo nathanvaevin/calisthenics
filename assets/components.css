@@ -436,3 +436,355 @@
 }
 .nav a.active { color: var(--amber); }
 .nav svg { display: block; }
+
+/* =====================================================================
+   SESSION
+   Workout mode is two renderings of one session, so both views read the
+   same set objects and write the same results. Nothing below knows how a
+   prescription was worded: parseDose did that in the data layer.
+   ===================================================================== */
+
+/* --- segmented control ---------------------------------------------------- */
+.seg {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+}
+.seg button {
+  flex: 1;
+  min-height: var(--space-6);
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease),
+              color var(--dur-micro) var(--ease);
+}
+.seg button[aria-selected="true"] {
+  background: var(--surface-raised);
+  color: var(--text);
+}
+
+/* --- set row -------------------------------------------------------------- */
+/* Most of what is taught here is a hold, so the timed row is the common
+   case and the rep row is the variant, not the other way round. */
+.setrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  background: var(--surface-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--dur-micro) var(--ease);
+}
+.setrow + .setrow { margin-top: var(--space-2); }
+.setrow .n {
+  flex: none;
+  width: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-faint);
+}
+.setrow .target {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-body);
+  color: var(--text);
+  letter-spacing: var(--tracking-mono);
+}
+.setrow .target.open {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  letter-spacing: normal;
+  color: var(--text-muted);
+}
+.setrow .qual {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  letter-spacing: normal;
+  color: var(--text-faint);
+}
+.setrow .tick {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--check);
+  height: var(--check);
+  border-radius: var(--radius-pill);
+  border: var(--hairline) solid var(--border-strong);
+  color: transparent;
+  transition: background var(--dur-micro) var(--ease),
+              color var(--dur-micro) var(--ease);
+}
+.setrow.done { background: var(--surface-2); }
+.setrow.done .target { color: var(--text-faint); text-decoration: line-through; }
+.setrow.done .tick {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--text-on-accent);
+}
+
+/* --- countdown ring ------------------------------------------------------- */
+.ring {
+  position: relative;
+  width: var(--ring);
+  height: var(--ring);
+  margin: 0 auto;
+}
+.ring.ring-sm { width: var(--ring-sm); height: var(--ring-sm); }
+.ring.ring-sm .clock { font-size: var(--fs-h1); }
+.ring svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .track { fill: none; stroke: var(--surface-3); stroke-width: var(--ring-track); }
+.ring .bar {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: var(--ring-track);
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--dur-micro) linear;
+}
+.ring.running { filter: drop-shadow(var(--glow-sm)); }
+.ring.done .bar { stroke: var(--success); }
+.ring .face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-1);
+}
+.ring .clock {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-timer);
+  line-height: var(--lh-tight);
+  font-weight: 700;
+}
+.ring .cap {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* --- rep counter, the ring's twin for a counted set ----------------------- */
+.repface {
+  display: grid;
+  place-items: center;
+  gap: var(--space-1);
+  height: var(--ring);
+}
+.repface .count {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+}
+.repface .cap {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* --- secondary action ----------------------------------------------------- */
+/* While a timer runs the ring is the focus, so the button steps back and
+   only becomes amber when finishing the set is the thing to do next. */
+.btn-ghost {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.btn-ghost:hover { background: var(--surface-raised); }
+
+.btn-row { display: flex; gap: var(--space-2); }
+.btn-row .btn { flex: 1; }
+.btn-adj {
+  flex: none;
+  width: var(--space-7);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+}
+
+/* =====================================================================
+   SESSION SHELL
+   Workout mode covers the week screen rather than navigating away, so
+   closing it returns the athlete exactly where they were, mid scroll.
+   ===================================================================== */
+/* Scoped rather than global: the legacy teaching panel still assumes the
+   content box and is not ready to be reflowed. */
+.session, .session *, .session *::before, .session *::after { box-sizing: border-box; }
+
+.session {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+.session-head {
+  flex: none;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + var(--space-3)) var(--gutter) var(--space-3);
+}
+.session-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+}
+.session-top .elapsed {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.icon-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  margin-left: calc(var(--space-3) * -1);
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.session-head .seg { margin-top: var(--space-3); }
+
+.session-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter) var(--space-5);
+}
+.session-foot {
+  flex: none;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter) calc(var(--space-4) + env(safe-area-inset-bottom));
+}
+
+/* --- list view ------------------------------------------------------------ */
+.exgroup + .exgroup { margin-top: var(--space-5); }
+.exgroup .exname {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  margin: 0 0 var(--space-2);
+}
+.exgroup .exmeta {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  margin: calc(var(--space-1) * -1) 0 var(--space-2);
+}
+
+/* --- guided view ---------------------------------------------------------- */
+.gview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+.gview .where {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.gview .exname {
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+.gview .qual { font-size: var(--fs-sm); color: var(--text-muted); margin: 0; }
+.gstage { width: 100%; max-width: var(--ring); }
+
+/* --- rest ----------------------------------------------------------------- */
+.rest { text-align: center; }
+.rest .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* --- session complete ----------------------------------------------------- */
+.summary { text-align: center; padding-top: var(--space-6); }
+.summary .mark {
+  width: var(--space-8);
+  height: var(--space-8);
+  margin: 0 auto var(--space-5);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--success);
+  color: var(--text-on-accent);
+}
+.summary h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  margin: 0 0 var(--space-2);
+}
+.summary .lede { margin: 0 auto var(--space-6); }
+
+/* =====================================================================
+   THE FIGURE
+   The stick figure is product, not decoration, so it is a component and
+   not something a page redefines. legacy-detail.css no longer carries a
+   copy. assets/styles.css still has its own, for the pages not yet
+   migrated, and that copy goes when they do.
+   ===================================================================== */
+svg.fig { display: block; width: 100%; height: auto; }
+svg.fig .prop {
+  stroke: var(--fig-prop);
+  stroke-width: var(--fig-stroke-prop);
+  stroke-linecap: round;
+}
+svg.fig .prop2 {
+  stroke: var(--fig-prop-dim);
+  stroke-width: var(--fig-stroke-prop);
+  stroke-linecap: round;
+}
+svg.fig .prop-fill { fill: var(--fig-prop-fill); }
+svg.fig .limb {
+  stroke: var(--fig-limb);
+  stroke-width: var(--fig-stroke);
+  stroke-linecap: round;
+}
+svg.fig .limb.torso { stroke-width: var(--fig-stroke-torso); }
+svg.fig .limb.l2 { stroke: var(--fig-limb-far); }
+svg.fig .head {
+  fill: none;
+  stroke: var(--fig-limb);
+  stroke-width: var(--fig-stroke-head);
+}

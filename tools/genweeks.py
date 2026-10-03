@@ -228,6 +228,7 @@ TPL = '''<!DOCTYPE html>
 
 <script src="../assets/engine.js"></script>
 <script src="../assets/week.js"></script>
+<script src="../assets/screen-session.js"></script>
 <script src="../assets/screen-week.js"></script>
 <script>
 

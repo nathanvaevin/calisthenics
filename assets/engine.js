@@ -1764,6 +1764,78 @@ function buildHow(host, step, track, prevStep, nextStep){
 /* A thumbnail is a portrait, not a demonstration. This draws one pose once
    and never registers a player, so a list of thumbnails costs no frames.
    mountFigure below is the animated version, for the opened detail panel. */
+/* =====================================================================
+   DOSE PARSING
+   A prescription is authored as a sentence, because that is how a coach
+   writes one. Workout mode needs sets, a target and whether the set is
+   timed, so the sentence is turned into structure once, here in the data
+   layer. Components read the structure and never re-read the sentence.
+
+   A sentence this cannot read becomes an open set carrying the coach's
+   original words. It never guesses a number, because a guessed number is
+   a wrong instruction to somebody training.
+   ===================================================================== */
+const WORDNUM = {one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10};
+
+function parseDose(raw){
+  const out = { sets:1, kind:"open", value:null, to:null, perSide:false,
+                rest:null, lead:null, note:null, raw:raw };
+  if(!raw) return out;
+  let t = String(raw).trim().toLowerCase();
+  const notes = [];
+
+  /* rest instruction, e.g. "two minutes rest", "two minutes between" */
+  const rest = t.match(/(\d+|[a-z]+)\s+(second|minute)s?\s+(?:rest|between)/);
+  if(rest){
+    const n = parseInt(rest[1],10) || WORDNUM[rest[1]] || null;
+    if(n) out.rest = rest[2] === "minute" ? n * 60 : n;
+    t = t.replace(rest[0], "").replace(/[,\s]+$/,"").trim();
+  }
+
+  /* one side at a time */
+  const side = t.match(/\b(per side|each side|each way|per leg|each leg)\b/);
+  if(side){ out.perSide = true; t = t.replace(side[0], " ").replace(/\s+/g," ").trim(); }
+
+  /* the coach's qualifier lives after the first comma */
+  let tail = null;
+  const c = t.indexOf(",");
+  if(c >= 0){ tail = t.slice(c+1).trim(); t = t.slice(0, c).trim(); }
+
+  /* how many sets */
+  let m = t.match(/^(\d+)\s+(?:easy\s+|fast\s+|slow\s+)?sets?\s+of\s+/);
+  if(m){ out.sets = parseInt(m[1],10); t = t.slice(m[0].length).trim(); }
+  else if((m = t.match(/^(\d+)\s+(?:fast\s+|slow\s+)?singles?\b/))){
+    out.sets = parseInt(m[1],10); out.kind = "reps"; out.value = 1;
+    t = t.slice(m[0].length).trim();
+  }
+
+  /* "build to 45 seconds" is still a 45 second target */
+  const lead = t.match(/^(build (?:to|toward)|hold)\s+/);
+  if(lead){ out.lead = lead[1]; t = t.slice(lead[0].length).trim(); }
+
+  /* the target itself */
+  let q = null;
+  if((q = t.match(/^(\d+)(?:\s+to\s+(\d+))?\s*(second|minute)s?/))){
+    const mult = q[3] === "minute" ? 60 : 1;
+    out.kind = "time";
+    out.value = parseInt(q[1],10) * mult;
+    if(q[2]) out.to = parseInt(q[2],10) * mult;
+  } else if((q = t.match(/^(one|two|three|four|five|six|seven|eight|nine|ten)\s+(second|minute)s?/))){
+    out.kind = "time";
+    out.value = WORDNUM[q[1]] * (q[2] === "minute" ? 60 : 1);
+  } else if((q = t.match(/^(\d+)(?:\s+to\s+(\d+))?\b/))){
+    out.kind = "reps";
+    out.value = parseInt(q[1],10);
+    if(q[2]) out.to = parseInt(q[2],10);
+  }
+  if(q) t = t.slice(q[0].length).trim();
+  if(t) notes.push(t);
+  if(tail) notes.push(tail);
+
+  out.note = notes.filter(Boolean).join(", ") || null;
+  return out;
+}
+
 function staticFigure(host, key){
   const info = HOWTO[key];
   const move = EXMOVE[key] || (info && MOVES[info.m]);

@@ -8,6 +8,9 @@
 <!-- tokens.css must sit in the same folder. It is the single source of truth. -->
 <link rel="stylesheet" href="tokens.css">
 
+<!-- The real shipped components, so this page cannot drift from the product. -->
+<link rel="stylesheet" href="assets/components.css">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -197,13 +200,6 @@ section { margin-bottom: var(--space-8); }
 .guided-stage { position: absolute; inset: 0; display: grid; place-items: center; z-index: 0; }
 .guided-top { display: flex; justify-content: space-between; align-items: center; }
 .guided-bottom { text-align: center; }
-.ring { position: relative; width: 132px; height: 132px; margin: 0 auto var(--space-4); }
-.ring svg { transform: rotate(-90deg); }
-.ring .time {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: var(--fs-h1); font-weight: 700;
-}
 .guided .exname { font-family: var(--font-display); text-transform: uppercase; font-size: var(--fs-h2); letter-spacing: var(--tracking-display); margin-bottom: var(--space-4); }
 
 /* --- bottom nav --------------------------------------------------------- */
@@ -415,13 +411,12 @@ section { margin-bottom: var(--space-8); }
       </div>
       <div class="guided-bottom">
         <div class="exname">Scapular push ups</div>
-        <div class="ring">
-          <svg width="132" height="132">
-            <circle cx="66" cy="66" r="58" stroke="var(--surface-3)" stroke-width="8" fill="none"/>
-            <circle cx="66" cy="66" r="58" stroke="var(--amber)" stroke-width="8" fill="none"
-                    stroke-linecap="round" stroke-dasharray="364" stroke-dashoffset="132"/>
+        <div class="ring ring-sm running" style="margin-bottom: var(--space-4)">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle class="track" cx="50" cy="50" r="45"/>
+            <circle class="bar" cx="50" cy="50" r="45" stroke-dasharray="282.74" stroke-dashoffset="102"/>
           </svg>
-          <div class="time">00:42</div>
+          <div class="face"><div class="clock">0:42</div></div>
         </div>
         <button class="btn btn-primary">Complete and next</button>
       </div>
@@ -468,9 +463,44 @@ section { margin-bottom: var(--space-8); }
     <p class="note">These eight values only. No 13px, no 22px, ever.</p>
   </section>
 
+  <!-- ============================= SET ROWS ============================= -->
+  <section>
+    <p class="section-label">13 Set rows</p>
+    <div style="max-width:320px">
+      <button class="setrow done"><span class="n">1</span><span class="target">0:30</span><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+      <button class="setrow"><span class="n">2</span><span class="target">0:30</span><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+      <button class="setrow"><span class="n">3</span><span class="target">8 reps <span class="qual">five seconds down</span></span><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+      <button class="setrow"><span class="n">4</span><span class="target">as many as stay clean</span><span class="tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span></button>
+    </div>
+    <p class="note">The timed row is the common case here, not the edge case. Most of what this course teaches is a hold. A set with no number stays open and keeps the coach's words rather than inventing a target.</p>
+  </section>
+
+  <!-- =========================== COUNTDOWN RING ========================== -->
+  <section>
+    <p class="section-label">14 Countdown ring</p>
+    <div class="ring running">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="track" cx="50" cy="50" r="45"/>
+        <circle class="bar" cx="50" cy="50" r="45" stroke-dasharray="282.74" stroke-dashoffset="99"/>
+      </svg>
+      <div class="face"><div class="clock">0:19</div><div class="cap">Set 2 of 3</div></div>
+    </div>
+    <p class="note">A running timer is one of the four places glow is allowed. While it runs it is the focus of the screen, so the button underneath steps back to grey and only turns amber when finishing the set is the next thing to do.</p>
+  </section>
+
+  <!-- ========================= SEGMENTED CONTROL ========================= -->
+  <section>
+    <p class="section-label">15 Segmented control</p>
+    <div class="seg" style="max-width:260px" role="tablist">
+      <button role="tab" aria-selected="true">List</button>
+      <button role="tab" aria-selected="false">Guided</button>
+    </div>
+    <p class="note">One session, two renderings. The toggle changes presentation only, never the data, which is why carrying both views costs almost nothing.</p>
+  </section>
+
   <!-- =============================== RULES ============================== -->
   <section>
-    <p class="section-label">13 The six rules</p>
+    <p class="section-label">16 The six rules</p>
     <div class="rules">
       <div class="rule no"><span class="tag">Do not</span><p>Nest bordered boxes. Maximum one card level. Depth comes from surface lightness and spacing.</p></div>
       <div class="rule no"><span class="tag">Do not</span><p>Use mid tone navy as the base. Near black makes content separate.</p></div>

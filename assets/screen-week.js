@@ -103,6 +103,17 @@ function renderWeekScreen(BLOCKS, opts){
     const btn = el("button","btn btn-primary",
       finished === 0 ? "Start session" : finished === total ? "Session complete" : "Continue session");
     btn.type = "button";
+    btn.addEventListener("click", ()=> startSession(BLOCKS, j=> state[j], {
+      /* A finished exercise is one whose every set was ticked. Anything
+         less stays open, because a half done exercise is not done. */
+      onClose: (S)=>{
+        S.exercises.forEach(e=>{
+          if(e.sets.length && e.sets.every(x=> x.done))
+            DONE.add(e.bi + "|" + state[e.bi] + "|" + e.name);
+        });
+        build();
+      }
+    }));
     act.append(btn);
     inner.append(act);
 
