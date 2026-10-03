@@ -402,18 +402,54 @@ const TRACKS = [
 {
   group:"Balance &amp; straight-arm skills", name:"Handstand", cat:"BAL", tag:"The keystone balance skill — it feeds pressing, planche and everything overhead",
   ladder:[
+    {name:"Cartwheel exit", target:"The way out, learned before the way up: <b>2</b> practice bails every session", level:"foundation", lv:3,
+     primary:["Shoulders","Obliques"], secondary:["Wrist extensors","Quadriceps"],
+     cues:["Taught first, before any kick-up at all. Hand, hand, foot, foot, and you are standing. Do it until it is boring.","If the handstand goes past balance, turn and step down sideways. Never fold and land on the back."],
+     faults:["Tucking the head and collapsing forward instead of turning out","Only practising it when a handstand has already gone wrong"]},
     {name:"Chest-to-wall handstand", target:"Belly to wall, shoulders shrugged, hollow — hold <b>60s</b>", level:"foundation", lv:4,
      primary:["Deltoids","Trapezius (upper)","Serratus anterior"], secondary:["Triceps","Rectus abdominis","Glutes","Wrist flexors"],
      cues:["Push the floor away hard — ears covered by the arms, shoulders as open as they will go.","Ribs down, glutes squeezed, one straight line from wrist to toe."],
      faults:["Banana back with ribs flaring","Shoulders closed so the body leans away from the wall"]},
+    {name:"Wall walks", target:"Feet up the wall and back down under control, <b>5</b> up and down", level:"foundation", lv:4,
+     primary:["Anterior deltoid","Serratus anterior"], secondary:["Core","Triceps","Wrist extensors"],
+     cues:["Walk the feet up the wall from the floor and back down under control. Stop where the shoulders still feel strong.","Walking down is the half that builds the strength, so never fall out of the top."],
+     faults:["Letting the hips sag so the back takes the load","Walking the hands so close that the shoulders give out"]},
+    {name:"Step-and-freeze kick-up", target:"Lunge, plant, kick, freeze: <b>8</b> reps", level:"foundation", lv:4,
+     primary:["Anterior deltoid","Hip flexors"], secondary:["Core","Gluteus maximus","Wrist extensors"],
+     cues:["Lunge in, plant the hands, kick the lead leg up and freeze at the top of the range. Step, plant, kick, freeze. Own the launch.","Freezing is the whole exercise. A kick you cannot stop is a kick you cannot aim."],
+     faults:["Kicking harder to get higher instead of kicking more accurately","Bending the arms as the leg comes up"]},
+    {name:"Partner-assisted kick-up", target:"Steadied into the real position, <b>6</b> reps each", level:"foundation", lv:4,
+     primary:["Anterior deltoid","Core"], secondary:["Trapezius (upper)","Gluteus maximus"],
+     cues:["Partner stands beside you, ready at the hips, and steadies you into the balance so you can feel the real position.","The partner catches, they do not hold. Ten seconds of the true position teaches more than a minute of fighting the wall."],
+     faults:["Leaning on the partner instead of stacking over the hands","A partner who grabs the legs rather than steadying the hips"]},
+    {name:"Wheelbarrow partner hold", target:"Partner holds the legs, <b>3 \u00d7 20s</b>", level:"foundation", lv:4,
+     primary:["Anterior deltoid","Core"], secondary:["Serratus anterior","Triceps","Wrist extensors"],
+     cues:["Partner holds the legs. Static hold first, then small forward and back shifts.","It is the handstand line with the balance taken away, so all that is left is holding the shape."],
+     faults:["Letting the hips drop so the line breaks at the waist","Shrugging the shoulders down instead of pushing them tall"]},
     {name:"Kick-up to balance", target:"Find the balance point at the wall, then step away from it", level:"foundation", lv:5,
      primary:["Deltoids","Serratus anterior","Wrist flexors"], secondary:["Core","Hip flexors","Finger flexors"],
      cues:["Kick with a controlled, light leg — most people kick far too hard.","Learn a bail (cartwheel out) before you learn to balance; confidence comes from knowing how to land."],
      faults:["Kicking through and over","Elbows bending on the way up"]},
+    {name:"Wall shoulder taps", target:"Chest to wall, tap the opposite shoulder, <b>8</b> each side", level:"foundation", lv:5,
+     primary:["Anterior deltoid","Core"], secondary:["Serratus anterior","Obliques","Wrist extensors"],
+     cues:["In the chest-to-wall handstand, tap one hand to the opposite shoulder. Weight shift and stability.","Shift the weight across before the hand leaves the floor, not after."],
+     faults:["Snatching the hand up and back down to beat the wobble","Letting the hips twist away from the wall"]},
+    {name:"Toe pulls", target:"One foot off the wall at a time, <b>10</b> attempts", level:"foundation", lv:5,
+     primary:["Core","Anterior deltoid"], secondary:["Hip flexors","Gluteus maximus"],
+     cues:["Walk one foot off the wall at a time and find the balance point for a moment before coming back.","This is the first time you meet the real balance point, and a moment of it is a win."],
+     faults:["Pulling both feet off at once and falling out","Arching the back as the feet leave the wall"]},
     {name:"Freestanding handstand", target:"Build <b>10s → 30s → 60s</b>", level:"intermediate", lv:6,
      primary:["Deltoids","Serratus anterior","Wrist and finger flexors"], secondary:["Triceps","Core","Glutes","Upper trapezius"],
      cues:["Balance corrections come from the fingers and wrists first, hips second.","Fix the line before chasing time — a straight 15-second hold beats a banana minute."],
      faults:["Arching to hold balance","Holding the breath"]},
+    {name:"Silent kick-up challenge", target:"Least noise against the wall wins, <b>10</b> attempts", level:"intermediate", lv:6,
+     primary:["Anterior deltoid","Core"], secondary:["Hip flexors","Gluteus maximus"],
+     cues:["Least noise against the wall wins. Nothing forces control and precision faster.","Aim to never touch the wall at all. The noise is just the scoreboard."],
+     faults:["Slowing the kick so much that it never reaches vertical","Treating it as a game rather than as the control drill it is"]},
+    {name:"Overbalance and underbalance drill", target:"Shift past balance both ways on purpose, <b>10</b> attempts", level:"intermediate", lv:6,
+     primary:["Core","Anterior deltoid"], secondary:["Forearm flexors","Gluteus maximus"],
+     cues:["Deliberately shift into overbalance and back. Overbalance, you cartwheel out; underbalance, you step down. Knowing both is what frees the balance.","You cannot correct a direction you have never felt. This is where the fear goes."],
+     faults:["Only ever practising the safe direction","Correcting from the shoulders instead of the fingers"]},
     {name:"Straddle or tuck press", target:"Press up without kicking, and control the way back down", level:"advanced", lv:8,
      primary:["Deltoids","Serratus anterior","Hip flexors"], secondary:["Rectus abdominis","Hamstring flexibility","Wrist flexors"],
      cues:["Lean the shoulders forward first, then let the hips rise — it is a lean, not a lift.","Compression and straddle flexibility limit this more than strength does."],
@@ -464,6 +500,10 @@ const TRACKS = [
      primary:["Anterior deltoid","Triceps"], secondary:["Serratus anterior","Upper trapezius","Core"],
      cues:["Box height is your loading dial; raise it as strength comes.","Elbows at roughly 45°, not straight out sideways."],
      faults:["Half range at the bottom"]},
+    {name:"Slider pikes", target:"Feet on sliders, hips drive up and back, <b>3 \u00d7 8</b>", level:"foundation", lv:6,
+     primary:["Serratus anterior","Rectus abdominis"], secondary:["Anterior deltoid","Hip flexors"],
+     cues:["Feet on sliders or a cloth, arms locked, scapula pushed tall. The abs drive the hips up and back.","Arms stay straight the whole way. The moment they bend it becomes a push-up."],
+     faults:["Bending the elbows to help the hips up","Letting the shoulders sink away from the ears at the top"]},
     {name:"Wall handstand push-up", target:"Build range until the head touches the floor", level:"intermediate", lv:7,
      primary:["Deltoids","Triceps"], secondary:["Upper trapezius","Serratus anterior","Core"],
      cues:["Back-to-wall teaches the real line; chest-to-wall is harder and more honest.","Push all the way to a shrugged lockout every rep."],
@@ -1012,6 +1052,46 @@ const HOWTO = {
  "Extend both legs together into one straight line from head to toe.",
  "Squeeze everything and point the toes. Keep looking forward to hold the balance."]},
 
+"Handstand|Cartwheel exit":{m:"handstand",do:[
+ "From a handstand that has gone past balance, turn the hips and shoulders toward one side.",
+ "Let the top leg come down first and land it wide: hand, hand, foot, foot.",
+ "Stand up facing the side. Practise it cold, twice a session, until it needs no thought."]},
+"Handstand|Wall walks":{m:"handstand",do:[
+ "Start in a plank with the feet against the base of a wall.",
+ "Walk the feet up the wall and the hands in toward it, keeping the ribs down.",
+ "Stop while the shoulders still feel strong, then walk all the way back down under control."]},
+"Handstand|Step-and-freeze kick-up":{m:"handstand",do:[
+ "Lunge in and plant both hands shoulder width, arms locked.",
+ "Kick the lead leg up and stop it at the top of your range rather than letting it swing through.",
+ "Hold the freeze for a beat, then step down the way you came up."]},
+"Handstand|Partner-assisted kick-up":{m:"handstand",do:[
+ "Kick up with a partner standing beside you, ready at the hips.",
+ "They steady you into the stacked position rather than holding you there.",
+ "Spend the time feeling the real line: shoulders pushed tall, ribs down, legs squeezed."]},
+"Handstand|Wheelbarrow partner hold":{m:"planche",do:[
+ "Hands on the floor, partner lifts the legs to hip height.",
+ "Hold one line from the wrists to the heels, shoulders pushed away from the ears.",
+ "Static hold first. Once that is solid, add small shifts forward and back over the hands."]},
+"Handstand|Wall shoulder taps":{m:"handstand",do:[
+ "Set up in a chest-to-wall handstand with the hands close to the wall.",
+ "Shift the weight fully onto one hand, then tap the opposite shoulder.",
+ "Return the hand before shifting the other way. Eight each side."]},
+"Handstand|Toe pulls":{m:"handstand",do:[
+ "In a chest-to-wall handstand, peel one foot off the wall and find the balance.",
+ "Then the other, so both are off for a moment before they go back.",
+ "A single moment of balance is the whole point. Come back down rather than fight for it."]},
+"Handstand|Silent kick-up challenge":{m:"handstand",do:[
+ "Kick up to the wall trying to make no sound at all when the feet arrive.",
+ "Slow the last part of the kick and catch it with the shoulders and fingers.",
+ "Ten attempts. Aim to never touch the wall at all."]},
+"Handstand|Overbalance and underbalance drill":{m:"handstand",do:[
+ "In a freestanding handstand, press the fingers down and let the body drift past balance.",
+ "Feel the overbalance, then correct back with the fingers before it goes.",
+ "Then let it fall the other way and step down. Learn both exits on purpose."]},
+"Handstand Push-Up|Slider pikes":{m:"pike",do:[
+ "Start in a plank with the feet on sliders, a cloth or a towel on a smooth floor.",
+ "Keeping the arms locked and the shoulders pushed tall, drive the hips up and back into a pike.",
+ "Slide back to the plank under control. The abs do the work, never the elbows."]},
 "Handstand|Chest-to-wall handstand":{m:"handstand",do:[
  "Start in a plank with the feet against the wall, hands about 20 cm from it.",
  "Walk the feet up the wall and the hands in until the belly faces the wall.",
@@ -1980,6 +2060,14 @@ const ROWBAR_HI = '<line class="prop" x1="70" y1="88" x2="160" y2="88"/>';
 const ROWBAR_LO = '<line class="prop" x1="70" y1="64" x2="160" y2="64"/>';
 const RINGS = '<line class="prop2" x1="86" y1="8" x2="90" y2="58"/><line class="prop2" x1="134" y1="8" x2="130" y2="58"/><circle class="prop-ring" cx="90" cy="62" r="5"/><circle class="prop-ring" cx="130" cy="62" r="5"/>';
 const RINGS_HI = '<line class="prop2" x1="96" y1="6" x2="104" y2="30"/><line class="prop2" x1="124" y1="6" x2="116" y2="30"/><circle class="prop-ring" cx="105" cy="34" r="5"/><circle class="prop-ring" cx="115" cy="34" r="5"/>';
+/* A partner, in prop grey so the athlete stays the only amber figure.
+   The rig draws one body, so the helper is scenery with a reaching arm. */
+const PARTNER_HIP = '<line class="prop" x1="166" y1="132" x2="166" y2="92"/>'
+  + '<circle class="prop" cx="166" cy="84" r="7" fill="none"/>'
+  + '<line class="prop" x1="166" y1="98" x2="130" y2="78"/>';
+const PARTNER_LEGS = '<line class="prop" x1="196" y1="132" x2="196" y2="92"/>'
+  + '<circle class="prop" cx="196" cy="84" r="7" fill="none"/>'
+  + '<line class="prop" x1="196" y1="98" x2="176" y2="92"/>';
 const WALL_R = '<line class="prop" x1="186" y1="10" x2="186" y2="134"/>';
 const BLOCK = '<rect class="prop-fill" x="128" y="120" width="26" height="14"/>';
 const PLATE = '<rect class="prop-fill" x="100" y="70" width="20" height="10" rx="3"/>';
@@ -2166,6 +2254,36 @@ const EXMOVE = {
  [132,102, 108,104, 112,118, 110,132, 86,104, 64,104, 40,104])),
 
 /* ---------------- Handstand ---------------- */
+/* --- handstand entry, balance and partner drills --- */
+"Handstand|Cartwheel exit": EX("Turn out, do not fold", FLOOR, reps(
+ [108,118, 112,106, 112,119, 112,132, 116,72, 126,50, 136,30, 108,50, 100,30],
+ [104,116, 110,104, 110,118, 110,132, 126,80, 150,96, 166,120, 120,70, 132,48])),
+"Handstand|Wall walks": EX("Feet up, hands in", FLOOR + WALL_R, reps(
+ [80,112, 96,110, 90,121, 86,132, 140,104, 162,110, 182,116],
+ [130,120, 140,110, 138,121, 136,132, 150,80, 162,56, 180,36])),
+"Handstand|Step-and-freeze kick-up": EX("Kick, then stop it", FLOOR, reps(
+ [100,112, 108,104, 106,118, 104,132, 126,96, 146,112, 164,130, 120,74, 126,52],
+ [100,114, 108,106, 108,119, 108,132, 116,80, 120,56, 124,34, 134,88, 150,72])),
+"Handstand|Partner-assisted kick-up": EX("Steadied at the hips", FLOOR + PARTNER_HIP, reps(
+ [100,112, 108,104, 106,118, 104,132, 124,94, 142,110, 160,128, 118,72, 124,50],
+ [104,120, 110,107, 110,120, 110,132, 112,72, 112,46, 112,20, 114,46, 114,20])),
+"Handstand|Wheelbarrow partner hold": EX("One line, legs held", FLOOR + PARTNER_LEGS, hold(
+ [60,108, 76,106, 74,119, 72,132, 130,100, 152,96, 174,92])),
+"Handstand|Wall shoulder taps": EX("Shift, then tap", FLOOR + WALL_R, reps(
+ [144,120, 150,107, 150,120, 150,132, 152,72, 154,46, 156,20, 150,46, 152,20, 146,120, 146,132],
+ [144,120, 150,107, 138,114, 146,104, 152,72, 154,46, 156,20, 150,46, 152,20, 146,120, 146,132])),
+"Handstand|Toe pulls": EX("One foot off at a time", FLOOR + WALL_R, reps(
+ [146,120, 152,107, 152,120, 152,132, 154,72, 156,46, 158,20, 156,46, 158,20, 148,120, 148,132],
+ [146,120, 152,107, 152,120, 152,132, 152,72, 146,48, 140,26, 156,46, 158,20, 148,120, 148,132])),
+"Handstand|Silent kick-up challenge": EX("Arrive without a sound", FLOOR + WALL_R, reps(
+ [120,114, 128,104, 126,118, 124,132, 146,98, 166,112, 182,128, 138,76, 146,54],
+ [146,120, 152,107, 152,120, 152,132, 154,72, 158,46, 162,22, 156,48, 160,24])),
+"Handstand|Overbalance and underbalance drill": EX("Past balance, both ways", FLOOR, reps(
+ [100,120, 106,107, 106,120, 106,132, 112,72, 120,48, 128,26],
+ [108,120, 112,107, 112,120, 112,132, 106,72, 98,48, 90,26])),
+"Handstand Push-Up|Slider pikes": EX("Hips up and back", FLOOR, reps(
+ [166,100, 150,106, 150,120, 150,132, 96,112, 68,122, 40,130],
+ [160,112, 146,112, 148,122, 150,132, 104,70, 80,100, 56,128])),
 "Handstand|Chest-to-wall handstand": EX("Belly to the wall", FLOOR + WALL_R, hold(
  [144,120, 150,107, 150,120, 150,132, 152,72, 154,46, 156,20])),
 "Handstand|Kick-up to balance": EX("Kick and catch the balance", FLOOR, reps(
