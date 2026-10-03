@@ -139,7 +139,10 @@ WEEKS = {
     rule=("The golden rule from class","Explode up on the first reps, fight the lowering slow on the last ones."),
     secnote="Two sessions of fifteen to twenty minutes beats one long one. Even one honest session this week is a real week of training.",
     boxes=[BOX_SESSIONS, ("Each session","One pull &middot; one push &middot; one hold &middot; one legs.","The pull comes first, while you are fresh. Do it in both sessions."), BOX_DAILY_HANG],
-    blocks=[PULL(focus=True), PUSH(), CORE(), LEGS()]),
+    blocks=[PULL(focus=True), PUSH(), CORE(), LEGS()],
+    # First card rebuilt against the design system. Add names here as the
+    # page migrates; when every row is listed, make it the default instead.
+    systemRows=["Dead hang"]),
 
 3: dict(title="handstands", h1="Your <span>Practice</span>",
     eyebrow="Week 3 homework &middot; handstands",
@@ -208,8 +211,8 @@ TPL = '''<!DOCTYPE html>
 <title>Practice &middot; Week {n}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?{fonts}&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/styles.css">{sheets}
 </head>
 
 <body>
@@ -259,19 +262,33 @@ const BLOCKS = [
 {blocks}
 ];
 
-renderWeek(BLOCKS, {{levels:[3,4,5,6]}});
+renderWeek(BLOCKS, {{levels:[3,4,5,6]{render_opts}}});
 </script>
 </body>
 </html>
 '''
 
+# Legacy pages keep the old faces. A page that opts into the design system
+# also loads Archivo, Archivo Black and Space Mono, plus tokens.css AFTER
+# styles.css so --bg resolves to the near black base, and components.css.
+FONTS_LEGACY = "family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600"
+FONTS_SYSTEM = ("family=Archivo:wght@400;600&family=Archivo+Black"
+                "&family=Barlow+Condensed:wght@500;600;700"
+                "&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700")
+SHEETS_SYSTEM = ('\n<link rel="stylesheet" href="../tokens.css">'
+                 '\n<link rel="stylesheet" href="../assets/components.css">')
+
 for n, w in WEEKS.items():
     boxes = "\n".join(
       '    <div class="box">\n      <h3>%s</h3>\n      <p>%s</p>\n      <p class="sub">%s</p>\n    </div>' % b
       for b in w["boxes"])
+    srows = w.get("systemRows")
     html = TPL.format(n=n, title=w["title"], eyebrow=w["eyebrow"], h1=w["h1"], lede=w["lede"],
                       rule_h=w["rule"][0], rule_p=w["rule"][1], secnote=w["secnote"],
-                      boxes=boxes, blocks=",\n".join(block_js(b) for b in w["blocks"]))
+                      boxes=boxes, blocks=",\n".join(block_js(b) for b in w["blocks"]),
+                      fonts=FONTS_SYSTEM if srows else FONTS_LEGACY,
+                      sheets=SHEETS_SYSTEM if srows else "",
+                      render_opts=(", systemRows:%s" % ('["' + '","'.join(srows) + '"]')) if srows else "")
     path = os.path.join(ROOT, "weeks", "week-%d.html" % n)
     open(path, "w").write(html)
     print("wrote weeks/week-%d.html  (%d blocks)" % (n, len(w["blocks"])))

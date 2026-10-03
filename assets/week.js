@@ -64,9 +64,31 @@ function detailFor(key){
   return det;
 }
 
-function exerciseRow(item){
+function exerciseRow(item, system){
   const [name, dose, note, key] = item;
   const hit = key && INDEX[key];
+
+  /* --- system component, design-system.html section 09 --------------------
+     Migration scaffold. A row opts in by name through renderWeek's
+     systemRows option, so one card can be rebuilt without touching the
+     rest of the page. Once every row is migrated this becomes the only
+     branch and the legacy one below is deleted. */
+  if(system && hit){
+    const d = el("details","exercise");
+    const sum = el("summary");
+    const top = el("div","ex-top");
+    const main = el("div","ex-main");
+    main.append(el("div","ex-title", name), el("div","ex-presc", dose));
+    top.append(main, el("span","badge","LV " + hit.step.lv), el("span","ex-open","\u203a"));
+    sum.append(top);
+    if(note) sum.append(el("p","ex-cue", note));
+    const det = detailFor(key);
+    d.open = false;
+    d.append(sum, det);
+    d.addEventListener("toggle", ()=>{ if(d.open) det._open(); });
+    return d;
+  }
+
   if(!hit){
     const flat = el("div","flat");
     flat.append(el("div","pname", name), el("div","pdose", dose), el("div","pnote", note || ""));
@@ -106,6 +128,7 @@ function renderWeek(BLOCKS, opts){
      instance, is two people on two different paths. Pass {levels:false}
      and each block just lists its exercises, with no picker anywhere. */
   const graded = !(opts && opts.levels === false);
+  const systemRows = new Set((opts && opts.systemRows) || []);
   const levels = (opts && opts.levels) || [4,5,6];
   const lo = levels[0], hi = levels[levels.length - 1];
   const mount = document.getElementById("blocks");
@@ -119,7 +142,7 @@ function renderWeek(BLOCKS, opts){
       head.append(el("div","tag", b.tag), mid);
       const body = el("div","ex-body");
       const holder = el("div","work2");
-      (b.items || []).forEach(item=> holder.append(exerciseRow(item)));
+      (b.items || []).forEach(item=> holder.append(exerciseRow(item, systemRows.has(item[0]))));
       body.append(holder);
       card.append(head, body);
       mount.append(card);
@@ -150,7 +173,7 @@ function renderWeek(BLOCKS, opts){
     levels.forEach(l=>{
       const holder = el("div","work2");
       holder.dataset.lv = l;
-      (b.levels[l] || []).forEach(item=> holder.append(exerciseRow(item)));
+      (b.levels[l] || []).forEach(item=> holder.append(exerciseRow(item, systemRows.has(item[0]))));
       body.append(holder);
     });
     card.append(head, body);
