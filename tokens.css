@@ -1,0 +1,158 @@
+/* ==========================================================================
+   AURA DESIGN TOKENS
+   The single source of truth for every visual value in the product.
+   Never write a raw hex, px or ms value in a component. Use a token.
+   ========================================================================== */
+
+:root {
+
+  /* --- SURFACES ----------------------------------------------------------
+     Near black base. Depth comes from lightness steps, not from borders.
+     If you are reaching for a border, you probably want the next surface up. */
+  --bg:              #08090C;
+  --surface-1:       #101217;
+  --surface-2:       #171A21;
+  --surface-3:       #1F232C;
+  --surface-raised:  #272C37;
+
+  --border:          rgba(255, 255, 255, 0.07);
+  --border-strong:   rgba(255, 255, 255, 0.14);
+  --overlay:         rgba(8, 9, 12, 0.72);
+
+  /* --- TEXT --------------------------------------------------------------- */
+  --text:            #F5F6F8;
+  --text-muted:      #9AA1AE;
+  --text-faint:      #646B78;
+  --text-on-accent:  #0A0A0A;
+
+  /* --- BRAND ACCENTS ------------------------------------------------------
+     Amber is the primary and carries the one action that matters on a screen.
+     The other three are functional only. Never decorative. */
+  --amber:           #F59E0B;
+  --amber-bright:    #FFB224;
+  --amber-dim:       #8A5A06;
+  --purple:          #5B2FFF;
+  --teal:            #00C9B1;
+  --red:             #FF5C3A;
+
+  /* --- SEMANTIC ----------------------------------------------------------- */
+  --primary:         var(--amber);
+  --primary-hover:   var(--amber-bright);
+  --success:         var(--teal);
+  --danger:          var(--red);
+  --info:            var(--purple);
+
+  /* --- AURA TIERS ---------------------------------------------------------
+     Seven discrete tiers. Each is a visible step, never a gradient.
+     Tier 1 must be reachable by a beginner inside one course. */
+  --aura-0:          #8A93A6;  /* Dormant   no glow      */
+  --aura-1:          #00C9B1;  /* Awakened  faint glow   */
+  --aura-2:          #F59E0B;  /* Charged                */
+  --aura-3:          #FFC83D;  /* Ascended               */
+  --aura-4:          #FF5C3A;  /* Crimson                */
+  --aura-5:          #5B2FFF;  /* Azure                  */
+  --aura-6:          #E8EEF7;  /* Radiant   full bloom   */
+
+  /* --- GLOW ---------------------------------------------------------------
+     The one signature effect. Used on the persona, tier changes, the primary
+     action and active states. Nowhere else, or it stops meaning anything. */
+  --glow-sm:  0 0 12px -2px var(--glow-color, var(--amber));
+  --glow-md:  0 0 24px -4px var(--glow-color, var(--amber)),
+              0 0 48px -12px var(--glow-color, var(--amber));
+  /* The hero wash. A background radial, not a box shadow, so it cannot reuse
+     the glow tokens above. See design-system.md section 5 for why this is a
+     fifth permitted use of glow. */
+  --glow-hero: radial-gradient(60% 42% at 82% 0%,
+               rgba(245, 158, 11, 0.16) 0%, rgba(245, 158, 11, 0.05) 42%, transparent 72%);
+
+  --glow-lg:  0 0 32px -2px var(--glow-color, var(--amber)),
+              0 0 80px -8px var(--glow-color, var(--amber)),
+              0 0 140px -20px var(--glow-color, var(--amber));
+
+  /* --- TYPE ---------------------------------------------------------------
+     Display  Archivo Black, uppercase, for titles and numbers that matter.
+     Body     Archivo, sentence case, for anything a person reads.
+     Mono     Space Mono, for data and system labels ONLY. Max two per screen. */
+  --font-display: 'Archivo Black', 'Archivo', system-ui, sans-serif;
+  --font-body:    'Archivo', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, monospace;
+
+  --fs-timer:   56px;
+  --fs-display: 40px;
+  --fs-h1:      28px;
+  --fs-h2:      20px;
+  --fs-body:    16px;
+  --fs-sm:      14px;
+  --fs-label:   12px;
+  --fs-micro:   10px;   /* nav labels and stat keys only */
+
+  --lh-tight:   1.08;
+  --lh-snug:    1.25;
+  --lh-body:    1.5;
+
+  --tracking-display: -0.02em;
+  --tracking-label:    0.14em;
+  --tracking-mono:     0.08em;  /* tighter, for short mono strings like LV 2 */
+
+  /* --- SPACING ------------------------------------------------------------
+     4px base. Use these only. No 13px, no 22px, ever. */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+
+  /* Component dimensions. Not spacing steps, so they live here rather than
+     being forced onto the 4px scale. */
+  --thumb:       54px;   /* exercise thumbnail, square */
+  --check:       28px;   /* completion check circle */
+  --bar-accent:   3px;   /* the vertical amber rule on a callout */
+  --hairline:     1px;   /* every divider in the product */
+  --ring:       232px;   /* countdown ring, the focus of a timed set */
+  --ring-track:   6px;   /* its stroke weight */
+  --ring-sm:    132px;   /* the same ring inside a reference frame */
+
+  /* The stick figure. Stroke widths are user units inside a fixed
+     220x150 viewBox, so they scale with the figure, not with the page. */
+  --fig-limb:       var(--amber);
+  --fig-limb-far:   var(--amber-dim);   /* the limb on the far side */
+  --fig-prop:       var(--text-faint);  /* bar, floor, bench edge */
+  --fig-prop-dim:   var(--surface-raised);
+  --fig-prop-fill:  var(--surface-2);
+  --fig-stroke:        6;
+  --fig-stroke-torso:  7;
+  --fig-stroke-head:   5;
+  --fig-stroke-prop:   3;
+
+  --gutter:      16px;   /* mobile side margin, never less */
+  --max-width:   480px;  /* phone first, centred on desktop */
+  --touch-min:   44px;   /* minimum tappable height */
+
+  /* --- RADIUS -------------------------------------------------------------- */
+  --radius-sm:   8px;   /* chips, small controls      */
+  --radius-md:  16px;   /* cards                      */
+  --radius-lg:  24px;   /* sheets, hero media         */
+  --radius-pill: 999px; /* pills, level badges, CTAs  */
+
+  /* --- MOTION -------------------------------------------------------------- */
+  --dur-micro:       120ms;  /* taps, toggles            */
+  --dur-transition:  240ms;  /* screens, sheets          */
+  --dur-celebrate:   600ms;  /* tier change, skill unlock */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Z INDEX -------------------------------------------------------------- */
+  --z-nav:     100;
+  --z-sheet:   200;
+  --z-overlay: 300;
+}
+
+/* Reduced motion is respected everywhere. The glow may pulse; nothing else. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Week 1 practice</title>
+<meta name="description" content="Week 1: find your level and train it twice.">
+
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+<link rel="stylesheet" href="../assets/legacy-detail.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="screen">
+<div id="screen"></div>
+
+<script src="../assets/engine.js"></script>
+<script src="../assets/week.js"></script>
+<script src="../assets/screen-nav.js"></script>
+<script src="../assets/screen-session.js"></script>
+<script src="../assets/screen-week.js"></script>
+<script>
+const BLOCKS = [
+  {tag:"PULL", name:"Pull", why:"The headline goal of the course. Trained twice a week, never to failure.",
+   levels:{
+     4:[["Negatives","4 sets of 1, five seconds down","Jump or step up so your chin starts over the bar, then resist all the way to straight arms.","Pull-Up|Assisted pull-up or negative"],
+        ["Active hangs","4 sets of 20 seconds","Shoulders pulled down away from your ears, arms straight, legs together.","Hanging &amp; Grip|Active hang"],
+        ["Rows","3 sets of 8","Under a bar at chest height, body straight, chest touches the bar.","Row / Horizontal Pull|Horizontal row"]],
+     5:[["Assisted pull-ups","4 sets of 4","Band under the foot, or a jump and hold. Take the least help you can, and note how much.","Pull-Up|Assisted pull-up or negative"],
+        ["Negatives","3 sets of 1, five seconds down","At the end of the session, after the assisted work.","Pull-Up|Assisted pull-up or negative"],
+        ["Rows","3 sets of 10","Feet further forward makes it harder.","Row / Horizontal Pull|Horizontal row"]],
+     6:[["Pull-up singles","6 sets of 1 to 2, two minutes between","Never to failure. If your max is 4, these are sets of 2.","Pull-Up|Full pull-up"],
+        ["Feet-elevated rows","3 sets of 10","Feet on a box or chair so the body is level with the bar.","Row / Horizontal Pull|Feet-elevated row"],
+        ["Active hangs","3 sets of 30 seconds","Finish with these.","Hanging &amp; Grip|Active hang"]]
+   }},
+  {tag:"PUSH", name:"Push-up", why:"Chest, shoulders and triceps, plus everything that keeps the body straight.",
+   levels:{
+     4:[["Incline push-ups","4 sets of 8","Hands on a table, windowsill or bench. Pick a height where 8 is hard but clean, and lower it every week.","Push-Up|Incline push-up"],
+        ["Slow negatives on the floor","3 sets of 3","Five seconds down, then knees down to come back up.","Push-Up|Full push-up"]],
+     5:[["Full push-ups","5 sets of 3","Chest a fist's height from the floor, body in one line, elbows back not flared.","Push-Up|Full push-up"],
+        ["Incline push-ups","2 sets of 8","Straight after, to add volume without going to failure.","Push-Up|Incline push-up"]],
+     6:[["Full push-ups","4 sets of 8, three seconds down","Tempo is the load here. Do not rush the lowering.","Push-Up|Full push-up"],
+        ["Diamond push-ups","2 sets of 5","Hands under the sternum, elbows brushing the ribs.","Push-Up|Diamond / close push-up"]]
+   }},
+  {tag:"PUSH", name:"Dip and support", why:"The other half of pressing, and the second half of a muscle-up.",
+   levels:{
+     4:[["Support holds","4 sets of 15 to 20 seconds","Arms locked, shoulders pushed down away from the ears.","Dip|Support hold"],
+        ["Negative dips","4 sets of 3, five seconds down","Step off at the bottom and climb back up.","Dip|Negative dip"]],
+     5:[["Bar dips","5 sets of 2","Lower until the upper arms are level with the floor, then lock out.","Dip|Parallel bar dip"],
+        ["Bench dips","3 sets of 10","Hands behind you on a chair, heels on the floor.","Dip|Bench or box dip"]],
+     6:[["Bar dips","4 sets of 5","Full depth, full lockout, two reps left in the tank.","Dip|Parallel bar dip"],
+        ["Support holds","2 sets of 30 seconds","Legs together, ribs down.","Dip|Support hold"]]
+   }},
+  {tag:"LEGS", name:"Legs", why:"The half of the body calisthenics people quietly skip. Two exercises, no equipment.",
+   levels:{
+     4:[["Bulgarian split squats","3 sets of 8 per side","Back foot on a chair, front knee over mid-foot, three seconds down.","Squat &amp; Lunge|Bulgarian split squat"],
+        ["Glute bridges","3 sets of 15","Two second squeeze at the top, ribs down.","Hinge &amp; Hamstrings|Glute bridge"]],
+     5:[["Box pistols","3 sets of 5 per side","Sit to a chair on one leg and stand back up. Lower the seat as you get stronger.","Pistol Squat|Box pistol"],
+        ["Split squats","3 sets of 10 per side","Slow and tall.","Squat &amp; Lunge|Split squat"]],
+     6:[["Pistol squats","3 sets of 3 per side","Full depth, controlled, heel flat.","Pistol Squat|Full pistol"],
+        ["Single-leg glute bridges","3 sets of 10 per side","Hips level throughout.","Hinge &amp; Hamstrings|Single-leg glute bridge"]]
+   }},
+  {tag:"CORE", name:"Core", why:"What holds every position together. Short, frequent, never sloppy.",
+   levels:{
+     4:[["Hollow holds","4 sets of 30 seconds","Lower back pressed flat. Bend the knees if the back lifts.","Core &amp; Compression|Hollow-body hold"],
+        ["Hollow rocks","2 sets of 15","Small rocking, the shape stays exactly the same.",null]],
+     5:[["Hanging knee raises","4 sets of 8","No swinging. Curl the pelvis at the top and lower slowly.","Core &amp; Compression|Hanging knee raise"],
+        ["Hollow holds","3 sets of 30 seconds","Straight body if you can hold the shape.","Core &amp; Compression|Hollow-body hold"]],
+     6:[["Hanging leg raises","4 sets of 6","Straight legs to horizontal, strict, no kip.","Core &amp; Compression|Hanging leg raise"],
+        ["Hollow holds","3 sets of 45 seconds","Or 20 hollow rocks.","Core &amp; Compression|Hollow-body hold"]]
+   }},
+  {tag:"BAL", name:"Handstand", why:"Balance is a skill, so it wants short and frequent practice, not long hard sets.",
+   levels:{
+     4:[["Wrist prep","One minute, always first","Circles, palm pushes, fingertip pushes. Never skip this.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Chest-to-wall holds","5 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing.","Handstand|Chest-to-wall handstand"]],
+     5:[["Kick-up practice","10 attempts, no rush","Light kick, catch the balance, and practise stepping out of it. Learn the bail before the balance.","Handstand|Kick-up to balance"],
+        ["Chest-to-wall holds","4 sets of 30 seconds","Straight line from wrist to toe.","Handstand|Chest-to-wall handstand"]],
+     6:[["Freestanding attempts","3 sets of 10 attempts","Fresh, at the start. Correct with the fingers first, hips second.","Handstand|Freestanding handstand"],
+        ["Chest-to-wall holds","3 sets of 45 seconds","Finish with these, for the shape.","Handstand|Chest-to-wall handstand"]]
+   }}
+];
+
+renderWeekScreen(BLOCKS, {
+  barTitle: 'Week 1',
+  kicker:   'Finding your level',
+  title:    'Your practice',
+  lede:     'Everything here is built around the level you ticked on your scorecard. Pick your level, do the two short sessions, and hang from something every day.',
+  sessions: '2',
+  minutes:  '15',
+  rule:     ['The one to remember', 'Even one day this week is already a real week of training. It beats waiting for the perfect one.'],
+  levels:   [3,4,5,6],
+  level:    4,
+  backHref: "index.html"
+});
+</script>
+</body>
+</html>

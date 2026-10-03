@@ -1,0 +1,81 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>render harness</title>
+<style>
+  body{background:#0F172A;margin:0;padding:16px;font-family:sans-serif}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .cell{padding:10px;background:#172033;border:1px solid #2E3A50;border-radius:10px}
+  .cell svg{width:220px;height:auto;display:block}
+  .cell .lbl{color:#93A1B5;font-size:11px;text-align:center;margin-top:4px}
+  .fig .prop{stroke:#46587A;stroke-width:3;stroke-linecap:round}
+  .fig .prop2{stroke:#33415C;stroke-width:3;stroke-linecap:round}
+  .fig .prop-fill{fill:#1F2B41}
+  .fig .limb{stroke:#E9A23B;stroke-width:6;stroke-linecap:round}
+  .fig .limb.torso{stroke-width:7}
+  .fig .limb.l2{stroke:#B9852F}
+  .fig .head{fill:none;stroke:#E9A23B;stroke-width:5}
+  .p3l{stroke:#2E3C55}
+  .b3l{stroke:#E9A23B;stroke-linecap:round}
+  .b3h{fill:none;stroke:#E9A23B;stroke-width:4}
+  .b3d{fill:#E9A23B}
+  #status{color:#6FBF73;font-family:monospace;font-size:12px;margin-top:10px}
+  #err{color:#E4693B;font-family:monospace;font-size:12px;white-space:pre-wrap}
+</style>
+<div id="out"></div>
+<div id="status">loading…</div>
+<div id="err"></div>
+<script src="../assets/engine.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const key = params.get("key");
+const mode = params.get("mode") || "2d";
+const out = document.getElementById("out");
+const status = document.getElementById("status");
+const errEl = document.getElementById("err");
+
+function fail(msg){ errEl.textContent = msg; status.textContent = "error"; status.style.color = "#E4693B"; }
+
+try {
+  if(!key){ fail("no ?key= given"); }
+  else if(mode === "2d"){
+    const info = HOWTO[key];
+    const move = EXMOVE[key] || (info && MOVES[info.m]);
+    if(!move){ fail("no 2D move found for: " + key); }
+    else {
+      const row = document.createElement("div"); row.className = "row";
+      move.poses.forEach((pose, i) => {
+        const cell = document.createElement("div"); cell.className = "cell";
+        cell.innerHTML = '<svg class="fig" viewBox="0 0 220 150" xmlns="http://www.w3.org/2000/svg">'
+          + '<g class="props"></g><g class="body">'
+          + '<line class="limb l2" data-j="p,k2"/><line class="limb l2" data-j="k2,f2"/>'
+          + '<line class="limb l2" data-j="s,e2"/><line class="limb l2" data-j="e2,w2"/>'
+          + '<line class="limb torso" data-j="s,p"/>'
+          + '<line class="limb" data-j="p,k"/><line class="limb" data-j="k,f"/>'
+          + '<line class="limb" data-j="s,e"/><line class="limb" data-j="e,w"/>'
+          + '<circle class="head" r="9"/></g></svg>'
+          + '<div class="lbl">pose ' + (i+1) + ' / ' + move.poses.length + '</div>';
+        out.append(cell);
+        const svg = cell.querySelector("svg");
+        svg.querySelector(".props").innerHTML = move.props;
+        const lines = [...svg.querySelectorAll(".limb")];
+        const head = svg.querySelector(".head");
+        drawPose({lines, head}, pose, pose, 0);   // exact keyframe, no easing
+      });
+      status.textContent = "ok: " + move.label + " (" + move.poses.length + " poses)";
+    }
+  } else if(mode === "3d"){
+    const cfg = RIG3D[key];
+    if(!cfg){ fail("no 3D rig found for: " + key); }
+    else {
+      const host = document.createElement("div"); host.className = "cell";
+      out.append(host);
+      make3D(host, key, key);
+      status.textContent = "ok: 3D rig mounted, rotating — screenshot after a short wait";
+    }
+  } else {
+    fail("unknown mode: " + mode);
+  }
+} catch(e) {
+  fail(e.message + "\n" + (e.stack || ""));
+}
+</script>

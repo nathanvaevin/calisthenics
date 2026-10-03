@@ -1,0 +1,55 @@
+CALISTHENICS PLATFORM SETUP
+===========================
+
+1. Copy everything in this folder into your Calisthenics project folder,
+   keeping the folder structure exactly as it is here.
+
+   Result:
+
+   Calisthenics/
+   |- CLAUDE.md                    (already exists)
+   |- tokens.css
+   |- design-system.md
+   |- design-system.html
+   |- docs/
+   |  |- platform-vision.md
+   |  |- building-principles.md
+   |- design/references/
+   |  |- gymshark-reference.jpg
+   |  |- ladder-reference.jpg
+   |- index.html, assets/, weeks/  (already exist)
+
+2. Open CLAUDE-APPEND.md. Copy everything below the horizontal line and
+   paste it at the bottom of your existing CLAUDE.md.
+
+3. Delete CLAUDE-APPEND.md and this file. They were carriers only.
+
+4. Open design-system.html in a browser and look at it before building.
+   tokens.css must stay in the same folder or it renders unstyled.
+
+5. Paste the kickoff prompt into Claude Code in VS Code.
+
+
+WHAT EACH FILE IS
+-----------------
+
+tokens.css            Every colour, size, spacing, radius and duration.
+                      The single source of truth. Never write raw values.
+
+design-system.html    Living visual reference. Build new components here
+                      first, then use them in screens.
+
+design-system.md      The visual rules and the reasoning behind them.
+
+docs/platform-vision.md
+                      What is being built and why. Aura, the verification
+                      ladder, the skill tree, accounts and roles, the v0.1
+                      scope, the screen list, the build order.
+
+docs/building-principles.md
+                      How to work. What to protect, the teaching rules,
+                      the AI opportunity backlog.
+
+design/references/    Gymshark and Ladder screenshots. Composition
+                      reference only. Never copy their colours, type or
+                      brand identity.

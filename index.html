@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calisthenics Course</title>
+<meta name="description" content="Your weekly training, the handstand method and the full skill tree.">
+
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="assets/components.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="screen">
+<div id="screen"></div>
+
+<script src="assets/screen-nav.js"></script>
+<script>
+/* Three destinations. Content lives here as data, not as markup, so the
+   home screen stays assembly over a list. */
+const PLACES = [
+  { href: "weeks/index.html",
+    t: "Calisthenics Weekly Training",
+    s: "Your exercises for the week, sorted by level.",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3.5 9.5v5M6.5 6.5v11M17.5 6.5v11M20.5 9.5v5M6.5 12h11"/></svg>' },
+  { href: "handstand/index.html",
+    t: "Handstand Weekly Training",
+    s: "The Inversion Method, week by week.",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18.5" r="2"/><path d="M12 16.5V11M12 11l-4-6M12 11l4-6"/></svg>' },
+  { href: "skill-tree.html",
+    t: "Calisthenics Skill Tree",
+    s: "Every exercise we have noted, all levels, with animations and muscles.",
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="19" r="1.8"/><path d="M12 17.2V13M12 13L7 8M12 13l5-5"/><circle cx="7" cy="6.5" r="1.8"/><circle cx="17" cy="6.5" r="1.8"/></svg>' }
+];
+
+const CHEV = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>';
+
+const root = document.getElementById("screen");
+const inner = document.createElement("div");
+inner.className = "screen-inner";
+
+inner.innerHTML =
+  '<div class="hero">' +
+    '<div class="hero-wash"></div>' +
+    '<p class="kicker">Calisthenics course</p>' +
+    '<h1 class="screen-title">Welcome</h1>' +
+    '<p class="lede">Pick where you want to go. Tap any exercise to see how it is done and which muscles it works.</p>' +
+  '</div>';
+
+PLACES.forEach(p=>{
+  const a = document.createElement("a");
+  a.className = "linkrow";
+  a.href = p.href;
+  a.innerHTML = '<span class="tile">' + p.icon + '</span>'
+    + '<span class="txt"><span class="t">' + p.t + '</span>'
+    + '<p class="s">' + p.s + "</p></span>"
+    + '<span class="state">' + CHEV + "</span>";
+  inner.append(a);
+});
+
+root.append(inner, bottomNav("Train", ""));
+</script>
+</body>
+</html>
