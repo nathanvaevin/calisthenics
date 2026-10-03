@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calisthenics · Choose your week</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Choose your week</title>
+<meta name="description" content="Eight weeks of calisthenics homework. Open the week the class is in.">
+
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../assets/components.css">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
-<body>
-<div class="wrap">
-  <nav class="crumbs">
-    <a href="../index.html">&larr; All training</a>
-  </nav>
-  <p class="eyebrow">Calisthenics weekly training</p>
-  <h1>Choose your <span>week</span></h1>
-  <p class="lede">Eight weeks. Weeks 1 and 8 are test days we run in class; the rest have homework. Open the week we are in, pick your level, and tap any exercise to see how it is done.</p>
+<body class="screen">
+<div id="screen"></div>
 
-  <div class="weekgrid" id="weeks"></div>
-</div>
-
+<script src="../assets/screen-nav.js"></script>
+<script src="../assets/screen-chooser.js"></script>
 <script>
 /* One line per week. To open the next one, give it a file and a title.
-   CURRENT is the week the class is actually in — move this number each week. */
+   CURRENT is the week the class is actually in. Move this number each week. */
 const CURRENT = 2;
 const WEEKS = [
   {n:1, file:"week-1.html", t:"Finding your level",
@@ -34,7 +31,7 @@ const WEEKS = [
   {n:3, file:"week-3.html", t:"Handstands",
    s:"The line from wrist to hip, and the wall. Pull keeps running underneath."},
   {n:4, file:"week-4.html", t:"Push-ups",
-   s:"Pressing week — scapular work up to diamonds and bar dips."},
+   s:"Pressing week. Scapular work up to diamonds and bar dips."},
   {n:5, file:"week-5.html", t:"Legs",
    s:"Squats and hinges, bodyweight only. Nothing needed but a chair."},
   {n:6, file:"week-6.html", t:"Core",
@@ -42,21 +39,16 @@ const WEEKS = [
   {n:7, file:"week-7.html", t:"Skill day",
    s:"Light week before the retest. Movement and fun, not a grind."},
   {n:8, rest:true, t:"Retest day",
-   s:"No homework — we re-run the scorecard in class and see how far you moved."}
+   s:"No homework. We re-run the scorecard in class and see how far you moved."}
 ];
 
-const mount = document.getElementById("weeks");
-const latest = CURRENT;
-
-WEEKS.forEach(w=>{
-  const card = document.createElement(w.file ? "a" : "div");
-  card.className = "wk" + (w.file ? (w.n === latest ? " latest" : "") : " soon");
-  if(w.file) card.href = w.file;
-  const tag = w.n === latest ? ' &middot; this week' : (w.rest ? ' &middot; in class' : '');
-  card.innerHTML = '<div class="n">Week ' + w.n + tag + '</div>'
-    + '<div class="t">' + (w.t || "Unlocked soon") + '</div>'
-    + '<div class="s">' + (w.s || "Added after class.") + '</div>';
-  mount.append(card);
+renderChooser(WEEKS, {
+  current: CURRENT,
+  barTitle: "All training",
+  kicker: "Calisthenics weekly training",
+  title: "Choose your week",
+  lede: "Eight weeks. Weeks 1 and 8 are test days we run in class, the rest have homework.",
+  backHref: "../index.html"
 });
 </script>
 </body>

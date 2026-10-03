@@ -40,16 +40,22 @@ for(const f of files){
     legacy:  document.querySelectorAll("details.pex").length + document.querySelectorAll(".flat").length,
     rungs:   document.querySelectorAll("ol.ladder > li").length,
     cards:   document.querySelectorAll(".wk").length,
+    links:   document.querySelectorAll(".linkrow").length,
     overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
   }));
 
   /* A week page that renders no exercises is the failure this tool exists to
      catch, so an empty page must not report clean. */
   const isWeek = /week-\d+\.html$/.test(f);
+  /* A chooser that renders no destinations is the same silent failure a
+     week page with no rows would be, so it fails the same way. */
+  const isHub = /(^|\/)index\.html$/.test(f);
   const rows = n.exrows + n.legacy;
   const problems = [];
   if(errs.length) problems.push(errs.join(" | "));
   if(isWeek && rows === 0) problems.push("no exercise rows rendered");
+  if(isHub && n.links + n.cards === 0) problems.push("no destinations rendered");
+  if(isHub && n.nav === 0) problems.push("no bottom nav");
   if(isWeek && n.exrows && n.thumbs < n.exrows) problems.push(`${n.exrows - n.thumbs} thumbnail(s) missing`);
   if(isWeek && n.exrows && n.primary !== 1) problems.push(`primary actions=${n.primary}, expected 1`);
   if(n.openOnLoad) problems.push(`${n.openOnLoad} row(s) open on load`);
@@ -59,7 +65,8 @@ for(const f of files){
   console.log(`${f.padEnd(24)} ${problems.length ? "FAIL  " + problems.join(" | ") : "ok"}` +
     `  rows=${rows}` + (n.sects ? ` sects=${n.sects} thumbs=${n.thumbs} nav=${n.nav} lv=${n.lvchip}` : "") +
     (n.blocks ? ` blocks=${n.blocks}` : "") +
-    (n.rungs ? ` rungs=${n.rungs}` : "") + (n.cards ? ` cards=${n.cards}` : ""));
+    (n.rungs ? ` rungs=${n.rungs}` : "") + (n.cards ? ` cards=${n.cards}` : "") +
+    (n.links ? ` links=${n.links} nav=${n.nav}` : ""));
   await page.close();
 }
 await browser.close();

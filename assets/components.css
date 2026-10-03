@@ -8,7 +8,13 @@
 /* --- screen shell --------------------------------------------------------
    One column, phone first, centred past --max-width. The hero wash is the
    fifth permitted use of glow: once per screen, behind the title only. */
+/* The shell owns its own reset. It used to inherit the border box from
+   assets/styles.css, which the migrated pages no longer load, and the
+   body's default margin was pushing every new screen 8px off centre. */
+.screen, .screen *, .screen *::before, .screen *::after { box-sizing: border-box; }
+
 .screen {
+  margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -30,6 +36,9 @@
   pointer-events: none;
 }
 .hero { position: relative; }
+.screen-inner > .hero:first-child {
+  padding-top: calc(env(safe-area-inset-top) + var(--space-6));
+}
 
 /* --- app bar -------------------------------------------------------------
    Back, where you are, and the control that changes what you see. */
@@ -90,12 +99,16 @@
 .lvchip .caret { color: var(--text-faint); }
 
 /* --- hero ---------------------------------------------------------------- */
+/* A kicker names what the screen is about, which is content, and the rule
+   is that amber marks state and action rather than content. On the week
+   chooser the amber kicker was competing with "this week", which is the
+   one thing on that screen that genuinely is state. */
 .kicker {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
-  color: var(--amber);
+  color: var(--text-faint);
 }
 .screen-title {
   font-family: var(--font-display);
@@ -435,6 +448,9 @@
   text-transform: uppercase;
 }
 .nav a.active { color: var(--amber); }
+/* A tab for a screen that does not exist yet. Shown, because the shape of
+   the product is worth seeing, but not pretending to be a destination. */
+.nav a.off { color: var(--text-faint); opacity: 0.45; pointer-events: none; }
 .nav svg { display: block; }
 
 /* =====================================================================
@@ -617,6 +633,72 @@
   font-family: var(--font-mono);
   font-size: var(--fs-label);
 }
+
+/* =====================================================================
+   LINK ROW
+   One destination: an optional tile, a kicker, a title, a line of
+   explanation, a chevron. The home screen and both week choosers are the
+   same shape, so they are the same component.
+   ===================================================================== */
+.linkrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-4);
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  text-decoration: none;
+  transition: background var(--dur-micro) var(--ease);
+}
+.linkrow + .linkrow { margin-top: var(--space-3); }
+.hero + .linkrow { margin-top: var(--space-5); }
+.linkrow:hover { background: var(--surface-2); }
+.linkrow .tile {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--thumb);
+  height: var(--thumb);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-muted);
+}
+.linkrow .txt { flex: 1; min-width: 0; }
+.linkrow .k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: var(--space-1);
+}
+.linkrow .t {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+}
+.linkrow .s {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--text-muted);
+}
+.linkrow .state { flex: none; color: var(--text-faint); display: block; }
+
+/* The week the class is actually in. Exactly one row carries the accent,
+   which is what keeps the chooser to one amber. */
+.linkrow.now { background: var(--surface-2); }
+.linkrow.now .k { color: var(--amber); }
+.linkrow.now .tile { background: var(--surface-3); color: var(--amber); }
+
+/* Not open yet: present, legible, clearly not a destination. */
+.linkrow.soon { background: transparent; box-shadow: inset 0 0 0 var(--hairline) var(--border); }
+.linkrow.soon .t { color: var(--text-muted); }
+.linkrow.soon .state { visibility: hidden; }
 
 /* =====================================================================
    SESSION SHELL
