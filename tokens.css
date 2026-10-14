@@ -114,6 +114,8 @@
   --ring:       232px;   /* countdown ring, the focus of a timed set */
   --ring-track:   6px;   /* its stroke weight */
   --ring-sm:    132px;   /* the same ring inside a reference frame */
+  --field:       48px;   /* search and text inputs */
+  --rail:        12px;   /* indent of a track's ladder under its card */
 
   /* The stick figure. Stroke widths are user units inside a fixed
      220x150 viewBox, so they scale with the figure, not with the page. */
@@ -144,6 +146,19 @@
   --ease: cubic-bezier(0.2, 0, 0, 1);
 
   /* --- Z INDEX -------------------------------------------------------------- */
+  /* Print. Paper is its own medium: black on white, sized in points. */
+  --print-ink:    #000000;
+  --print-paper:  #FFFFFF;
+  --print-rule:   #999999;
+  --print-margin: 14mm;
+  --print-fs:     10pt;
+  --print-fs-sm:  7.5pt;
+  --print-fs-h1:  22pt;
+  --print-fs-h2:  13pt;
+  --print-box:    3.6mm;
+  --print-gap:    3mm;
+  --print-hair:   0.5pt;
+
   --z-nav:     100;
   --z-sheet:   200;
   --z-overlay: 300;

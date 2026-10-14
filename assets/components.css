@@ -706,6 +706,254 @@
 .linkrow.soon .state { visibility: hidden; }
 
 /* =====================================================================
+   BROWSE: SEARCH, FILTERS AND THE SKILL TREE
+   ===================================================================== */
+
+/* Filtering hides with the attribute, and a component's own display
+   rule must never beat it. */
+.screen [hidden] { display: none !important; }
+
+/* --- search field --------------------------------------------------------- */
+.search {
+  display: block;
+  width: 100%;
+  min-height: var(--field);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-1);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  outline: none;
+  box-shadow: inset 0 0 0 var(--hairline) transparent;
+  transition: box-shadow var(--dur-micro) var(--ease);
+}
+.search::placeholder { color: var(--text-faint); }
+.hero + .search { margin-top: var(--space-5); }
+.search:focus { box-shadow: inset 0 0 0 var(--hairline) var(--border-strong); }
+
+/* --- filter chips --------------------------------------------------------- */
+.fchips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.fchip {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-1);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+}
+.fchip:hover { color: var(--text); }
+/* The selected filter is the screen's state, so it is the one amber. */
+.fchip.on {
+  background: var(--surface-2);
+  color: var(--amber);
+  box-shadow: inset 0 0 0 var(--hairline) var(--amber-dim);
+}
+.fchips.quiet .fchip { background: transparent;
+  box-shadow: inset 0 0 0 var(--hairline) var(--border); }
+/* One line that scrolls sideways, bleeding to the screen edge, instead of
+   three wrapped rows pushing the content off the first screen. */
+.fchips.scroll {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+}
+.fchips.scroll::-webkit-scrollbar { display: none; }
+.fchips.scroll .fchip { flex: none; }
+/* A full width bar where every option is the same size. */
+.fchips.fill { flex-wrap: nowrap; gap: var(--space-1); }
+.fchips.fill .fchip { flex: 1; min-width: 0; padding: 0; }
+.browse-note {
+  margin: var(--space-3) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  line-height: var(--lh-body);
+}
+.browse-count {
+  margin: var(--space-4) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+.browse-count b { color: var(--text); font-weight: 600; }
+
+/* --- group heading -------------------------------------------------------- */
+.grouphead { margin: var(--space-7) 0 var(--space-4); }
+.grouphead h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+}
+.grouphead p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: var(--lh-body);
+}
+
+/* --- track card ------------------------------------------------------------
+   Only the summary is a card. The ladder opens BELOW it on a hairline
+   rail, never inside it, which keeps every rung one card level deep. */
+.trackcard { margin-bottom: var(--space-3); }
+.trackcard > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  transition: background var(--dur-micro) var(--ease);
+}
+.trackcard > summary::-webkit-details-marker { display: none; }
+.trackcard > summary:hover { background: var(--surface-2); }
+.trackcard[open] > summary { background: var(--surface-2); }
+.trackcard > summary .thumb {
+  flex: none;
+  width: var(--thumb);
+  height: var(--thumb);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.trackcard[open] > summary .thumb { background: var(--surface-3); }
+.trackcard > summary .txt { flex: 1; min-width: 0; }
+.trackcard > summary .t {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+}
+.trackcard > summary .s {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.trackcard > summary .meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.trackcard[open] > summary .badge { background: var(--surface-3); }
+.trackcard > summary .match { color: var(--text); background: var(--surface-3); }
+.trackcard > summary .state {
+  flex: none;
+  color: var(--text-faint);
+  transition: transform var(--dur-micro) var(--ease);
+}
+.trackcard[open] > summary .state { transform: rotate(90deg); }
+
+.trackbody {
+  margin: var(--space-3) 0 var(--space-5) var(--rail);
+  padding-left: var(--rail);
+  border-left: var(--hairline) solid var(--border);
+}
+.trackbody .sect { margin: var(--space-4) 0 var(--space-2); }
+.trackbody .sect:first-child { margin-top: 0; }
+
+/* The levels the course trains today read brighter, not amber. */
+.badge.course { color: var(--text); background: var(--surface-3); }
+
+/* --- pills: advanced versions and supporting work ------------------------- */
+.pills { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pill > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 var(--hairline) var(--border);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  transition: color var(--dur-micro) var(--ease);
+}
+.pill > summary::-webkit-details-marker { display: none; }
+.pill > summary:hover, .pill[open] > summary { color: var(--text); }
+.pill[open] > summary { box-shadow: inset 0 0 0 var(--hairline) var(--border-strong); }
+/* An open pill takes the whole row so its panel can sit under the list. */
+.pill[open] { flex-basis: 100%; }
+.pillbody {
+  margin-top: var(--space-2);
+  padding: var(--space-4);
+  background: var(--surface-1);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  line-height: var(--lh-body);
+}
+.pillbody .figwrap { max-width: var(--ring-sm); margin-bottom: var(--space-3); }
+.pillbody .chipx-desc { margin: 0; color: var(--text); }
+.pillbody .chipx-link { margin: var(--space-3) 0 0; }
+.pillbody a { color: var(--text); }
+
+/* --- the paper test sheet --------------------------------------------------
+   Only the ladders, a level and three tick boxes per rung. Everything the
+   screen needs to be usable is noise on paper. */
+.assess { display: none; }
+.name-line { display: none; }
+
+@media print {
+  @page { margin: var(--print-margin); }
+  .screen {
+    background: var(--print-paper);
+    color: var(--print-ink);
+    font-size: var(--print-fs);
+    padding: 0;
+  }
+  .screen-inner { max-width: none; padding: 0; }
+  .appbar, .hero .kicker, .hero .lede, .hero-wash, .search, .fchips, .browse-note,
+  .browse-count, .grouphead p, .trackcard .thumb, .trackcard .s, .trackcard .meta,
+  .trackcard .state, .tree .exrow .thumb, .tree .exrow .cue, .tree .exrow .state,
+  .tree .exrow .presc, .tree .step-detail, .trackbody .sect, .pills, .action, .nav { display: none !important; }
+  .screen-title { font-size: var(--print-fs-h1); color: var(--print-ink); }
+  .name-line { display: block; margin: 0 0 var(--print-gap); }
+  .grouphead { margin: var(--print-gap) 0 0; break-after: avoid; }
+  .grouphead h2 { font-size: var(--print-fs-h2); color: var(--print-ink);
+    border-bottom: var(--print-hair) solid var(--print-ink); }
+  .trackcard { margin: 0; break-inside: avoid; }
+  /* [open] and .course outrank a plain print rule, so these say so. */
+  .trackcard > summary, .trackcard[open] > summary { background: none !important; padding: var(--print-gap) 0 0; }
+  .trackcard .t { font-size: var(--print-fs); color: var(--print-ink); }
+  .trackbody { display: block !important; margin: 0; padding: 0; border: 0; }
+  .tree .exrow { background: none; padding: 0; margin: 0; break-inside: avoid;
+    border-bottom: var(--print-hair) solid var(--print-rule); border-radius: 0; }
+  /* The 44px tap height is for fingers, not paper. */
+  .tree .exrow > summary { padding: 0; gap: var(--print-gap); min-height: 0; }
+  .tree .exrow .name { font-family: var(--font-body); font-size: var(--print-fs); color: var(--print-ink); }
+  /* Name and level on one line: half the height per rung, half the paper. */
+  .tree .exrow .exbody { display: flex; align-items: baseline; gap: var(--print-gap); }
+  .tree .exrow .presc-row { display: contents; }
+  .badge, .badge.course { background: none !important; color: var(--print-ink) !important;
+    padding: 0; font-size: var(--print-fs-sm); }
+  .assess { display: flex; gap: var(--print-gap); align-items: center; flex: none;
+    font-size: var(--print-fs-sm); color: var(--print-ink); white-space: nowrap; }
+  .assess i { display: inline-block; width: var(--print-box); height: var(--print-box);
+    border: var(--print-hair) solid var(--print-ink); margin-right: var(--space-1);
+    vertical-align: middle; }
+}
+
+/* =====================================================================
    SESSION SHELL
    Workout mode covers the week screen rather than navigating away, so
    closing it returns the athlete exactly where they were, mid scroll.

@@ -2012,13 +2012,18 @@ function extraKey(name){
 }
 function buildExtra(host, name){
   const k = extraKey(name);
-  const info = EXTRAS[k] || EXTRAS2[k];
+  /* EXTRAS was referenced here from the first commit but never defined,
+     so every advanced and supporting chip threw on open. Guarded until
+     those descriptions are actually written. */
+  const lib1 = typeof EXTRAS  !== "undefined" ? EXTRAS  : {};
+  const lib2 = typeof EXTRAS2 !== "undefined" ? EXTRAS2 : {};
+  const info = lib1[k] || lib2[k];
   const move = info && MOVES[info.m];
   let html = "";
   if(move) html += '<div class="figwrap small">' + FIG_SVG + '<p class="fig-cap">' + move.label + "</p></div>";
-  html += '<div class="how-text"><p class="chipx-desc">'
-    + (info ? info.d : "No notes written for this one yet — add a line for it in the EXTRAS block near the bottom of the file.")
-    + "</p>";
+  /* A drill with no notes shows nothing rather than a note to the
+     developer. The link to its ladder and the demo search still work. */
+  html += '<div class="how-text">' + (info ? '<p class="chipx-desc">' + info.d + "</p>" : "");
   const target = LADDER_INDEX[name.toLowerCase().trim()] || LADDER_INDEX[k];
   if(target){
     html += '<p class="chipx-link"><a href="#" data-goto="' + target.id + '">Open the full ladder entry in '
@@ -2040,7 +2045,10 @@ function buildExtra(host, name){
       if(n.tagName === "DETAILS") n.open = true;
       n = n.parentNode;
     }
-    li.querySelector("details.step").open = true;
+    /* The target is the rung itself on the new skill tree, and a
+       wrapper around a details.step on the old one. */
+    const rung = li.matches("details") ? li : li.querySelector("details.step, details.exrow");
+    if(rung) rung.open = true;
     li.scrollIntoView({behavior:"smooth", block:"center"});
   });
 }
