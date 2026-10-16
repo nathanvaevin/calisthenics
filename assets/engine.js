@@ -3145,22 +3145,48 @@ function variationPicker(currentKey, owned, onPick){
              el("span","vstate",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>'));
   wrap.append(sum);
 
-  const list = el("div","varlist");
-  keys.forEach(k=>{
+  /* A carousel, easiest on the left, hardest on the right, opened centred
+     on the version being done now. Each card is a looping figure, so you
+     can see the movement before you switch to it. Figures are only built
+     when the carousel first opens, so closed pickers cost nothing. */
+  const track = el("div","varcarousel");
+  const cards = keys.map(k=>{
     const r = rungOf(k);
-    const b = el("button","varrow" + (k === currentKey ? " current" : ""));
-    b.type = "button";
-    const thumb = el("div","vthumb");
-    if(!staticFigure(thumb, k)) thumb.classList.add("blank");
-    const txt = el("div","vtxt");
-    txt.append(el("div","vname", r.name));
-    txt.append(el("div","rel", k === currentKey ? "Doing now"
-      : r.lv < cur.lv ? "Easier" : r.lv > cur.lv ? "Harder" : "Same level"));
-    b.append(thumb, txt, el("span","badge","LV " + r.lv));
-    if(k !== currentKey) b.addEventListener("click", e=>{ e.preventDefault(); e.stopPropagation(); onPick(k); });
-    list.append(b);
+    const now = k === currentKey;
+    const c = el("button","varcard" + (now ? " current" : ""));
+    c.type = "button";
+    c.setAttribute("aria-label", r.name + ", level " + r.lv + (now ? ", doing now" : ""));
+    const top = el("div","vtop");
+    top.append(el("span","rel", now ? "Doing now" : r.lv < cur.lv ? "Easier" : r.lv > cur.lv ? "Harder" : "Same level"),
+               el("span","badge","LV " + r.lv));
+    c.append(top, el("div","vfig"), el("div","vname", r.name));
+    c._key = k;
+    if(!now) c.addEventListener("click", e=>{ e.preventDefault(); e.stopPropagation(); onPick(k); });
+    track.append(c);
+    return c;
   });
-  wrap.append(list);
+  const hint = el("div","varhint","<span>\u2039 Easier</span><span>Harder \u203a</span>");
+
+  let built = false;
+  wrap.addEventListener("toggle", ()=>{
+    if(!wrap.open) return;
+    if(!built){
+      cards.forEach(c=>{
+        const info = HOWTO[c._key];
+        const move = EXMOVE[c._key] || (info && MOVES[info.m]);
+        const fig = c.querySelector(".vfig");
+        if(move){ fig.innerHTML = FIG_SVG; mountFigure(fig, move); }
+        else fig.classList.add("blank");
+      });
+      built = true;
+    }
+    /* centre the current card without moving the page */
+    requestAnimationFrame(()=>{
+      const c = cards[keys.indexOf(currentKey)];
+      track.scrollLeft = c.offsetLeft - (track.clientWidth - c.clientWidth) / 2;
+    });
+  });
+  wrap.append(track, hint);
   return wrap;
 }
 

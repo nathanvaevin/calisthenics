@@ -116,6 +116,7 @@
   --ring-sm:    132px;   /* the same ring inside a reference frame */
   --field:       48px;   /* search and text inputs */
   --rail:        12px;   /* indent of a track's ladder under its card */
+  --varcard:     72%;   /* a carousel card, so the next one peeks in */
 
   /* The stick figure. Stroke widths are user units inside a fixed
      220x150 viewBox, so they scale with the figure, not with the page. */

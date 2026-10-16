@@ -364,6 +364,9 @@
   margin: 0 auto;
 }
 .sheet.on { transform: translateY(0); }
+/* A sheet can end in one action, set apart from what it chooses. */
+.sheet > .btn { margin-top: var(--space-5); }
+.sheet > .fchips { margin-top: var(--space-4); }
 /* Eight levels can be taller than a phone, so the sheet scrolls itself. */
 .sheet { max-height: calc(100dvh - var(--space-8)); overflow-y: auto; }
 .sheet .grab {
@@ -992,39 +995,70 @@
 }
 .varpick[open] > summary .vstate { transform: rotate(90deg); }
 
-.varlist { display: flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-2); }
-.varrow {
+/* The carousel. Swipe sideways, cards snap to the centre, the neighbours
+   peek in so it is obvious there is more. */
+.varcarousel {
+  position: relative;
   display: flex;
-  align-items: center;
   gap: var(--space-3);
-  width: 100%;
-  min-height: var(--touch-min);
-  padding: var(--space-2);
+  margin-top: var(--space-3);
+  padding-bottom: var(--space-1);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.varcarousel::-webkit-scrollbar { display: none; }
+/* Spacers either side, sized from the same width as the cards, so the first
+   and last card can sit dead centre. Padding cannot do this: a card's
+   percentage width is measured inside the padding, so the two never agree. */
+.varcarousel::before, .varcarousel::after {
+  content: "";
+  flex: 0 0 calc((100% - var(--varcard)) / 2 - var(--space-3));
+}
+.varcard {
+  flex: 0 0 var(--varcard);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
   border: 0;
-  border-radius: var(--radius-sm);
-  background: transparent;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
   color: var(--text);
   text-align: left;
   cursor: pointer;
   transition: background var(--dur-micro) var(--ease);
 }
-.varrow:hover { background: var(--surface-2); }
+.varcard:hover { background: var(--surface-3); }
 /* What you are doing now is marked by surface and words, not by amber. */
-.varrow.current { background: var(--surface-2); cursor: default;
+.varcard.current { background: var(--surface-3); cursor: default;
   box-shadow: inset 0 0 0 var(--hairline) var(--border-strong); }
-.varrow .vthumb {
-  flex: none;
-  width: var(--space-7);
-  height: var(--space-7);
+.varcard .vtop { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.varcard .rel { font-size: var(--fs-sm); color: var(--text-muted); }
+.varcard.current .rel { color: var(--text); }
+.varcard .vfig {
   border-radius: var(--radius-sm);
-  background: var(--surface-2);
+  background: var(--surface-1);
   overflow: hidden;
 }
-.varrow.current .vthumb { background: var(--surface-3); }
-.varrow .vtxt { flex: 1; min-width: 0; }
-.varrow .vname { font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600; line-height: var(--lh-snug); }
-.varrow .rel { margin-top: var(--space-1); font-size: var(--fs-label); color: var(--text-faint); }
-.varrow.current .rel { color: var(--text-muted); }
+.varcard .vfig.blank { aspect-ratio: 22 / 15; }
+.varcard .vname {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);
+  line-height: var(--lh-snug);
+}
+.varhint {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
 
 /* In guided view the picker sits in a centred column and stays left aligned. */
 .gview .varpick.inguided { width: 100%; text-align: left; }

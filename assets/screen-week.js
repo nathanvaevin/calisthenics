@@ -143,7 +143,8 @@ function renderWeekScreen(BLOCKS, opts){
     const btn = el("button","btn btn-primary",
       finished === 0 ? "Start session" : finished === total ? "Session complete" : "Continue session");
     btn.type = "button";
-    btn.addEventListener("click", ()=> startSession(BLOCKS, j=> state[j], {
+    btn.addEventListener("click", ()=> openRest(rest=> startSession(BLOCKS, j=> state[j], {
+      rest,
       rowsFor: j=> rowsFor(BLOCKS[j], j),
       onSwap: (bi, idx, k)=>{ overrides[bi + "|" + state[bi] + "|" + idx] = k; },
       /* A finished exercise is one whose every set was ticked. Anything
@@ -155,7 +156,7 @@ function renderWeekScreen(BLOCKS, opts){
         });
         build();
       }
-    }));
+    })));
     act.append(btn);
     inner.append(act);
 
@@ -276,6 +277,49 @@ function renderWeekScreen(BLOCKS, opts){
         sheet.el.append(b);
       });
       sheet.el.append(el("p","foot","Without it, an exercise swaps to the closest version that needs nothing"));
+    };
+    draw();
+    requestAnimationFrame(()=>{ sheet.scrim.classList.add("on"); sheet.el.classList.add("on"); });
+  }
+
+  /* Rest between sets, chosen before every workout and remembered on this
+     device. A rest the coach wrote into an exercise still wins. */
+  const RESTS = [[30,"30s"],[45,"45s"],[60,"1 min"],[90,"90s"],[120,"2 min"]];
+  const REST_STORE = "aura.rest";
+  function savedRest(){
+    try{ const v = +localStorage.getItem(REST_STORE); if(RESTS.some(r=> r[0] === v)) return v; }catch(e){}
+    return 60;
+  }
+  function openRest(begin){
+    if(!sheet.el){
+      sheet.scrim = el("div","scrim");
+      sheet.el = el("div","sheet");
+      document.body.append(sheet.scrim, sheet.el);
+      sheet.scrim.addEventListener("click", closeSheet);
+    }
+    let pick = savedRest();
+    const draw = ()=>{
+      sheet.el.textContent = "";
+      sheet.el.append(el("div","grab"));
+      sheet.el.append(el("div","k","Rest between sets"));
+      const row = el("div","fchips fill");
+      RESTS.forEach(([sec, label])=>{
+        const b = el("button","fchip" + (sec === pick ? " on" : ""), label);
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(sec === pick));
+        b.addEventListener("click", ()=>{ pick = sec; draw(); });
+        row.append(b);
+      });
+      sheet.el.append(row);
+      sheet.el.append(el("p","foot","Where your coach set a rest on an exercise, that one stays"));
+      const go = el("button","btn btn-primary","Start");
+      go.type = "button";
+      go.addEventListener("click", ()=>{
+        try{ localStorage.setItem(REST_STORE, String(pick)); }catch(e){}
+        closeSheet();
+        begin(pick);
+      });
+      sheet.el.append(go);
     };
     draw();
     requestAnimationFrame(()=>{ sheet.scrim.classList.add("on"); sheet.el.classList.add("on"); });
