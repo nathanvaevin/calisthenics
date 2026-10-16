@@ -2989,3 +2989,186 @@ function make3D(host, key, label){
   }});
   return wrap;
 }
+
+/* =====================================================================
+   GEAR AND FAMILIES
+   Two side tables keyed "Track|Exercise", like HOWTO and EXMOVE.
+
+   GEAR says what an exercise needs beyond a floor and a wall. A whole
+   track can need it (every rung of Pull-Up needs a bar), or one rung can.
+
+   A FAMILY is the easy to hard list of versions of one exercise: what the
+   variation picker offers, and where a gear swap looks for a substitute.
+   Most tracks already are one family, so they are not listed. Only tracks
+   that mix different drills are split here, because Toe pulls is not a
+   harder Cartwheel exit. A family may borrow rungs from other tracks.
+   ===================================================================== */
+const GEAR = {
+  band:    "Resistance band",
+  weights: "Weights",
+  bar:     "Pull-up bar",
+  partner: "Partner"
+};
+
+const GEAR_TRACKS = {
+  bar: ["Pull-Up", "Swinging &amp; Bar Basics", "Muscle-Up", "Bar Tricks &amp; Freestyle",
+        "One-Arm Pull-Up", "Front Lever", "Back Lever"]
+};
+
+const RUNG_GEAR = {
+  "Kinetic Chain &amp; Prep|Overhead band press": ["band"],
+  "Hanging &amp; Grip|Band curls":                ["band"],
+  "Hanging &amp; Grip|Passive dead hang":         ["bar"],
+  "Hanging &amp; Grip|Active hang":               ["bar"],
+  "Hanging &amp; Grip|Hanging with movement":     ["bar"],
+  "Hanging &amp; Grip|Skin the cat":              ["bar"],
+  "Hanging &amp; Grip|Towel or fingertip hang":   ["bar"],
+  "Core &amp; Compression|Hanging knee raise":    ["bar"],
+  "Core &amp; Compression|Hanging leg raise":     ["bar"],
+  "Core &amp; Compression|Toes to bar":           ["bar"],
+  "Pull-Up|Weighted pull-up":                     ["weights"],
+  "Dip|Weighted dip":                             ["weights"],
+  "One-Arm Pull-Up|Heavy weighted pull-ups":      ["weights"],
+  "Handstand|Partner-assisted kick-up":           ["partner"],
+  "Handstand|Wheelbarrow partner hold":           ["partner"]
+};
+
+const KC = "Kinetic Chain &amp; Prep|", HS = "Handstand|", HP = "Handstand Push-Up|",
+      OA = "One-Arm Handstand|", HG = "Hanging &amp; Grip|", CO = "Core &amp; Compression|";
+const FAMILIES = [
+  {id:"mobility", name:"Mobility and warm-up", keys:[KC+"Wrist prep sequence", KC+"Wall chest opener",
+    KC+"Cat-cow into thread the needle", KC+"Stick overhead hold and rotation", KC+"Straddle forward fold",
+    KC+"Hip-flexor lunge stretch", KC+"Down dog", KC+"Posterior pelvic tilt drill", "Squat &amp; Lunge|Ankle mobility drill"]},
+  {id:"line", name:"Hollow and arch line", keys:[KC+"Banana hold", KC+"Hollow-body hold",
+    KC+"Hollow-to-arch (banana) transitions", CO+"Hollow rocks", KC+"Banana rocks"]},
+  {id:"shoulder", name:"Active shoulder", keys:[KC+"Prone shoulder raise", KC+"Pike scapular push-up",
+    KC+"Active-shoulder wall shrug", KC+"Full integration: chest-to-wall line"]},
+  {id:"press", name:"Overhead pressing", keys:[KC+"Overhead band press", HS+"Wall walks", HP+"Pike push-up",
+    HP+"Elevated pike push-up", HP+"Slider pikes", HP+"Wall handstand push-up",
+    HP+"Freestanding handstand push-up", HP+"Deficit or 90° press"]},
+  {id:"entry", name:"Kick-up and entry", keys:[HS+"Cartwheel exit", HS+"Step-and-freeze kick-up",
+    HS+"Partner-assisted kick-up", HS+"Kick-up to balance", HS+"Silent kick-up challenge", HS+"Straddle or tuck press"]},
+  {id:"balance", name:"Hand balance", keys:["Crow &amp; Elbow Lever|Frog stand", HS+"Wheelbarrow partner hold",
+    HS+"Chest-to-wall handstand", HS+"Toe pulls", HS+"Overbalance and underbalance drill",
+    HS+"Freestanding handstand", HS+"Wall shoulder taps", OA+"Bulletproof freestanding handstand",
+    OA+"Weight shifts and taps", OA+"Two-finger / staggered support", OA+"Assisted one-arm", OA+"One-arm handstand"]},
+  {id:"hangs", name:"Hangs", keys:[HG+"Passive dead hang", HG+"Active hang", HG+"Hanging with movement",
+    HG+"Skin the cat", HG+"Towel or fingertip hang"]},
+  {id:"forearms", name:"Forearms and wrists", keys:[HG+"Wrist curls and reverse curls", HG+"Band curls"]},
+  {id:"floorcore", name:"Floor core", keys:[CO+"Plank", CO+"Side plank", CO+"Hollow-body hold", CO+"Dragon flag"]},
+  {id:"hangcore", name:"Hanging core", keys:[CO+"Hanging knee raise", CO+"Hanging leg raise", CO+"Toes to bar"]},
+  {id:"squat", name:"Squat and lunge", keys:["Squat &amp; Lunge|Bodyweight squat", "Squat &amp; Lunge|Split squat",
+    "Squat &amp; Lunge|Bulgarian split squat", "Squat &amp; Lunge|Box pistol / assisted pistol",
+    "Squat &amp; Lunge|Jump squat / explosive work"]}
+];
+
+/* the rung behind a key, or null */
+function rungOf(key){
+  if(!key) return null;
+  const bar = key.indexOf("|");
+  const t = TRACKS.find(x=> x.name === key.slice(0, bar));
+  return t ? (t.ladder.find(s=> s.name === key.slice(bar + 1)) || null) : null;
+}
+
+function gearFor(key){
+  if(!key) return [];
+  const track = key.slice(0, key.indexOf("|"));
+  const need = new Set(RUNG_GEAR[key] || []);
+  Object.keys(GEAR_TRACKS).forEach(g=>{ if(GEAR_TRACKS[g].includes(track)) need.add(g); });
+  return [...need];
+}
+
+/* The family a key belongs to: an explicit one if listed, otherwise its
+   whole track ladder. Returned easy to hard. */
+function familyFor(key){
+  if(!rungOf(key)) return null;
+  let f = FAMILIES.find(x=> x.keys.includes(key));
+  if(!f){
+    const track = key.slice(0, key.indexOf("|"));
+    const t = TRACKS.find(x=> x.name === track);
+    f = {id:"track:" + track, name:track.replace(/&amp;/g,"&"), keys:t.ladder.map(s=> track + "|" + s.name)};
+  }
+  const seen = new Set();
+  const keys = f.keys.filter(k=>{
+    const r = rungOf(k);
+    if(!r || seen.has(r.name)) return false;       // one Hollow-body hold, not two
+    seen.add(r.name); return true;
+  }).sort((a,b)=> rungOf(a).lv - rungOf(b).lv);
+  return {id:f.id, name:f.name, keys};
+}
+
+/* Gear the athlete has. Stored on this device until there is a profile to
+   keep it on. Everything counts as owned until they say otherwise, so a
+   page never quietly changes under someone who has not opened the picker. */
+const GEAR_STORE = "aura.gear";
+function ownedGear(){
+  try{
+    const v = JSON.parse(localStorage.getItem(GEAR_STORE));
+    if(Array.isArray(v)) return v.filter(g=> g in GEAR);
+  }catch(e){}
+  return Object.keys(GEAR);
+}
+function saveGear(list){
+  try{ localStorage.setItem(GEAR_STORE, JSON.stringify(list)); }catch(e){}
+}
+function hasGearFor(key, owned){ return gearFor(key).every(g=> owned.includes(g)); }
+
+/* The closest version in the same family that needs no missing gear and is
+   not already in use. Closest by level, the easier one on a tie. */
+function gearSwap(key, owned, taken){
+  const f = familyFor(key);
+  if(!f) return null;
+  const lv = rungOf(key).lv;
+  const options = f.keys.filter(k=> k !== key && hasGearFor(k, owned) && !(taken && taken.has(k)));
+  options.sort((a,b)=> (Math.abs(rungOf(a).lv - lv) - Math.abs(rungOf(b).lv - lv)) || (rungOf(a).lv - rungOf(b).lv));
+  return options[0] || null;
+}
+
+/* ---------------------------------------------------------------------
+   THE VARIATION PICKER
+   Tap an exercise, open "Easier or harder", see every version in its
+   family with a figure, a name and a level, and pick one. Versions that
+   need gear the athlete does not have are left out.
+   --------------------------------------------------------------------- */
+function variationPicker(currentKey, owned, onPick){
+  const f = familyFor(currentKey);
+  if(!f) return null;
+  const keys = f.keys.filter(k=> k === currentKey || hasGearFor(k, owned));
+  if(keys.length < 2) return null;
+  const cur = rungOf(currentKey);
+  const lvs = keys.map(k=> rungOf(k).lv);
+
+  const wrap = el("details","varpick");
+  const sum = el("summary");
+  sum.append(el("span","t","Easier or harder"),
+             el("span","r", keys.length + " versions · LV " + Math.min(...lvs) + " to " + Math.max(...lvs)),
+             el("span","vstate",'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>'));
+  wrap.append(sum);
+
+  const list = el("div","varlist");
+  keys.forEach(k=>{
+    const r = rungOf(k);
+    const b = el("button","varrow" + (k === currentKey ? " current" : ""));
+    b.type = "button";
+    const thumb = el("div","vthumb");
+    if(!staticFigure(thumb, k)) thumb.classList.add("blank");
+    const txt = el("div","vtxt");
+    txt.append(el("div","vname", r.name));
+    txt.append(el("div","rel", k === currentKey ? "Doing now"
+      : r.lv < cur.lv ? "Easier" : r.lv > cur.lv ? "Harder" : "Same level"));
+    b.append(thumb, txt, el("span","badge","LV " + r.lv));
+    if(k !== currentKey) b.addEventListener("click", e=>{ e.preventDefault(); e.stopPropagation(); onPick(k); });
+    list.append(b);
+  });
+  wrap.append(list);
+  return wrap;
+}
+
+/* A library cue as a plain one line note: tags removed, and the em dashes
+   the library copy still carries turned into full stops, so a swapped in
+   exercise reads like the coach wrote it for this sheet. */
+function plainCue(r){
+  const c = (r && r.cues && r.cues[0]) || "";
+  return c.replace(/<[^>]*>/g,"")
+          .replace(/ — (\S)/g, (m,n)=> /\d/.test(n) ? ": " + n : ". " + n.toUpperCase());
+}

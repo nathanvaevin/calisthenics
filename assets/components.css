@@ -956,6 +956,83 @@
 }
 
 /* =====================================================================
+   VARIATION PICKER AND GEAR
+   Every exercise can be swapped for an easier or harder version of
+   itself. The picker lives inside an exercise card and inside workout
+   mode, so its classes are its own and nothing around it can reach in.
+   ===================================================================== */
+.varpick { margin-top: var(--space-3); }
+.varpick > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--touch-min);
+  padding: 0 var(--space-3);
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+.varpick > summary::-webkit-details-marker { display: none; }
+.varpick > summary .t { font-size: var(--fs-sm); font-weight: 600; color: var(--text); }
+.varpick > summary .r {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.varpick > summary .vstate {
+  flex: none;
+  display: grid;
+  color: var(--text-faint);
+  transition: transform var(--dur-micro) var(--ease);
+}
+.varpick[open] > summary .vstate { transform: rotate(90deg); }
+
+.varlist { display: flex; flex-direction: column; gap: var(--space-1); margin-top: var(--space-2); }
+.varrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--dur-micro) var(--ease);
+}
+.varrow:hover { background: var(--surface-2); }
+/* What you are doing now is marked by surface and words, not by amber. */
+.varrow.current { background: var(--surface-2); cursor: default;
+  box-shadow: inset 0 0 0 var(--hairline) var(--border-strong); }
+.varrow .vthumb {
+  flex: none;
+  width: var(--space-7);
+  height: var(--space-7);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.varrow.current .vthumb { background: var(--surface-3); }
+.varrow .vtxt { flex: 1; min-width: 0; }
+.varrow .vname { font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600; line-height: var(--lh-snug); }
+.varrow .rel { margin-top: var(--space-1); font-size: var(--fs-label); color: var(--text-faint); }
+.varrow.current .rel { color: var(--text-muted); }
+
+/* In guided view the picker sits in a centred column and stays left aligned. */
+.gview .varpick.inguided { width: 100%; text-align: left; }
+
+/* The gear button: a quiet control, never the screen's amber. */
+.appbar .gearbtn { margin-left: 0; color: var(--text-muted); }
+
+/* =====================================================================
    SESSION SHELL
    Workout mode covers the week screen rather than navigating away, so
    closing it returns the athlete exactly where they were, mid scroll.

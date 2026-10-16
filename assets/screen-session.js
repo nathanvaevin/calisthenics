@@ -37,14 +37,16 @@ function setTarget(d){
    Flatten the chosen blocks into exercises, and exercises into sets.
    Done once, so both views and the summary count the same things.
    --------------------------------------------------------------------- */
-function buildSession(blocks, levelOf){
+function buildSession(blocks, levelOf, rowsFor){
   const exercises = [];
   blocks.forEach((b, i)=>{
-    const rows = b.levels ? (b.levels[levelOf(i)] || []) : (b.items || []);
+    /* rowsFor is the week screen's own view, so a session runs exactly what
+       the athlete saw: their picks and their gear swaps included. */
+    const rows = rowsFor ? rowsFor(i) : (b.levels ? (b.levels[levelOf(i)] || []) : (b.items || []));
     rows.forEach(row=>{
-      const [name, dose, note, key] = row;
+      const [name, dose, note, key, meta] = row;
       const d = parseDose(dose);
-      const ex = { bi: i, section: b.name, name, note, key, dose: d, raw: dose, sets: [] };
+      const ex = { bi: i, idx: meta ? meta.idx : null, section: b.name, name, note, key, dose: d, raw: dose, sets: [] };
       for(let n = 0; n < d.sets; n++) ex.sets.push({ ex, n, done: false });
       exercises.push(ex);
     });
@@ -55,7 +57,19 @@ function buildSession(blocks, levelOf){
 
 function startSession(blocks, levelOf, opts){
   const o = opts || {};
-  const S = buildSession(blocks, levelOf);
+  const S = buildSession(blocks, levelOf, o.rowsFor);
+  const owned = ownedGear();
+
+  /* Swap an exercise for another version mid workout. Same dose, same number
+     of sets, ticks cleared, because they were for the other exercise. */
+  function swap(ex, k){
+    const r = rungOf(k);
+    ex.key = k; ex.name = r.name; ex.note = plainCue(r);
+    ex.sets.forEach(st=> st.done = false);
+    if(o.onSwap && ex.idx !== null) o.onSwap(ex.bi, ex.idx, k);
+    stopTimer();
+    draw();
+  }
   if(!S.sets.length) return;
 
   let view = "list";
@@ -121,6 +135,8 @@ function startSession(blocks, levelOf, opts){
       const g = el("div", "exgroup");
       g.append(el("h3", "exname", ex.name));
       g.append(el("span", "exmeta", ex.raw));
+      const vp = ex.key ? variationPicker(ex.key, owned, k=> swap(ex, k)) : null;
+      if(vp) g.append(vp);
       ex.sets.forEach(st=>{
         const r = el("button", "setrow" + (st.done ? " done" : ""));
         r.type = "button";
@@ -155,6 +171,8 @@ function startSession(blocks, levelOf, opts){
     const v = el("div", "gview");
     v.append(el("p", "where", ex.section + " · set " + (st.n + 1) + " of " + ex.sets.length));
     v.append(el("h2", "exname", ex.name));
+    const vp = ex.key ? variationPicker(ex.key, owned, k=> swap(ex, k)) : null;
+    if(vp){ vp.classList.add("inguided"); v.append(vp); }
 
     const stage = el("div", "gstage");
     if(ex.key){

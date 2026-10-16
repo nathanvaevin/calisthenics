@@ -8,6 +8,7 @@
    ===================================================================== */
 
 const ICONS = {
+  gear:  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>',
   back:  '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
   chev:  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
   caret: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
@@ -33,7 +34,38 @@ function renderWeekScreen(BLOCKS, opts){
   const root = document.getElementById("screen");
   const sheet = { el:null, scrim:null, block:0 };
 
-  const rowsFor = (b,i)=> (b.levels ? (b.levels[state[i]] || []) : (b.items || []));
+  /* What the athlete actually does: the sheet's rows, then any version they
+     picked themselves, then a swap for anything needing gear they do not
+     have. A row carries a fifth element saying where it came from. */
+  const overrides = {};                   // "block|level|row" -> chosen key
+  let owned = ownedGear();
+  let reopen = null;                      // the card to keep open after a rebuild
+
+  function rowsFor(b,i){
+    const base = b.levels ? (b.levels[state[i]] || []) : (b.items || []);
+    const taken = new Set(base.map(r=> r[3]).filter(Boolean));
+    const out = [];
+    base.forEach((row, idx)=>{
+      let [name, dose, note, k] = row;
+      const pick = overrides[i + "|" + state[i] + "|" + idx];
+      if(pick && pick !== k){
+        const r = rungOf(pick);
+        name = r.name; note = plainCue(r); k = pick; taken.add(pick);
+      }
+      let swapped = null;
+      if(k && !hasGearFor(k, owned)){
+        const alt = gearSwap(k, owned, taken);
+        if(!alt) return;                  // nothing in its family needs no gear
+        swapped = "No " + GEAR[gearFor(k).find(g=> !owned.includes(g))].toLowerCase();
+        const r = rungOf(alt);
+        name = r.name; note = plainCue(r); k = alt; taken.add(alt);
+      }
+      /* The override key travels with the row, so nothing downstream has to
+         rebuild it from a variable that might be shadowed. */
+      out.push([name, dose, note, k, {block:i, idx, swapped, okey:i + "|" + state[i] + "|" + idx}]);
+    });
+    return out;
+  }
   const key = (b,i,item)=> i + "|" + state[i] + "|" + item[0];
 
   function build(){
@@ -52,7 +84,11 @@ function renderWeekScreen(BLOCKS, opts){
        the first, but a week that opens with an identical warm-up at every
        level names a more telling block instead. */
     chip.addEventListener("click", ()=> openSheet(o.sheetBlock || 0));
-    bar.append(back, el("div","appbar-title", o.barTitle || ""), chip);
+    const gearBtn = el("button","icon-btn gearbtn", ICONS.gear);
+    gearBtn.type = "button";
+    gearBtn.setAttribute("aria-label","Your gear");
+    gearBtn.addEventListener("click", openGear);
+    bar.append(back, el("div","appbar-title", o.barTitle || ""), gearBtn, chip);
     inner.append(bar);
 
     /* hero */
@@ -87,6 +123,7 @@ function renderWeekScreen(BLOCKS, opts){
       const rows = rowsFor(b,i);
       const done = rows.filter(r=> DONE.has(key(b,i,r))).length;
 
+      if(!rows.length) return;
       const head = el("div","sect");
       head.append(el("h2",null, b.name));
       if(rows.length){
@@ -107,6 +144,8 @@ function renderWeekScreen(BLOCKS, opts){
       finished === 0 ? "Start session" : finished === total ? "Session complete" : "Continue session");
     btn.type = "button";
     btn.addEventListener("click", ()=> startSession(BLOCKS, j=> state[j], {
+      rowsFor: j=> rowsFor(BLOCKS[j], j),
+      onSwap: (bi, idx, k)=>{ overrides[bi + "|" + state[bi] + "|" + idx] = k; },
       /* A finished exercise is one whose every set was ticked. Anything
          less stays open, because a half done exercise is not done. */
       onClose: (S)=>{
@@ -125,7 +164,7 @@ function renderWeekScreen(BLOCKS, opts){
   }
 
   function exerciseCard(item, isDone){
-    const [name, dose, note, k] = item;
+    const [name, dose, note, k, meta] = item;
     const hit = k && INDEX[k];
     const d = el("details","exrow" + (isDone ? " done" : ""));
     const sum = el("summary");
@@ -141,6 +180,7 @@ function renderWeekScreen(BLOCKS, opts){
     body.append(el("div","name", name));
     const line = el("div","presc-row");
     line.append(el("div","presc", dose));
+    if(meta && meta.swapped) line.append(el("span","badge", meta.swapped));
     if(hit) line.append(el("span","badge","LV " + hit.step.lv));
     body.append(line);
     if(note) body.append(el("p","cue", note));
@@ -150,9 +190,17 @@ function renderWeekScreen(BLOCKS, opts){
     d.append(sum);
 
     if(hit){
+      const id = meta ? meta.block + "|" + meta.idx : null;
+      const picker = meta ? variationPicker(k, owned, nk=>{
+        overrides[meta.okey] = nk;
+        reopen = id;
+        build();
+      }) : null;
+      if(picker) d.append(picker);
       const det = detailFor(k);
       d.append(det);
       d.addEventListener("toggle", ()=>{ if(d.open) det._open(); });
+      if(id && reopen === id){ d.open = true; reopen = null; }
     }
     return d;
   }
@@ -197,6 +245,42 @@ function renderWeekScreen(BLOCKS, opts){
     sheet.el.append(el("p","foot","Sets the level for every block"));
     requestAnimationFrame(()=>{ sheet.scrim.classList.add("on"); sheet.el.classList.add("on"); });
   }
+  const GEAR_WHAT = {
+    band:    "Band presses and curls",
+    weights: "Weighted pull-ups and dips",
+    bar:     "Hangs, pull-ups and hanging core",
+    partner: "Assisted kick-ups and the wheelbarrow"
+  };
+  function openGear(){
+    if(!sheet.el){
+      sheet.scrim = el("div","scrim");
+      sheet.el = el("div","sheet");
+      document.body.append(sheet.scrim, sheet.el);
+      sheet.scrim.addEventListener("click", closeSheet);
+    }
+    const draw = ()=>{
+      sheet.el.textContent = "";
+      sheet.el.append(el("div","grab"));
+      sheet.el.append(el("div","k","Your gear"));
+      Object.keys(GEAR).forEach(g=>{
+        const on = owned.includes(g);
+        const b = el("button","opt" + (on ? " sel" : ""));
+        b.type = "button";
+        b.setAttribute("aria-pressed", String(on));
+        b.append(el("span","n", GEAR[g]), el("span","what", GEAR_WHAT[g]), el("span","mark", ICONS.tick));
+        b.addEventListener("click", ()=>{
+          owned = on ? owned.filter(x=> x !== g) : owned.concat(g);
+          saveGear(owned);
+          draw(); build();
+        });
+        sheet.el.append(b);
+      });
+      sheet.el.append(el("p","foot","Without it, an exercise swaps to the closest version that needs nothing"));
+    };
+    draw();
+    requestAnimationFrame(()=>{ sheet.scrim.classList.add("on"); sheet.el.classList.add("on"); });
+  }
+
   function closeSheet(){
     if(!sheet.el) return;
     sheet.scrim.classList.remove("on");
