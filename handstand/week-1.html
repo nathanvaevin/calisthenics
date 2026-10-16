@@ -27,6 +27,9 @@
 const BLOCKS = [
   {tag:"WRIST", name:"Wrists and shoulders", why:"The wrists carry your whole bodyweight upside down. This is the block you never skip, no matter how strong you get.",
    levels:{
+     3:[["Wrist mobility circuit","20 seconds each way","Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Down dog","3 sets of 20 seconds","Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+        ["Cat-cow into thread the needle","6 breaths, then 5 each side","Exhale to round, inhale to arch. Three seconds on each twist.","Kinetic Chain &amp; Prep|Cat-cow into thread the needle"]],
      4:[["Wrist mobility circuit","20 seconds each way","Circles forward and back, finger extensions, prayer stretch both directions, knuckle holds. Always first, every session.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
         ["Down dog, active","3 sets of 30 seconds","Push the floor away, hips high, elbows locked, shoulder blades spreading. The same active shoulder you need upside down.","Kinetic Chain &amp; Prep|Down dog"],
         ["Cat-cow into thread the needle","6 breaths, then 5 each side","Exhale to round, inhale to arch. Three seconds on each twist.","Kinetic Chain &amp; Prep|Cat-cow into thread the needle"]],
@@ -35,10 +38,24 @@ const BLOCKS = [
         ["Straddle forward fold","90 seconds","Hinge from the hips and walk the hands forward. Flex the feet and engage the legs &mdash; the foundation of the straddle press.","Kinetic Chain &amp; Prep|Straddle forward fold"]],
      6:[["Wrist mobility circuit","20 seconds each way","Never skip it, however good the wrists feel. They are carrying everything.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
         ["Down dog, open the bottle","3 sets of 30 seconds","Elbows locked, turn the hands open as if opening a bottle and push hard against the floor. Straight-arm support and external rotation together.","Kinetic Chain &amp; Prep|Down dog"],
-        ["Hip-flexor lunge stretch","60 seconds each side","Low lunge, back knee down, arms reaching overhead. The hips have to open before the line can straighten.","Kinetic Chain &amp; Prep|Hip-flexor lunge stretch"]]
+        ["Hip-flexor lunge stretch","60 seconds each side","Low lunge, back knee down, arms reaching overhead. The hips have to open before the line can straighten.","Kinetic Chain &amp; Prep|Hip-flexor lunge stretch"]],
+     7:[["Wrist mobility circuit","20 seconds each way","Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Down dog, active","3 sets of 30 seconds","Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+        ["Straddle forward fold","90 seconds","Hinge from the hips and walk the hands forward. Flex the feet and engage the legs, the foundation of the straddle press.","Kinetic Chain &amp; Prep|Straddle forward fold"]],
+     8:[["Wrist mobility circuit","20 seconds each way","Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Down dog, active","3 sets of 30 seconds","Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+        ["Straddle forward fold","90 seconds","Hinge from the hips and walk the hands forward. Flex the feet and engage the legs, the foundation of the straddle press.","Kinetic Chain &amp; Prep|Straddle forward fold"]],
+     9:[["Wrist mobility circuit","20 seconds each way","Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Down dog, active","3 sets of 30 seconds","Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+        ["Straddle forward fold","90 seconds","Hinge from the hips and walk the hands forward. Flex the feet and engage the legs, the foundation of the straddle press.","Kinetic Chain &amp; Prep|Straddle forward fold"]],
+     10:[["Wrist mobility circuit","20 seconds each way","Palm pushes, back-of-hand pushes, side-to-side and fingertip pushes. Slow, never forced.","Kinetic Chain &amp; Prep|Wrist prep sequence"],
+        ["Down dog, active","3 sets of 30 seconds","Push the floor away and let the shoulder blades spread. The same active shoulder a handstand needs, at a friendly angle.","Kinetic Chain &amp; Prep|Down dog"],
+        ["Straddle forward fold","90 seconds","Hinge from the hips and walk the hands forward. Flex the feet and engage the legs, the foundation of the straddle press.","Kinetic Chain &amp; Prep|Straddle forward fold"]]
    }},
   {tag:"LINE", name:"The kinetic chain", why:"Wrist to shoulder to ribs to hips. Learn the shape on the floor, where you cannot fall, before you ask for it upside down.",
    levels:{
+     3:[["Banana hold","3 sets of 15 seconds","Lower slowly from a standing overhead reach without the hands helping, then hold the horizontal handstand shape.","Kinetic Chain &amp; Prep|Banana hold"],
+        ["Prone shoulder raise","2 sets of 8, two second hold","Lie face down, arms straight overhead in a Y. Lift the arms and chest, driving the shoulders toward the ears.","Kinetic Chain &amp; Prep|Prone shoulder raise"]],
      4:[["Hollow-body hold","3 sets of 20 seconds","Lower back pressed flat, ribs down. This is the handstand line, lying down. Bend the knees if the back lifts.","Kinetic Chain &amp; Prep|Hollow-body hold"],
         ["Posterior pelvic tilt drill","3 sets of 20 seconds","Back to the wall, tuck the tailbone under, flatten the lower back into it. No tuck, no straight handstand.","Kinetic Chain &amp; Prep|Posterior pelvic tilt drill"],
         ["Banana hold","3 sets of 20 seconds, 15 seconds rest","Lower slowly from a standing overhead reach without the hands helping, then hold the horizontal handstand shape.","Kinetic Chain &amp; Prep|Banana hold"]],
@@ -47,42 +64,81 @@ const BLOCKS = [
         ["Banana rocks","3 sets of 35 seconds","Rock forward and back with the body shape completely fixed. Momentum, not muscling.","Kinetic Chain &amp; Prep|Banana rocks"]],
      6:[["Pike scapular push-ups","3 sets of 8","Hips high, arms locked. Only the shoulder blades move: sink between them, then push tall and spread them wide.","Kinetic Chain &amp; Prep|Pike scapular push-up"],
         ["Prone shoulder raise","3 sets of 10, four second hold","Same drill, longer hold, or a light weight in the hands.","Kinetic Chain &amp; Prep|Prone shoulder raise"],
-        ["Hollow rocks","3 sets of 20","If the shape breaks before the target, stop and rest. A broken hollow trains nothing.","Core &amp; Compression|Hollow rocks"]]
+        ["Hollow rocks","3 sets of 20","If the shape breaks before the target, stop and rest. A broken hollow trains nothing.","Core &amp; Compression|Hollow rocks"]],
+     7:[["Wall handstand shrugs","3 sets of 10","In a chest-to-wall handstand, push the floor away and lift the whole body a few centimetres by shrugging.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
+        ["Chest-to-wall, everything at once","3 sets of 30 seconds","Wrists loaded, shoulders active and pushing, ribs down, pelvis tucked, glutes and legs squeezed. All of it, breathing calmly.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]],
+     8:[["Wall handstand shrugs","3 sets of 12, slow","In a chest-to-wall handstand, push the floor away and lift the whole body a few centimetres by shrugging.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
+        ["Chest-to-wall, everything at once","3 sets of 45 seconds","Wrists loaded, shoulders active and pushing, ribs down, pelvis tucked, glutes and legs squeezed. All of it, breathing calmly.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]],
+     9:[["Wall handstand shrugs","3 sets of 12, slow","In a chest-to-wall handstand, push the floor away and lift the whole body a few centimetres by shrugging.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
+        ["Chest-to-wall, everything at once","Build toward 60 seconds","Wrists loaded, shoulders active and pushing, ribs down, pelvis tucked, glutes and legs squeezed. All of it, breathing calmly.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]],
+     10:[["Wall handstand shrugs","3 sets of 12, slow","In a chest-to-wall handstand, push the floor away and lift the whole body a few centimetres by shrugging.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
+        ["Chest-to-wall, everything at once","Build toward 60 seconds","Wrists loaded, shoulders active and pushing, ribs down, pelvis tucked, glutes and legs squeezed. All of it, breathing calmly.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]]
    }},
   {tag:"PUSH", name:"Pushing strength", why:"A handstand is an overhead press you hold instead of finish. This is where the holding strength comes from.",
    levels:{
+     3:[["Knee push-ups","3 sets of 8","Knees down and the body in one line from knee to head, hips never higher than the shoulders.","Push-Up|Knee push-up"],
+        ["Scapular push-ups","3 sets of 8","High plank with the elbows locked the whole way. Let the chest sink between the shoulder blades, then push the floor away so the upper back rounds.","Push-Up|Scapular push-up"],
+        ["Overhead band press","3 sets of 10","Band under both feet, press straight overhead to full lockout, biceps by the ears, ribs down.","Kinetic Chain &amp; Prep|Overhead band press"]],
      4:[["Scapular push-ups","3 sets of 10","Plank, elbows locked throughout. Push the floor away so the upper back rounds, then let it sink. If you learn one thing this week, make it this.","Push-Up|Scapular push-up"],
         ["Overhead band press","3 sets of 10","Band under both feet, press straight overhead to full lockout, biceps by the ears, ribs down.","Kinetic Chain &amp; Prep|Overhead band press"]],
      5:[["Pike push-ups","3 sets of 8","Hands flat under the shoulders, hips high, elbows locked at the top. Lower the crown of the head between the hands.","Handstand Push-Up|Pike push-up"],
         ["Wall walks","5 up and down","Walk the feet up the wall from the floor and back down under control. Stop where the shoulders still feel strong.","Handstand|Wall walks"]],
      6:[["Elevated pike hold","3 sets of 30 seconds","Feet on a box, hands on the floor. The higher hips load the shoulders and wrists much harder than a floor pike.","Handstand Push-Up|Elevated pike push-up"],
         ["Wall handstand shrugs","3 sets of 8","Chest to wall. Push the floor away and shrug tall, keeping pressure through the hands. Never sink into the neck.","Kinetic Chain &amp; Prep|Active-shoulder wall shrug"],
-        ["Slider pikes","3 sets of 8","Feet on sliders or a cloth, arms locked, scapula pushed tall. The abs drive the hips up and back.","Handstand Push-Up|Slider pikes"]]
+        ["Slider pikes","3 sets of 8","Feet on sliders or a cloth, arms locked, scapula pushed tall. The abs drive the hips up and back.","Handstand Push-Up|Slider pikes"]],
+     7:[["Wall handstand push-ups","4 sets of 3","Back-to-wall teaches the real line; chest-to-wall is harder and more honest.","Handstand Push-Up|Wall handstand push-up"],
+        ["Archer push-ups","3 sets of 5 per side","Wide hands, shift the chest over the working hand, straight arm just balances.","Push-Up|Archer push-up"]],
+     8:[["Wall handstand push-ups","5 sets of 3, full range","Back-to-wall teaches the real line; chest-to-wall is harder and more honest.","Handstand Push-Up|Wall handstand push-up"],
+        ["Pseudo-planche push-ups","3 sets of 6","Turn the hands out or use parallettes if the wrists complain.","Push-Up|Pseudo-planche push-up"]],
+     9:[["Freestanding handstand push-ups","5 sets of 1 to 2","Balance is the limiter, not strength. A solid 60s handstand comes first.","Handstand Push-Up|Freestanding handstand push-up"],
+        ["Wall handstand push-ups","3 sets of 5","Back-to-wall teaches the real line; chest-to-wall is harder and more honest.","Handstand Push-Up|Wall handstand push-up"]],
+     10:[["Deficit or 90 degree press","5 sets of 1 to 2","Deficit work on parallettes is the natural next step and easier on the head and neck.","Handstand Push-Up|Deficit or 90° press"],
+        ["Freestanding handstand push-ups","3 sets of 3","Balance is the limiter, not strength. A solid 60s handstand comes first.","Handstand Push-Up|Freestanding handstand push-up"]]
    }},
-  {tag:"ENTRY", name:"The kick-up", why:"Learn the way out before the way up. Everyone practises the bail before they touch the wall — confidence is what makes a light kick possible.",
+  {tag:"ENTRY", name:"The kick-up", why:"Learn the way out before the way up. Everyone practises the bail before they touch the wall. Confidence is what makes a light kick possible.",
    levels:{
+     3:[["Cartwheel exit","2 practice bails, every session","Taught first, before any kick-up at all. Hand, hand, foot, foot, and you are standing. Do it until it is boring.","Handstand|Cartwheel exit"]],
      4:[["Cartwheel exit","2 practice bails, every session","Taught first, before any kick-up at all. Hand, hand, foot, foot, and you are standing. Do it until it is boring.","Handstand|Cartwheel exit"],
         ["Step-and-freeze kick-up","8 reps","Lunge in, plant the hands, kick the lead leg up and freeze at the top of the range. Step, plant, kick, freeze. Own the launch.","Handstand|Step-and-freeze kick-up"]],
      5:[["Kick-up to the wall, minimal contact","8 reps","Kick with as little force as you can, aiming to just touch the wall rather than slam it. The wall is a safety net, not a target.","Handstand|Kick-up to balance"],
         ["Partner-assisted kick-up","6 reps each","Partner stands beside you, ready at the hips, and steadies you into the balance so you can feel the real position.","Handstand|Partner-assisted kick-up"]],
      6:[["Silent kick-up challenge","10 attempts","Least noise against the wall wins. Nothing forces control and precision faster.","Handstand|Silent kick-up challenge"],
-        ["Repeated controlled kick-ups","3 sets of 5","Consistency, precision, minimal wall contact, a smooth entry every single time.","Handstand|Kick-up to balance"]]
+        ["Repeated controlled kick-ups","3 sets of 5","Consistency, precision, minimal wall contact, a smooth entry every single time.","Handstand|Kick-up to balance"]],
+     7:[["Silent kick-up challenge","10 attempts","Least noise against the wall wins. Nothing forces control and precision faster.","Handstand|Silent kick-up challenge"],
+        ["Freestanding kick-up attempts","5 attempts, fresh","Balance corrections come from the fingers and wrists first, hips second.","Handstand|Freestanding handstand"]],
+     8:[["Straddle or tuck press","5 sets of 1 to 2","Lean the shoulders forward first, then let the hips rise. It is a lean, not a lift.","Handstand|Straddle or tuck press"]],
+     9:[["Straddle or tuck press","5 sets of 2, slow lowering","Lean the shoulders forward first, then let the hips rise. It is a lean, not a lift.","Handstand|Straddle or tuck press"]],
+     10:[["Straddle or tuck press","5 sets of 3, slow lowering","Lean the shoulders forward first, then let the hips rise. It is a lean, not a lift.","Handstand|Straddle or tuck press"]]
    }},
   {tag:"BAL", name:"Balance", why:"Short and frequent, always fresh, always at the start. Corrections come from the fingers first and the hips second.",
    levels:{
+     3:[["Frog stand","3 sets of 10 seconds","Spread the fingers and grip the floor with the fingertips. The fingers are the brakes.","Crow &amp; Elbow Lever|Frog stand"]],
      4:[["Chest-to-wall hold","3 sets of 30 seconds","Belly to the wall, arms locked, ribs down, shoulders pushing. Breathe the whole time.","Handstand|Chest-to-wall handstand"]],
      5:[["Chest-to-wall hold","3 sets of 45 seconds","Fingers active, rhythmic breathing throughout. Compare it against your week-one hold.","Handstand|Chest-to-wall handstand"],
         ["Toe pulls","10 attempts","Walk one foot off the wall at a time and find the balance point for a moment before coming back.","Handstand|Toe pulls"],
         ["Wheelbarrow partner hold","3 sets of 20 seconds","Partner holds the legs. Static hold first, then small forward and back shifts.","Handstand|Wheelbarrow partner hold"]],
      6:[["Overbalance and underbalance drill","10 attempts","Deliberately shift into overbalance and back. Overbalance, you cartwheel out; underbalance, you step down. Knowing both is what frees the balance.","Handstand|Overbalance and underbalance drill"],
-        ["Freestanding kick-up attempts","3 attempts, fresh, at the start","A controlled kick-up with active shoulders is the success here, whatever the hold time.","Handstand|Freestanding handstand"]]
+        ["Freestanding kick-up attempts","3 attempts, fresh, at the start","A controlled kick-up with active shoulders is the success here, whatever the hold time.","Handstand|Freestanding handstand"]],
+     7:[["Bulletproof freestanding hold","3 sets of 20 seconds","Consistency matters more than the single best hold: 8 out of 10 attempts should be clean.","One-Arm Handstand|Bulletproof freestanding handstand"],
+        ["Wall shoulder taps","8 each side","In the chest-to-wall handstand, tap one hand to the opposite shoulder. Weight shift and stability.","Handstand|Wall shoulder taps"]],
+     8:[["Weight shifts and taps","3 sets of 5 per side","Open the hips slightly toward the loaded side and stack the shoulder over the hand.","One-Arm Handstand|Weight shifts and taps"],
+        ["Bulletproof freestanding hold","3 sets of 30 seconds","Consistency matters more than the single best hold: 8 out of 10 attempts should be clean.","One-Arm Handstand|Bulletproof freestanding handstand"]],
+     9:[["Staggered support","3 sets of 10 seconds per side","At this stage the free hand only informs balance. It should carry almost nothing.","One-Arm Handstand|Two-finger / staggered support"],
+        ["Assisted one-arm","3 sets of 5 seconds per side","Reduce assistance by height first, then by finger count.","One-Arm Handstand|Assisted one-arm"]],
+     10:[["One-arm handstand","5 attempts per side","Expect months, not weeks. Short daily exposure beats long weekly sessions.","One-Arm Handstand|One-arm handstand"],
+        ["Assisted one-arm","3 sets of 10 seconds per side","Reduce assistance by height first, then by finger count.","One-Arm Handstand|Assisted one-arm"]]
    }},
   {tag:"BREATH", name:"Breath and tension", why:"Holding your breath upside down spikes the blood pressure and drops the oxygen. Calm breathing under full tension is a trainable skill.",
    levels:{
+     3:[["Dead hang, breathing calmly","3 sets of 15 seconds","Let the shoulders rise to the ears and simply breathe. This decompresses and builds hand endurance.","Hanging &amp; Grip|Passive dead hang"]],
      4:[["Bar hang with full tension","3 sets of 20 seconds","Dead hang with legs squeezed, toes pointed, shoulders pulled down. Breathe calmly and silently throughout.","Hanging &amp; Grip|Active hang"]],
      5:[["Bar hang with full tension","3 sets of 35 seconds","Full handstand body on the bar. The focus is breathing while everything is under tension, not the hang itself.","Hanging &amp; Grip|Active hang"]],
      6:[["Bar hang with full tension","3 sets of 35 seconds","Silent and rhythmic, with nothing clenched that does not need to be.","Hanging &amp; Grip|Active hang"],
-        ["Chest-to-wall, everything at once","Build toward 60 seconds","Wrists loaded, shoulders pushing, ribs down, pelvis tucked, legs squeezed &mdash; and breathing calmly through all of it.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]]
+        ["Chest-to-wall, everything at once","Build toward 60 seconds","Wrists loaded, shoulders pushing, ribs down, pelvis tucked, legs squeezed &mdash; and breathing calmly through all of it.","Kinetic Chain &amp; Prep|Full integration: chest-to-wall line"]],
+     7:[["Bar hang with full tension","3 sets of 45 seconds","Pull the shoulders away from the ears without bending the elbows.","Hanging &amp; Grip|Active hang"]],
+     8:[["Bar hang with full tension","3 sets of 60 seconds","Pull the shoulders away from the ears without bending the elbows.","Hanging &amp; Grip|Active hang"]],
+     9:[["Bar hang with full tension","3 sets of 60 seconds","Pull the shoulders away from the ears without bending the elbows.","Hanging &amp; Grip|Active hang"]],
+     10:[["Bar hang with full tension","3 sets of 60 seconds","Pull the shoulders away from the ears without bending the elbows.","Hanging &amp; Grip|Active hang"]]
    }}
 ];
 
@@ -94,7 +150,8 @@ renderWeekScreen(BLOCKS, {
   sessions: '3',
   minutes:  '10',
   rule:     ['The one to remember', 'Balance is a skill, not a muscle. Ten focused minutes on three days beats one long session.'],
-  levels:   [3,4,5,6],
+  levels:   [3,4,5,6,7,8,9,10],
+  sheetBlock: 4,
   level:    4,
   backHref: "index.html"
 });

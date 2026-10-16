@@ -160,6 +160,7 @@
   --print-hair:   0.5pt;
 
   --z-nav:     100;
+  --z-scrim:   150;   /* under the sheet it darkens behind, or it eats every tap */
   --z-sheet:   200;
   --z-overlay: 300;
 }

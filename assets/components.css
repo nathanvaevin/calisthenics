@@ -342,7 +342,7 @@
   position: fixed;
   inset: 0;
   background: var(--overlay);
-  z-index: var(--z-overlay);
+  z-index: var(--z-scrim);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--dur-transition) var(--ease);
@@ -364,6 +364,8 @@
   margin: 0 auto;
 }
 .sheet.on { transform: translateY(0); }
+/* Eight levels can be taller than a phone, so the sheet scrolls itself. */
+.sheet { max-height: calc(100dvh - var(--space-8)); overflow-y: auto; }
 .sheet .grab {
   width: var(--space-8);
   height: var(--space-1);

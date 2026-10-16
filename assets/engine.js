@@ -13,6 +13,10 @@ const TRACKS = [
      primary:["Serratus anterior"], secondary:["Anterior deltoid","Trapezius (upper)","Core"],
      cues:["High plank with the elbows locked the whole way. Let the chest sink between the shoulder blades, then push the floor away so the upper back rounds.","This is the push-up's version of a scapular pull, and it is what teaches the shoulder to hold a plank, a handstand and eventually a planche."],
      faults:["Bending the elbows, which turns it into a tiny push-up","Moving two centimetres and calling it a rep"]},
+    {name:"Knee push-up", target:"Knees down, one line from knee to head: <b>3 \u00d7 8</b>", level:"foundation", lv:3,
+     primary:["Pectoralis major","Anterior deltoid","Triceps"], secondary:["Serratus anterior","Core"],
+     cues:["Knees down and the body in one line from knee to head, hips never higher than the shoulders.","Chest all the way to the floor, then press until the arms lock and the upper back spreads."],
+     faults:["Hips piking up so the push turns into a bow","Stopping halfway down"]},
     {name:"Incline push-up", target:"Hands on a bar or bench — <b>15</b> clean reps", level:"foundation", lv:4,
      primary:["Pectoralis major","Anterior deltoid","Triceps"], secondary:["Serratus anterior","Core"],
      cues:["The higher the hands, the easier it is — lower the bar a notch each week instead of dropping to knees.","Squeeze glutes and ribs down so the body travels as one plank."],
@@ -831,6 +835,10 @@ const TRACKS = [
 /* ---- How each exercise is performed. Key = "Track|Exercise". ----
    m = which movement animation to show, do = the three steps. */
 const HOWTO = {
+"Push-Up|Knee push-up":{m:"pushup",do:[
+ "Hands slightly wider than the shoulders, knees on the floor behind you, feet lifted.",
+ "Lower the chest to the floor with the elbows tracking back at about 45 degrees, hips staying in line.",
+ "Press away until the arms lock. Move to incline push-ups once 3 sets of 12 feel easy."]},
 "Push-Up|Incline push-up":{m:"incline",do:[
  "Hands on a bar, bench or windowsill, slightly wider than the shoulders, body in one line from heel to head.",
  "Lower the chest to the bar with the elbows tracking back at about 45°.",
@@ -2093,6 +2101,9 @@ const EX = (label, props, poses) => ({label:label, props:props, poses:poses});
 const EXMOVE = {
 
 /* ---------------- Push-Up ---------------- */
+"Push-Up|Knee push-up": EX("Knees down, one line", FLOOR, reps(
+ [160,88, 146,96, 150,114, 154,132, 119,113, 92,131, 66,116],
+ [160,116, 146,122, 163,124, 154,132, 119,126, 92,132, 66,118])),
 "Push-Up|Incline push-up": EX("Hands raised", FLOOR + BOX_R, reps(
  [168,58, 152,68, 158,82, 164,96, 96,88, 68,107, 40,126],
  [168,84, 152,90, 168,94, 164,96, 96,104, 68,117, 40,129])),

@@ -48,7 +48,10 @@ function renderWeekScreen(BLOCKS, opts){
     const chip = el("button","lvchip");
     chip.type = "button";
     chip.innerHTML = '<span class="dot"></span>LV ' + state[0] + '<span class="caret">' + ICONS.caret + '</span>';
-    chip.addEventListener("click", ()=> openSheet(0));
+    /* The block whose exercises describe each level in the picker. Usually
+       the first, but a week that opens with an identical warm-up at every
+       level names a more telling block instead. */
+    chip.addEventListener("click", ()=> openSheet(o.sheetBlock || 0));
     bar.append(back, el("div","appbar-title", o.barTitle || ""), chip);
     inner.append(bar);
 
